@@ -11,7 +11,6 @@ export default {
 </script>
 
 <style>
-@import 'mint-ui/lib/style.css';
 #app {
   width: 100%;
   height: 100%;

@@ -4,14 +4,17 @@ import '@/assets/js/rem.js'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import { Header } from 'mint-ui'
+import util from '@/common/util/index.js'
+import { Header, Button } from 'mint-ui'
 
 import '@/assets/css/reset.css'
-
-console.log(Header);
+import '@/assets/css/resetui.less'
+import 'mint-ui/lib/style.css'
 
 Vue.config.productionTip = false
 Vue.component(Header.name, Header);
+Vue.component(Button.name, Button);
+Vue.prototype.util = util;
 
 /* eslint-disable no-new */
 new Vue({
