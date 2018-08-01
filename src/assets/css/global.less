@@ -1,0 +1,16 @@
+@import './mixin.less';
+
+.g-line {
+    height: 2px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#d9d9d9), color-stop(50%, #d9d9d9), color-stop(50%, transparent));
+    background-image: linear-gradient(180deg, #d9d9d9, #d9d9d9 50%, transparent 50%);
+    background-size: 100% 2px;
+    background-repeat: no-repeat;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.g-clear {
+    clear: both;
+}
