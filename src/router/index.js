@@ -44,6 +44,11 @@ export default new Router({
 			path: '/orderlist',
 			name: 'orderlist',
 			component: () => import('@/views/orderlist')
+		},
+		{
+			path: '/orderdetail',
+			name: 'orderdetail',
+			component: () => import('@/views/orderdetail')
 		}
 	]
 })
