@@ -12,41 +12,9 @@
             </div>
         </div>
         <ul class="list">
-            <div class="card">
+            <div class="card" v-for="order in dList">
                 <div class="left">
-                    <div class="coin"><i class="icon"></i>BTC</div>
-                    <div class="rate">45.32%</div>
-                    <div class="rage-hd">当前质押率</div>
-                </div>
-                <div class="center">
-                    <div class="total">120.00</div>
-                    <div class="total-hd">还款今日</div>
-                </div>
-                <div class="right">
-                    <div class="status">今日还款</div>
-                    <div class="time">2018/09/08</div>
-                    <div class="time-hd">还款时间</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="left">
-                    <div class="coin"><i class="icon"></i>BTC</div>
-                    <div class="rate">45.32%</div>
-                    <div class="rage-hd">当前质押率</div>
-                </div>
-                <div class="center">
-                    <div class="total">120.00</div>
-                    <div class="total-hd">还款今日</div>
-                </div>
-                <div class="right">
-                    <div class="status">今日还款</div>
-                    <div class="time">2018/09/08</div>
-                    <div class="time-hd">还款时间</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="left">
-                    <div class="coin"><i class="icon"></i>BTC</div>
+                    <div class="coin"><i class="icon"></i>{{order.coin}}</div>
                     <div class="rate">45.32%</div>
                     <div class="rage-hd">当前质押率</div>
                 </div>
@@ -68,15 +36,34 @@
 </template>
 <script>
 export default {
-    
+    created () {
+        this._fetchList();
+    },
+    data () {
+        return {
+            dList: []
+        }
+    },
+    methods: {
+        _pledge () {
+
+        },
+        _fetchList () {
+            this.util.api.get('/getMortgageList', {
+                data: {
+                    bitkeepId: 200100
+                }
+            }).then((res) => {
+                if (res && res.code == 0) {
+                    this.dList = res.mortgages;
+                }
+            })
+        }
+    }
 }
 </script>
 <style lang="less" scoped>
     .page-orderlist {
-		width: 100%;
-		height: 100%;
-		box-sizing: border-box;
-        padding-top: 38px;
         background-color: #f5f6f9;
     }
     .white-space {

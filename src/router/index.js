@@ -6,6 +6,15 @@ Vue.use(Router)
 export default new Router({
 	routes: [
 		{
+			path: '/',
+			redirect: '/index'
+		},
+		{
+			path: '/index',
+			name: 'index',
+			component: () => import('@/views/home')
+		},
+		{
 			path: '/form/account',
 			name: 'form-account',
 			component: () => import('@/views/account')

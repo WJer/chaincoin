@@ -1,6 +1,6 @@
 <template>
     <div class="g-form-text" type="text">
-        <mt-field :label="dLabel" :placeholder="dPlaceholder"></mt-field>
+        <mt-field :label="dLabel" :placeholder="dPlaceholder" v-model="dValue"></mt-field>
     </div>
 </template>
 <script>
@@ -16,12 +16,24 @@ export default {
             type: String,
             default: '请填写',
             required: false
+        },
+        value: {
+            default: ''
         }
     },
     data () {
         return {
             dLabel: this.label,
-            dPlaceholder: this.placeholder
+            dPlaceholder: this.placeholder,
+            dValue: this.value
+        }
+    },
+    watch: {
+        dValue (val) {
+            this.$emit('input', val);
+        },
+        value (val) {
+            this.dValue = val;
         }
     }
 }
@@ -36,6 +48,7 @@ export default {
         .mint-field-core {
             font-size: 12px;
             color: #525377;
+            line-height: 1.6;
         }
     }
 </style>

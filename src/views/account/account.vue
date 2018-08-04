@@ -10,7 +10,8 @@
 			</div>
 			<div class="item-wrap">
 				<mt-field label="验证码" type="number" placeholder="请输入验证码" v-model="dCode"></mt-field>
-				<div class="btn-send">发送验证码</div>
+				<div class="btn-send" @click="_sendCode($event)" v-if="!dCountdown">{{dCodeBtn}}</div>
+				<div class="btn-send" v-else>{{dCountdown}}秒</div>
 			</div>
 		</div>
 		<div class="form-btns">
@@ -26,16 +27,53 @@ export default {
 	},
 	data () {
 		return {
-			dMobile: '',
-			dCode: ''
+			dMobile: '18756032534',
+			dCode: '',
+			dCountdown: 0,
+			dCodeBtn: '发送验证码',
+			I: null
 		}
 	},
 	methods: {
 		_next () {
-			this.util.confirm_dark([
-				`<div>开户行：<span style="color: #727391;">${this.dBank}</span></div>`,
-				`<div>开户支行：<span style="color: #727391;">${this.dSubBank}</span></div>`,
-				`<div>银行卡号：<span style="color: #727391;">${this.dCard}</span></div>`].join(''), '请核实并确认以下信息');
+			this.util.api.post('/registerByPhone', {
+				// data: {
+				// 	bitkeepId: '200100',
+				// 	phone: this.dMobile,
+				// 	code: this.dCode
+				// }
+				bitkeepId: '200100',
+				phone: this.dMobile,
+				code: this.dCode
+			}).then((res) => {
+				if (res.code == 0) {
+					if (res.result) {
+						this.$router.push('/form/borrow');
+					}else{
+						this.util.alert(res.message);
+					}
+				}
+			})
+		},
+		_sendCode (e) {
+			this.util.api.post('/sendMessageCode', {
+				phone: this.dMobile
+			}).then(() => {
+				this.dCodeBtn = '重新发送';
+				this._runCountdown();
+			})
+		},
+		_runCountdown () {
+			this.dCountdown = 60;
+			this.I = setInterval(() => {
+				this.dCountdown--;
+				if (this.dCountdown == 0) {
+					clearInterval(this.I);
+				}
+			}, 1000);
+		},
+		beforeDestroy () {
+			clearInterval(this.I);
 		}
 	}
 }
@@ -43,10 +81,6 @@ export default {
 <style lang="less">
     @import '../../assets/css/mixin.less';
 	.page-form {
-		width: 100%;
-		height: 100%;
-		box-sizing: border-box;
-		padding-top: 38px;
 		.line-wrap {
 			margin-bottom: 13px;
 			.text {
