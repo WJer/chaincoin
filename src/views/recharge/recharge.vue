@@ -22,6 +22,9 @@ export default {
     methods: {
         _submit () {
 
+        },
+        _complete () {
+            this.$router.push('/approval');
         }
     }
 }

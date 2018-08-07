@@ -42,25 +42,58 @@ export default {
 			dSubBank: '莲花路建设支行',
 			dCard: 123412341234123,
 			dName: '吴敬',
-			dIdenCard: 12341245
+			dIdenCard: '142703199403080334'
 		}
 	},
 	methods: {
 		_next () {
-			this.util.confirm_dark([
+			const content = [
 				`<div>开户行：<span style="color: #727391;">${this.dBank}</span></div>`,
 				`<div>开户支行：<span style="color: #727391;">${this.dSubBank}</span></div>`,
-				`<div>银行卡号：<span style="color: #727391;">${this.dCard}</span></div>`].join(''), '请核实并确认以下信息');
+				`<div>银行卡号：<span style="color: #727391;">${this.dCard}</span></div>`
+			].join('');
+			const title = '请核实并确认以下信息';
+			this.util.confirm_cc(content, title).then(() => {
+				const load = this.util.loading('保存中');
+				this._saveRealName().then((res1) => {
+					if (res1.result) {
+						this._saveBank().then((res2) => {
+							if (res2.result) {
+								this.$router.push('/form/transfer');
+							}else{
+								this.util.alert(res1.message);
+							}
+							load.close();
+						})
+					}else {
+						load.close();
+						this.util.alert(res1.message);
+					}
+				});
+			});
+		},
+		_saveBank () {
+			return this.util.api.get('/saveOrUpdateBankInfo', {
+				params: {
+					bankName: this.dBank,
+					branchName: this.dSubBank,
+					cardNumber: this.dCard
+				}
+			})
+		},
+		_saveRealName () {
+			return this.util.api.get('/saveRealName', {
+				params: {
+					name: this.dName,
+					identification: this.dIdenCard
+				}
+			})
 		}
 	}
 }
 </script>
 <style lang="less">
 	.page-form {
-		width: 100%;
-		height: 100%;
-		box-sizing: border-box;
-		padding-top: 38px;
 		.line-wrap {
 			display: flex;
 			margin: 0 13px;

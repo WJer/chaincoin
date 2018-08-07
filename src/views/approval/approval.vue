@@ -19,7 +19,11 @@
 </template>
 <script>
 export default {
-    
+    methods: {
+        _next () {
+            
+        }
+    }
 }
 </script>
 <style lang="less" scoped>

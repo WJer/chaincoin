@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-    
+    name: 'cc-rule'
 }
 </script>
 <style lang="less" scoped>

@@ -1,6 +1,6 @@
 <template>
     <div class="g-form-text" type="text">
-        <mt-field :label="dLabel" :placeholder="dPlaceholder" v-model="dValue"></mt-field>
+        <mt-field :label="dLabel" :placeholder="dPlaceholder" v-model="dValue" :disableClear="true" :readonly="dReadonly"></mt-field>
     </div>
 </template>
 <script>
@@ -19,13 +19,17 @@ export default {
         },
         value: {
             default: ''
+        },
+        readonly: {
+            type: Boolean
         }
     },
     data () {
         return {
             dLabel: this.label,
             dPlaceholder: this.placeholder,
-            dValue: this.value
+            dValue: this.value,
+            dReadonly: this.readonly
         }
     },
     watch: {

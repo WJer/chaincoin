@@ -1,25 +1,22 @@
 import axios from 'axios';
 // import util from './uiextends';
 
-const HOST = 'http://dmpb.com.cn:6002';
+const bitkeepId = '300100';
+
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://dmpb.com.cn:6002';
 
 axios.interceptors.request.use((config) => {
-    let query = [];
-    config.headers['Content-Type'] = 'application/json; charset=utf-8'
-
-    config.url = HOST + config.url;
-    if (config.method == 'get' && config.data) {
-        for(var key in config.data) {
-            query.push(`${key}=${config.data[key]}`);
-        }
-        config.url += `?${query.join('&')}`;
+    config.headers['Content-Type'] = 'application/json; charset=utf-8';
+    if (config.method == 'get') {
+        config.params || (config.params = {});
+        config.params.bitkeepId = bitkeepId;
+    }else if (config.method == 'post') {
+        config.data.bitkeepId = bitkeepId;
     }
-
     if (config.defaultErrAction === undefined) {
         config.defaultErrAction = true
     }
-    // config.httpAgent: new http.Agent({ keepAlive: true }),
-    // config.httpsAgent: new https.Agent({ keepAlive: true }),
     return config;
 }, (err) => {
     return Promise.reject(err);
@@ -27,6 +24,10 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use((config) => {
     const data = config.data;
+    if (data.code != 0) {
+        // util.alert('错误异常，请联系管理员！');
+        return false;
+    }
     return data;
 }, (err) => {
     return Promise.reject(err);

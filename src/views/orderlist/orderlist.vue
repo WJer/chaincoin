@@ -1,37 +1,39 @@
 <template>
-    <div class="page-orderlist">
+    <div class="page-mortgagelist">
         <div class="white-space"></div>
-        <div class="top">
-            <div class="left top-item">
-                <div class="val">400</div>
+        <div class="g-flex top-wrapper">
+            <div class="top-item g-fled_item">
+                <div class="val">{{dSevenRepay}}</div>
                 <div class="tit">近7日还款</div>
             </div>
-            <div class="right top-item">
-                <div class="val">0</div>
+            <div class="top-item g-fled_item">
+                <div class="val">{{dCoverNumber}}</div>
                 <div class="tit">需补仓</div>
             </div>
         </div>
-        <ul class="list">
-            <div class="card" v-for="order in dList">
-                <div class="left">
-                    <div class="coin"><i class="icon"></i>{{order.coin}}</div>
-                    <div class="rate">45.32%</div>
-                    <div class="rage-hd">当前质押率</div>
+        <cc-scroll :pullUpLoad="false" @pulling-down="_fetchList" class="page-scroll" ref="scroll" >
+            <ul class="list">
+                <div class="card" v-for="(mortgage, index) in dList" :key="index" @click="_clickHandle(mortgage)">
+                    <div class="left">
+                        <div class="coin"><i class="icon"></i>{{mortgage.coin}}</div>
+                        <div class="rate">{{mortgage.currentMortgageRate | toPercentage}}</div>
+                        <div class="rage-hd">当前质押率</div>
+                    </div>
+                    <div class="center">
+                        <div class="total">{{mortgage.currentRepayMoney}}</div>
+                        <div class="total-hd">还款金额</div>
+                    </div>
+                    <div class="right">
+                        <div class="status status-1" :class="{'status-2': mortgage.status==4||mortgage.status==5}">{{mortgage.message}}</div>
+                        <div class="time">{{mortgage.currentRepayTime}}</div>
+                        <div class="time-hd">还款时间</div>
+                    </div>
                 </div>
-                <div class="center">
-                    <div class="total">120.00</div>
-                    <div class="total-hd">还款今日</div>
-                </div>
-                <div class="right">
-                    <div class="status">待打款</div>
-                    <div class="time">2018/09/08</div>
-                    <div class="time-hd">还款时间</div>
-                </div>
+            </ul>
+            <div class="form-btns">
+                <mt-button type="primary" size="large" class="btn-pledge" @click="_pledge">抵押</mt-button>
             </div>
-        </ul>
-        <div class="form-btns">
-            <mt-button type="primary" size="large" class="btn-pledge" @click="_pledge">抵押</mt-button>
-        </div>
+        </cc-scroll>
     </div>
 </template>
 <script>
@@ -41,44 +43,55 @@ export default {
     },
     data () {
         return {
-            dList: []
+            dList: [],
+            dSevenRepay: 0,
+            dCoverNumber: 0
         }
     },
     methods: {
         _pledge () {
-
+            this.$router.push('/form/borrow');
         },
         _fetchList () {
-            this.util.api.get('/getMortgageList', {
+            const load = this.util.loading('加载中...');
+            this.util.api.get('/getMortgageList').then((res) => {
+                res && (this.dList = res.mortgages);
+                res && (this.dSevenRepay = res.sevenDaysRepay);
+                res && (this.dCoverNumber = res.number);
+                this.$refs.scroll.forceUpdate();
+                load.close();
+            })
+        },
+        _clickHandle (mortgage) {
+            this.util.slide({
+                context: this,
+                component: {
+                    'detail' : () => import('@/views/mgdetail')
+                },
                 data: {
-                    bitkeepId: 200100
-                }
-            }).then((res) => {
-                if (res && res.code == 0) {
-                    this.dList = res.mortgages;
-                }
+                    data: mortgage
+                },
+                events: {}
             })
         }
     }
 }
 </script>
 <style lang="less" scoped>
-    .page-orderlist {
+    .page-mortgagelist {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
         background-color: #f5f6f9;
     }
     .white-space {
         background-color: #fff;
         height: 18px;
     }
-    .top {
+    .top-wrapper {
         margin: 11px 20px 0;
-        overflow: hidden;
-        .left {
-            float: left;
-        }
-        .right {
-            float: right;
-        }
+        height: 64px;
+        justify-content: space-between;
     }
     .top-item {
         width: 48%;
@@ -98,12 +111,20 @@ export default {
             color: #8e96a5;
         }
     }
+    .page-scroll {
+        position: absolute;
+        top: 103px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: auto;
+    }
     .list {
         padding: 0 20px;
     }
     .card {
         position: relative;
-        margin-top: 10px;
+        margin-bottom: 10px;
         padding: 15px;
         background-color: #fff;
         font-size: 13px;
@@ -142,8 +163,14 @@ export default {
             line-height: 22px;
             padding: 0 7px;
             border-radius: 5px;
+        }
+        .status-1 {
             color: #ffaa00;
             background-color: #fff8de;
+        }
+        .status-2 {
+            color: #5a7ef8;
+            background-color: #e8ecfa;
         }
         .rate,
         .time {
@@ -171,6 +198,6 @@ export default {
         }
     }
     .form-btns {
-        margin: 17px 20px 0;
+        padding: 17px 20px!important;
     }
 </style>

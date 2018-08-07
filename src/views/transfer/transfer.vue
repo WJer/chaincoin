@@ -4,8 +4,8 @@
 			<div class="g-line"></div>
 		</div>
 		<div class="form-wrap">
-			<g-text label="收货地址"></g-text>
-			<g-text label="数量"></g-text>
+			<g-text label="收货地址" :readonly="true"></g-text>
+			<g-text label="数量" :readonly="true"></g-text>
 			<g-radio :options="dOptions" v-model="dChecked"></g-radio>
 			<div class="form-btns">
 				<mt-button type="primary" size="large" class="btn-next" @click="_next">下一步</mt-button>
@@ -18,18 +18,21 @@ export default {
 	data () {
 		return {
 			dOptions: [{
-				label: 1,
+				label: '手续费1',
 				value: 1
 			},{
-				label: 2,
+				label: '手续费2',
 				value: 2
+			},{
+				label: '手续费3',
+				value: 3
 			}],
 			dChecked: 1
 		}
 	},
 	methods: {
 		_next () {
-
+			this.$router.push('/recharge');
 		}
 	}
 }

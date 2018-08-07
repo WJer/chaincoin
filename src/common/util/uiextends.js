@@ -1,5 +1,6 @@
-import { MessageBox } from 'mint-ui';
+import { MessageBox, Indicator } from 'mint-ui';
 import util from '@/common/util';
+import Slide from '@/components/slide';
 
 const alert = (message, title) => {
     return MessageBox.alert(message, title);
@@ -15,8 +16,18 @@ const confirm_cc = (message, title) => {
     return mb;
 }
 
+const loading =  (title) => {
+    Indicator.open({
+        text: title || '',
+        spinnerType: 'fading-circle'
+    });
+    return Indicator;
+}
+
 export default {
     alert,
     confirm,
-    confirm_cc
+    confirm_cc,
+    loading,
+    slide: Slide
 }

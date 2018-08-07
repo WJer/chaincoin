@@ -1,0 +1,13 @@
+export const EVENT_PULLING_DOWN = 'pulling-down'
+export const EVENT_PULLING_UP = 'pulling-up'
+export const EVENT_BEFORE_SCROLL_START = 'before-scroll-start'
+export const EVENT_SCROLL = 'scroll'
+export const EVENT_SCROLL_START = 'scroll-start'
+export const EVENT_SCROLL_END = 'scroll-end'
+export const EVENT_TOUCH_END = 'touch-end'
+export const EVENT_FLICK = 'flick'
+export const EVENT_REFRESH = 'refresh'
+export const EVENT_DESTROY = 'destroy'
+
+export const DIRECTION_H = 'horizontal'
+export const DIRECTION_V = 'vertical'

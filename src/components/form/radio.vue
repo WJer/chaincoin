@@ -3,7 +3,7 @@
         <div class="radio-hd">手续费</div>
         <div class="radio-item" v-for="item in dOptions">
             <div class="radio_cb" :class="{'checked': dChecked == item.value}" @click="_click(item)"></div>
-            <div class="radio_bd"><p>{{item.value}}</p></div>
+            <div class="radio_bd"><p>{{item.label}}</p></div>
         </div>
     </div>
 </template>

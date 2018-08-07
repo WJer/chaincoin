@@ -37,21 +37,14 @@ export default {
 	methods: {
 		_next () {
 			this.util.api.post('/registerByPhone', {
-				// data: {
-				// 	bitkeepId: '200100',
-				// 	phone: this.dMobile,
-				// 	code: this.dCode
-				// }
 				bitkeepId: '200100',
 				phone: this.dMobile,
 				code: this.dCode
 			}).then((res) => {
-				if (res.code == 0) {
-					if (res.result) {
-						this.$router.push('/form/borrow');
-					}else{
-						this.util.alert(res.message);
-					}
+				if (res.result) {
+					this.$router.push('/form/borrow');
+				}else{
+					this.util.alert(res.message);
 				}
 			})
 		},

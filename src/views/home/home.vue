@@ -16,11 +16,7 @@ export default {
     },
     methods: {
         _borrow () {
-            this.util.api.get('/isRegistered', {
-                data: {
-                    bitkeepId: 200100
-                }
-            }).then((res) => {
+            this.util.api.get('/isRegistered').then((res) => {
                 if (res.code == 0) {
                     if (res.result) {
                         this.$router.push('/form/borrow');
@@ -33,7 +29,7 @@ export default {
         _fetchIsMortgage () {
             this.util.api.get('/hasMortgage', {
                 data: {
-                    bitkeepId: 200100
+                    bitkeepId: 200190
                 }
             }).then((res) => {
                 if (res && res.code == 0) {

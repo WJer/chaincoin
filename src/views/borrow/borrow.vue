@@ -33,13 +33,16 @@
 				<div class="right">
 					<div class="right-item">
 						<div class="right-label">年利率</div>
-						<div class="right-text">{{dRate | toPercentage}}</div>
+						<div class="right-text">
+							<span class="g-bold" style="margin-right: 15px;">{{dRate | toPercentage}}</span>
+							<span class="g-bold">{{dAccrual}}</span>
+						</div>
 					</div>
 					<div class="right-item">
 						<div class="right-label">借款时间</div>
 						<div class="right-text">
-							<div style="margin-bottom: 0.2em;">From: {{dDate.start}}</div>
-							<div>To: {{dDate.end}}</div>
+							<div style="margin-bottom: 0.2em;">From: <span class="g-bold">{{dDate.start}}</span></div>
+							<div>To: <span class="g-bold">{{dDate.end}}</span></div>
 						</div>
 					</div>
 				</div>
@@ -49,18 +52,7 @@
 				<div class="text">还款计划</div>
 				<div class="line"></div>
 			</div>
-			<div class="plan-wrap">
-				<p v-if="dPlans.length==0">暂无</p>
-				<ul v-else>
-					<li class="g-flex plan-item" v-for="(plan, index) in dPlans">
-						<div class="circle"></div>
-						<div class="line"></div>
-						<div class="g-flex_item">{{plan.year+'-'+plan.day}}</div>
-						<div class="g-flex_item">{{plan.money}}</div>
-						<div class="g-flex_item">{{index == dPlans.length-1?'本利':'利息'}}</div>
-					</li>
-				</ul>
-			</div>
+			<ccplan :plans="dPlans"></ccplan>
 			<div class="repay-rule">
 				<span class="radio-core" :class="{'check': dAgree}" @click="dAgree=!dAgree"></span>
 				<span>查看并同意</span>
@@ -74,27 +66,30 @@
 </template>
 <script>
 import moment from 'moment'
+import ccplan from '@/components/plan'
 export default {
+	components: {
+		ccplan
+	},
 	data () {
 		return {
 			dAgree: false,
 			dRate: CC.settings.year_rate,
-			dCoins: [],
+			dCoins: CC.coins,
 			dCurCoin: '',
 			dCount: '',
 			dDay: '',
 			dMoney: 0,
+			dAccrual: 0,
 			dDate: {
 				start: '0000/00/00',
 				end: '0000/00/00'
 			},
 			dPlans: [],
 			T1: null,
-			T2: null
+			T2: null,
+			T3: null
 		}
-	},
-	created () {
-		this.fetchAllCoin();
 	},
 	computed: {
 		cCoins () {
@@ -111,11 +106,10 @@ export default {
 	methods: {
 		_next () {
 			if (this._validate()) {
-				console.log('校验通过');
 				if (CC.bank) {
 					this.$router.push('/form/proceed');
 				}else {
-					
+					this.$router.push('/form/proceed');
 				}
 			}
 		},
@@ -136,29 +130,21 @@ export default {
 				this._validateCoupon(couponId);
 			});
 		},
-		fetchAllCoin () {
-			this.util.api.get('/getAllCoin').then((res) => {
-				if (res.code == 0) {
-					this.dCoins = res.coins;
-				}
-			})
-		},
 		_inputInCount () {
-			if (this.dCurCoin) {
-				this._fetchMoney();
-				this._fetchPlan();
-				this._fetchAccrual();
-			}
+			this._fetchMortgagMoney();
+			this._fetchPlan();
+			this._fetchAccrual();
 		},
 		_inputInDay (val) {
 			if (val) {
 				this.dDate.start = moment().format('YYYY/MM/DD');
 				this.dDate.end = moment().add(this.dDay, 'days').format('YYYY/MM/DD');
-				this._fetchPlan();
 			}else {
 				this.dDate.start = this.dDate.end = '0000/00/00';
 			}
+			this._fetchPlan();
 		},
+		//校验
 		_validate () {
 			if (!this.dCurCoin) {
 				this.util.alert('请选择币种');
@@ -175,41 +161,55 @@ export default {
 			}
 			return true;
 		},
+		//获取还款计划
 		_fetchPlan () {
-			if ((this.dMoney || this.dMoney != 0) && (this.dDay || this.dDay != 0)) {
-				this.T1 && clearTimeout(this.T);
-				this.T1 = setTimeout(() => {
-					this.util.api.get('/generateRepayPlan', {
-						data: {
-							money: this.dMoney,
-							rate: this.dRate,
-							cycle: this.dDay
-						}
-					}).then((res) => {
-						if (res && res.code == 0) {
-							this.dPlans = res.plans;
-						}
-					})
-				}, 400);
+			clearTimeout(this.T1);
+			if (!this.dCurCoin || !this.dCount || !this.dDay) {
+				this.dPlans = [];
+				return;
 			}
+			this.T1 = setTimeout(() => {
+				this.util.api.get('/generateRepayPlan', {
+					params: {
+						money: this.dMoney,
+						rate: this.dRate,
+						cycle: this.dDay
+					}
+				}).then((res) => {
+					res && (this.dPlans = res.plans);
+					this._fetchAccrual();
+				})
+			}, CC.delay);
 		},
-		_fetchMoney () {
-			if (this.dCurCoin && (this.dCount && this.dCount != 0)) {
-				this.T2 && clearTimeout(this.T2);
-				this.T2 = setTimeout(() => {
-					this.util.api.get('/getMortgageMoney', {
-						data: {
-							coin: this.dCurCoin.name,
-							mortgageRate: this.dCurCoin.mortgateRate,
-							coinNumber: this.dCount
-						}
-					}).then((res) => {
-						if (res && res.code == 0) {
-							this.dMoney = res.money;
-						}
-					})
-				}, 400)
-			}	
+		//获取可借款金额
+		_fetchMortgagMoney () {
+			clearTimeout(this.T2);
+			if (!this.dCurCoin || !this.dCount) {
+				this.dMoney = 0;
+				return;
+			}
+			this.T2 = setTimeout(() => {
+				this.util.api.get('/getMortgageMoney', {
+					params: {
+						coin: this.dCurCoin.name,
+						mortgageRate: this.dCurCoin.mortgateRate,
+						coinNumber: this.dCount
+					}
+				}).then((res) => {
+					res && (this.dMoney = res.money);
+				})
+			}, CC.delay)
+		},
+		_fetchAccrual () {
+			this.util.api.get('/getMortgageAccrual', {
+				params: {
+					money: this.dMoney,
+					cycle: this.dDay,
+					rate: CC.settings.year_rate
+				}
+			}).then((res) => {
+				res && (this.dAccrual = res.accrual);
+			})
 		},
 		_validateCoupon (id) {
 			this.util.api.get('/validateCoupon', {
@@ -360,44 +360,6 @@ export default {
 				height: 8px;
 				background-color: #5d82ff;
 				border-radius: 50%;
-			}
-		}
-		.plan-wrap {
-			p {
-				font-size: 12px;
-				text-align: center;
-				line-height: 100px;
-				color: #9da6ba;
-			}
-		}
-		.plan-item {
-			position: relative;
-			height: 38px;
-			padding-left: 20px;
-			.circle {
-				position: absolute;
-				width: 12px;
-				height: 12px;
-				border: 1px dashed #000;
-				border-radius: 50%;
-				left: 0;
-				top: 11px;
-			}
-			.line {
-				position: absolute;
-				border: 1px dashed #000;
-				height: 23px;
-				left: 6px;
-				top: 25px;
-			}
-			.g-flex_item {
-				font-size: 12px;
-				line-height: 38px;
-			}
-		}
-		.plan-item:last-child {
-			.line {
-				display: none;
 			}
 		}
     }

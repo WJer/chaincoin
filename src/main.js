@@ -3,6 +3,7 @@
 import '@/assets/js/rem.js'
 import '@/components/index.js'
 import '@/filters/index.js'
+import '@/common/const.js'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
