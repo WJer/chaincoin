@@ -19,7 +19,8 @@ Vue.component(Button.name, Button);
 Vue.component(Field.name, Field);
 Vue.prototype.util = util;
 
-alert(window.bitkeepUserId);
+alert(document.cookie);
+alert(JSON.stringify(window.jhost));
 
 /* eslint-disable no-new */
 new Vue({
