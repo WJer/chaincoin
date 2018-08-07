@@ -50,9 +50,9 @@ export default new Router({
 			component: () => import('@/views/recharge')
 		},
 		{
-			path: '/orderlist',
-			name: 'orderlist',
-			component: () => import('@/views/orderlist')
+			path: '/mglist',
+			name: 'mglist',
+			component: () => import('@/views/mglist')
 		}
 	]
 })

@@ -1,7 +1,7 @@
 <template>
     <div class="page-index">
         <mt-button type="primary" size="large" class="btn-next" @click="_borrow">立即借款</mt-button>
-        <mt-button type="primary" size="large" v-if="dIsMortgage">借款记录</mt-button>
+        <mt-button type="primary" size="large" v-if="dIsMortgage" @click="_toBorrowList">借款记录</mt-button>
     </div>
 </template>
 <script>
@@ -25,6 +25,9 @@ export default {
                     }
                 }
             })
+        },
+        _toBorrowList () {
+            this.$router.push('/mglist');
         },
         _fetchIsMortgage () {
             this.util.api.get('/hasMortgage', {

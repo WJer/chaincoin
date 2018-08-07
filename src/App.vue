@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="app-hd">
-            <cc-header></cc-header>
+            <cc-header :isBack="true"></cc-header>
         </div>
         <div class="app-bd">
             <router-view v-if="isRun"/>

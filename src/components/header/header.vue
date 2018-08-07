@@ -29,7 +29,13 @@ export default {
     methods: {
         _back () {
             const slide = CC._slides.pop();
-            slide && (slide.hide());
+            if (slide) {
+                slide.hide();
+            }else{
+                if (this.$route.name !== 'index') {
+                    history.back();
+                }
+            }
         }
     }
 }

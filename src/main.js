@@ -10,11 +10,16 @@ import router from './router'
 import util from '@/common/util/index.js'
 import { Header, Button, Field } from 'mint-ui'
 
+import VConsole from 'vconsole/dist/vconsole.min.js' //import vconsole
+new VConsole()
+
 Vue.config.productionTip = false
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
 Vue.component(Field.name, Field);
 Vue.prototype.util = util;
+
+alert(window.bitkeepUserId);
 
 /* eslint-disable no-new */
 new Vue({
