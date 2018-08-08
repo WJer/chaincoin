@@ -1,9 +1,19 @@
 import Vue from 'vue'
 import './slide.less'
 
+window.onpopstate = function () {
+	popSlide();
+}
+
 function pushSlide (slide) {
 	CC._slides || (CC._slides = []);
 	CC._slides.push(slide);
+	window.history.pushState(null, '', '#')
+}
+
+function popSlide () {
+	var slide = CC._slides.pop();
+	slide && (slide.hide())
 }
 
 function Slide(opts) {
