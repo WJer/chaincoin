@@ -10,8 +10,8 @@
 </template>
 
 <script>
-    import '@/assets/css/reset.css'
     import 'mint-ui/lib/style.css'
+    import '@/assets/css/reset.css'
     import '@/assets/css/resetui.less'
     import '@/assets/css/global.less'
     

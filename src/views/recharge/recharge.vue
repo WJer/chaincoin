@@ -4,7 +4,7 @@
             充值货币
         </div>
         <div class="recharge-total">
-            10BTC
+            {{`${count}${coin.name}`}}
         </div>
         <div class="recharge-head">
             充值二维码
@@ -12,19 +12,43 @@
         <div class="recharge-code"></div>
         <mt-button type="primary" size="large" class="btn-submit" @click="_submit">保存</mt-button>
         <div class="recharge-address">
-            dasdf9asd08098as09d8f09a8s0d<a class="btn-copy">复制</a>
+            <span>coin.address</span>
+            <a class="btn-copy">复制</a>
         </div>
         <mt-button type="primary" size="large" class="btn-complete" @click="_complete">完成充值</mt-button>
 	</div>
 </template>
 <script>
 export default {
+    props: {
+		coin: {
+			type: Object,
+			default: null
+		},
+		count: {
+			type: Number,
+			default: 0
+		}
+	},
     methods: {
-        _submit () {
-
-        },
         _complete () {
-            this.$router.push('/approval');
+            this.util.api.get('/saveMortgage', {
+                params: {
+                    coin: this.coin.name,
+                    coinNumber: this.count,
+                    cycle: this.cycle,
+                    money: this.money,
+                    rate: this.rate,
+                    exponent: this.coin.price,
+                    couponId: this.coupon,
+                    mortgageRate: this.coin.mortgateRate,
+                    address: this.coin.address
+                }
+            }).then((res) => {
+                if (res && res.result) {
+                    this.$router.push('/approval');
+                }
+            })
         }
     }
 }

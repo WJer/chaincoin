@@ -1,7 +1,7 @@
 import axios from 'axios';
-// import util from './uiextends';
+import tools from './tools';
 
-const bitkeepId = '300100';
+const bitkeepId = tools.getCookie('uid') || '300100';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://dmpb.com.cn:6002';

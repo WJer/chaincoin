@@ -34,7 +34,8 @@
 					<div class="right-item">
 						<div class="right-label">年利率</div>
 						<div class="right-text">
-							<span class="g-bold" style="margin-right: 15px;">{{dRate | toPercentage}}</span>
+							<span class="g-disabled" v-if="dRate">{{dRate | toPercentage}}</span>
+							<span class="g-bold" style="margin-right: 15px;">{{dCurRate | toPercentage}}</span>
 							<span class="g-bold">{{dAccrual}}</span>
 						</div>
 					</div>
@@ -74,7 +75,8 @@ export default {
 	data () {
 		return {
 			dAgree: false,
-			dRate: CC.settings.year_rate,
+			dRate: 0,
+			dCurRate: CC.settings.year_rate,
 			dCoins: CC.coins,
 			dCurCoin: '',
 			dCount: '',
@@ -86,6 +88,7 @@ export default {
 				end: '0000/00/00'
 			},
 			dPlans: [],
+			dCoupon: '',
 			T1: null,
 			T2: null,
 			T3: null
@@ -106,12 +109,59 @@ export default {
 	methods: {
 		_next () {
 			if (this._validate()) {
-				if (CC.bank) {
-					this.$router.push('/form/proceed');
-				}else {
-					this.$router.push('/form/proceed');
-				}
+				// if (CC.bank) {
+				// 	this._addMortgage();
+				// }else {
+				// 	this._addBackInfo();
+				// }
+				this._addMortgage();
 			}
+		},
+		_addBackInfo () {
+			this.util.slide({
+				context: this,
+				component: {
+					'detail' : () => import('@/views/proceed')
+				},
+				events: {
+					'next': '_addMortgage.hide'
+				}
+			})
+		},
+		_addMortgage () {
+			this.util.slide({
+				context: this,
+				component: {
+					'detail' : () => import('@/views/transfer')
+				},
+				data: {
+					coin: this.dCurCoin,
+					count: this.dCount
+				},
+				events: {
+					'next': '_addPay.hide'
+				}
+			})
+		},
+		_addPay () {
+			this.util.slide({
+				context: this,
+				component: {
+					'detail' : () => import('@/views/recharge')
+				},
+				data: {
+					coin: this.dCurCoin,
+					count: this.dCount,
+					cycle: this.dDay,
+					money: this.dMoney,
+					rate: this.dCurRate,
+					coupon: this.dCoupon,
+					
+				},
+				events: {
+					'next': '.hide'
+				}
+			})
 		},
 		_click (coin) {
 			this.util.getCoinInstantPriceByName(coin.name, (price) => {
@@ -172,7 +222,7 @@ export default {
 				this.util.api.get('/generateRepayPlan', {
 					params: {
 						money: this.dMoney,
-						rate: this.dRate,
+						rate: this.dCurRate,
 						cycle: this.dDay
 					}
 				}).then((res) => {
@@ -205,7 +255,7 @@ export default {
 				params: {
 					money: this.dMoney,
 					cycle: this.dDay,
-					rate: CC.settings.year_rate
+					rate: this.dCurRate
 				}
 			}).then((res) => {
 				res && (this.dAccrual = res.accrual);
@@ -213,13 +263,17 @@ export default {
 		},
 		_validateCoupon (id) {
 			this.util.api.get('/validateCoupon', {
-				data: {
+				params: {
 					couponId: id
 				}
 			}).then((res) => {
-				if (res && res.code == 0) {
-					
+				if (!res.result) {
+					this.util.alert(res.message);
+					return;
 				}
+				this.dRate = this.dCurRate;
+				this.dCurRate = res.discount;
+				this.dCoupon = id;
 			})
 		}
 	}

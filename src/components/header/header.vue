@@ -1,5 +1,5 @@
 <template>
-    <mt-header fixed :title="dTitle" class="header">
+    <mt-header fixed :title="dTitle">
         <div slot="left" v-if="isBack">
             <mt-button icon="back" @click="_back"></mt-button>
         </div>
@@ -40,12 +40,3 @@ export default {
     }
 }
 </script>
-<style lang="less">
-    .header {
-        font-size: 15px;
-		height: 40px;
-        padding: 0 10px;
-        background-color: #fff;
-        color: #081351;
-    }
-</style>

@@ -4,8 +4,8 @@
 			<div class="g-line"></div>
 		</div>
 		<div class="form-wrap">
-			<g-text label="收货地址" :readonly="true"></g-text>
-			<g-text label="数量" :readonly="true"></g-text>
+			<g-text label="收货地址" :readonly="true" v-model="dCoin.address"></g-text>
+			<g-text label="数量" :readonly="true" v-model="dCount"></g-text>
 			<g-radio :options="dOptions" v-model="dChecked"></g-radio>
 			<div class="form-btns">
 				<mt-button type="primary" size="large" class="btn-next" @click="_next">下一步</mt-button>
@@ -15,24 +15,39 @@
 </template>
 <script>
 export default {
+	props: {
+		coin: {
+			type: Object,
+			default: null
+		},
+		count: {
+			type: Number,
+			default: 0
+		}
+	},
 	data () {
 		return {
 			dOptions: [{
-				label: '手续费1',
+				label: '0.000199500BTC（6.35）确认时间<2小时',
 				value: 1
 			},{
-				label: '手续费2',
+				label: '0.000199500BTC（6.35）确认时间<2小时',
 				value: 2
 			},{
-				label: '手续费3',
+				label: '0.000199500BTC（6.35）确认时间<2小时',
 				value: 3
 			}],
-			dChecked: 1
+			dChecked: 1,
+			dCoin: this.coin,
+			dCount: `${this.count}${this.coin.name}`
 		}
+	},
+	created () {
+		console.log(this.coin);
 	},
 	methods: {
 		_next () {
-			this.$router.push('/recharge');
+			this.$emit('next');
 		}
 	}
 }

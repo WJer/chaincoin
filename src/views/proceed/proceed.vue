@@ -55,24 +55,19 @@ export default {
 			const title = '请核实并确认以下信息';
 			this.util.confirm_cc(content, title).then(() => {
 				const load = this.util.loading('保存中');
-				this._saveRealName().then((res1) => {
-					if (res1.result) {
-						this._saveBank().then((res2) => {
-							if (res2.result) {
-								this.$router.push('/form/transfer');
-							}else{
-								this.util.alert(res1.message);
-							}
-							load.close();
-						})
-					}else {
-						load.close();
-						this.util.alert(res1.message);
+				this.util.api.all([this._getSaveBank(), this._getSaveRealName()]).then((res1, res2) => {
+					load.close();
+					if (res1 && res1.result && res2 && res2.result) {
+						this.$emit('next');
+					}else{
+						this.util.alert('保存失败，请联系管理员！');
 					}
-				});
+				}).catch(() => {
+					load.close();
+				})
 			});
 		},
-		_saveBank () {
+		_getSaveBank () {
 			return this.util.api.get('/saveOrUpdateBankInfo', {
 				params: {
 					bankName: this.dBank,
@@ -81,7 +76,7 @@ export default {
 				}
 			})
 		},
-		_saveRealName () {
+		_getSaveRealName () {
 			return this.util.api.get('/saveRealName', {
 				params: {
 					name: this.dName,

@@ -16,6 +16,17 @@ const getRect = (el) => {
     }
 }
 
+const getCookie = (key) => {
+    let data = {};
+    let temp = document.cookie.split(';');
+    temp.forEach((item) => {
+        let t = item.split('=');
+        data[t[0]] = t[1];
+    })
+    return data[key];
+}
+
 export default {
-    getRect
+    getRect,
+    getCookie
 }
