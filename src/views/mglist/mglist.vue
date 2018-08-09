@@ -71,9 +71,11 @@ export default {
                 data: {
                     data: mortgage
                 },
-                events: {}
+                events: {
+                    'complete': '_fetchList.hide'
+                }
             })
-        }
+        },
     }
 }
 </script>

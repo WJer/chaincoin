@@ -136,7 +136,7 @@ export default {
 				},
 				data: {
 					coin: this.dCurCoin,
-					count: this.dCount
+					count: this.dCount * 1
 				},
 				events: {
 					'next': '_addPay.hide'
@@ -151,12 +151,11 @@ export default {
 				},
 				data: {
 					coin: this.dCurCoin,
-					count: this.dCount,
-					cycle: this.dDay,
-					money: this.dMoney,
-					rate: this.dCurRate,
+					count: this.dCount * 1,
+					cycle: this.dDay * 1,
+					money: this.dMoney * 1,
+					rate: this.dCurRate  * 1,
 					coupon: this.dCoupon,
-					
 				},
 				events: {
 					'next': '.hide'

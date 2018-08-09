@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import './slide.less'
 
-window.onpopstate = function () {
-	popSlide();
+window.onpopstate = function (e) {
+	CC.popSlide();
 }
 
 function pushSlide (slide) {
@@ -11,7 +11,7 @@ function pushSlide (slide) {
 	window.history.pushState(null, '', '#')
 }
 
-function popSlide () {
+CC.popSlide = () => {
 	var slide = CC._slides.pop();
 	slide && (slide.hide())
 }
@@ -78,13 +78,13 @@ function Slide(opts) {
 		}
 	})
 	var comp = new Comp();
-	pushSlide(comp);
+	this.comp = comp;
+	pushSlide(this);
 	document.body.appendChild(comp.$mount().$el);
 }
 
 Slide.prototype.hide = function() {
 	this.comp.hide();
-	CC._slides.length = CC._slides.length-1; 
 }
 
 export default Slide;

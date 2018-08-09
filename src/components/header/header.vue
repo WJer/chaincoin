@@ -28,9 +28,8 @@ export default {
     },
     methods: {
         _back () {
-            const slide = CC._slides.pop();
-            if (slide) {
-                slide.hide();
+            if (CC._slides.length) {
+                CC.popSlide();
             }else{
                 if (this.$route.name !== 'index') {
                     history.back();

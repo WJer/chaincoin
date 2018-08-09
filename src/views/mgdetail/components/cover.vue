@@ -36,11 +36,11 @@
         </div>
         <div class="card">
             <div>还款计划</div>
-            <plan :plans="dPlans"></plan>
+            <plan :plans="dPlans" :cur="dCur"></plan>
         </div>
         <div class="g-flex btn-wrap">
-            <mt-button type="primary" size="large" class="btn g-btn-thin">提前全额还款</mt-button>
-            <mt-button type="primary" size="large" class="btn" @click="_pay(1)">提前还本期</mt-button>
+            <mt-button type="primary" size="large" class="btn g-btn-thin" @click="_pay(1)">提前全额还款</mt-button>
+            <mt-button type="primary" size="large" class="btn" @click="_pay(2)">提前还本期</mt-button>
         </div>
     </div>
 </template>
@@ -60,6 +60,7 @@ export default {
         return {
             dData: this.data,
             dPlans: [],
+            dCur: -1,
             dHealthRate: 0
         }
     },
@@ -78,21 +79,14 @@ export default {
                     mortgageId: this.dData.mortgageId
                 }
             }).then((res) => {
-                res && (this.dPlans = res.plans);
+                if (res) {
+                    this.dPlans = res.plans;
+                    this.dCur = res.currentPlan;
+                }                
             })
         },
         _pay (type) {
-            this.util.slide({
-                context: this,
-                component: {
-                    'detail' : () => import('./pay')
-                },
-                data: {
-                    data: this.dData,
-                    type: type
-                },
-                events: {}
-            })
+            this.$emit('pay', type);
         }
     }
 }

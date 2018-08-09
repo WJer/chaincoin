@@ -34,11 +34,11 @@
         </div>
         <div class="card">
             <div>还款计划</div>
-            <plan :plans="dPlans"></plan>
+            <plan :plans="dPlans" :cur="dCur"></plan>
         </div>
         <div class="g-flex btn-wrap">
-            <mt-button type="primary" size="large" class="btn g-btn-thin">提前全额还款</mt-button>
-            <mt-button type="primary" size="large" class="btn">提前还本期</mt-button>
+            <mt-button type="primary" size="large" class="btn g-btn-thin" @click="_pay(1)">提前全额还款</mt-button>
+            <mt-button type="primary" size="large" class="btn" @click="_pay(2)">提前还本期</mt-button>
         </div>
     </div>
 </template>
@@ -57,7 +57,8 @@ export default {
     data () {
         return {
             dData: this.data,
-            dPlans: []
+            dPlans: [],
+            dCur: 0
         }
     },
     created () {
@@ -70,8 +71,16 @@ export default {
                     mortgageId: this.dData.mortgageId
                 }
             }).then((res) => {
-                res && (this.dPlans = res.plans);
+                if (res) {
+                    this.dCur = res.currentPlan;
+                    this.dPlans = res.plans;
+                }
             })
+        },
+        _pay (type) {
+            this.$emit('pay', type, {
+                normalMoney: this.dPlans[this.dCur].normalMoney
+            });
         }
     }
 }

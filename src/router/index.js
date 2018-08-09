@@ -53,6 +53,11 @@ export default new Router({
 			path: '/mglist',
 			name: 'mglist',
 			component: () => import('@/views/mglist')
+		},
+		{
+			path: '/demo',
+			name: 'demo',
+			component: () => import('@/views/pay')
 		}
 	]
 })

@@ -2,7 +2,7 @@
     <div class="page-orderdetail">
         <div class="white-space"></div>
         <div class="detail-wrap">
-            <component :is="dType" :data="data"/>
+            <component :is="dType" :data="data" @pay="_pay"/>
         </div>
     </div>
 </template>
@@ -25,8 +25,25 @@ export default {
             dData: this.data
         }
     },
-    created () {
-        console.log(this.dData);
+    methods: {
+        _pay (type, obj) {
+            this.util.slide({
+                context: this,
+                component: {
+                    'detail' : () => import('@/views/pay')
+                },
+                data: {
+                    data: Object.assign({}, this.data, obj||{}),
+                    isLast: type == 1
+                },
+                events: {
+                    'complete': '_complete.hide'
+                }
+            });
+        },
+        _complete () {
+            this.$emit('complete');
+        }
     }
 }
 </script>

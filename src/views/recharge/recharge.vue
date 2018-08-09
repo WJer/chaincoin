@@ -10,9 +10,9 @@
             充值二维码
         </div>
         <div class="recharge-code"></div>
-        <mt-button type="primary" size="large" class="btn-submit" @click="_submit">保存</mt-button>
+        <mt-button type="primary" size="large" class="btn-submit">保存</mt-button>
         <div class="recharge-address">
-            <span>coin.address</span>
+            <span>{{coin.address}}</span>
             <a class="btn-copy">复制</a>
         </div>
         <mt-button type="primary" size="large" class="btn-complete" @click="_complete">完成充值</mt-button>
@@ -28,7 +28,23 @@ export default {
 		count: {
 			type: Number,
 			default: 0
-		}
+        },
+        cycle: {
+            type: Number,
+			default: 0
+        },
+        money: {
+            type: Number,
+			default: 0
+        },
+        rate: {
+            type: Number,
+			default: 0
+        },
+        coupon: {
+            type: String,
+			default: ''
+        }
 	},
     methods: {
         _complete () {
@@ -46,7 +62,8 @@ export default {
                 }
             }).then((res) => {
                 if (res && res.result) {
-                    this.$router.push('/approval');
+                    CC.popSlide();
+                    CC.$router.push('/approval');
                 }
             })
         }

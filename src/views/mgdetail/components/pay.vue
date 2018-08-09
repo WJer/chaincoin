@@ -4,12 +4,12 @@
             <div class="g-flex top">
                 <div class="g-flex_item">
                     <div class="tit">还款总额</div>
-                    <div class="val">{{dData.money}}</div>
+                    <div class="val">{{dData.allMoney}}</div>
                 </div>
                 <div class="g-flex_item">
                     <div class="item-rate">
                         <span class="tit">利息</span>
-                        <span class="val">0</span>
+                        <span class="val">{{dData.rate | toLowerCase}}</span>
                     </div>
                     <div class="item-rate">
                         <span class="tit">罚息</span>

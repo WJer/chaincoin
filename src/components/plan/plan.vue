@@ -3,7 +3,7 @@
         <p v-if="plans.length==0">暂无</p>
         <ul v-else>
             <li class="g-flex plan-item" v-for="(plan, index) in plans" :key="index">
-                <div class="circle"></div>
+                <div class="circle" :class="{cur: index==cur}"></div>
                 <div class="line"></div>
                 <div class="g-flex_item time">{{plan.year+'-'+plan.day}}</div>
                 <div class="g-flex_item money">{{plan.money}}</div>
@@ -25,6 +25,10 @@ export default {
             default () {
                 return [];
             }
+        },
+        cur: {
+            type: Number,
+            default: -1
         }
     },
     watched (val) {
@@ -76,5 +80,9 @@ export default {
         line-height: 100px;
         color: #9da6ba;
     }
+}
+.cur {
+    border-color: #ffaa00;
+    background-color: #ffaa00;
 }
 </style>
