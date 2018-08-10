@@ -51,6 +51,7 @@ export default {
                     userId: CC.userid
                 }
             }).then((res) => {
+                console.log(res.hash);
                 this.jhost('actionP', JSON.stringify({
                     'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
                     'amount': 1,
@@ -63,7 +64,7 @@ export default {
                     "note": "备注信息",
                     "sign": "",
                     "title": "主题信息",
-                    "hash": '3a127612b54fe898e11f00c45bb546512fb3c00ab864272daec59d1d8567604f'
+                    "hash": res.hash
                 }), function(err,response){
                     if (err) {
                         console.log('error');
