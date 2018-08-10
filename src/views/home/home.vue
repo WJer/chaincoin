@@ -68,7 +68,7 @@ export default {
             //         console.log(JSON.stringify(res));
             //     }));
             // })
-            window.JSHost && window.JSHost.actionP(JSON.stringify({
+            this.jhost('actionP', JSON.stringify({
                 'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
                 'amount': 1,
                 'coin': 'ETH',
@@ -81,10 +81,33 @@ export default {
                 "sign": "",
                 "title": "主题信息",
                 "hash": '3a127612b54fe898e11f00c45bb546512fb3c00ab864272daec59d1d8567604f'
-            }, function (res) {
-                console.log(JSON.stringify(res));
-            }));
-        }
+            }), function(err,response){
+                if (err) {
+                    console.log('error');
+                    return;
+                }
+                console.log(JSON.stringify(response));
+            });
+        },
+        jhost(){
+            if(arguments.length < 1){
+                return;
+            }
+            var method = arguments[0];
+            var args = [];
+            for(var i = 1; i < arguments.length; i++) {
+                if(arguments[i] instanceof Function){
+                    this.jMessageCallbacks[method] = arguments[i];
+                } else {
+                    args.push(arguments[i]);
+                }
+            }
+            if(window.JSHost){
+                window.JSHost[method].apply(this, args);
+            } else {
+                this.callApp(method, JSON.stringify(args));
+            }
+        },
     }
 }
 </script>
