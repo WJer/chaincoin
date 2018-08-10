@@ -43,31 +43,47 @@ export default {
         },
         _pay () {
             const time = +new Date();
-            this.util.api.get('/createSign', {
-                params: {
-                    amount: 10,
-                    coin: 'eth',
-                    orderId: time,
-                    userId: CC.userid
-                }
-            }).then((res) => {
-                window.JSHost.actionP(JSON.stringify({
-                    'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
-                    'amount': 1,
-                    'coin': 'ETH',
-                    'orderId': time,
-                    'userId': CC.userid,
-                    'fee': 10,
-                    'from': '',
-                    'to': '0x9182b2e0d40C7bFC3c08C73636d7bdb08bB5B32b',
-                    "note": "备注信息",
-                    "sign": "",
-                    "title": "主题信息",
-                    "hash": res.hash
-                }, function (res) {
-                    console.log(JSON.stringify(res));
-                }));
-            })
+            // this.util.api.get('/createSign', {
+            //     params: {
+            //         amount: 10,
+            //         coin: 'eth',
+            //         orderId: time,
+            //         userId: CC.userid
+            //     }
+            // }).then((res) => {
+            //     window.JSHost.actionP(JSON.stringify({
+            //         'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
+            //         'amount': 1,
+            //         'coin': 'ETH',
+            //         'orderId': time,
+            //         'userId': CC.userid,
+            //         'fee': 10,
+            //         'from': '',
+            //         'to': '0x9182b2e0d40C7bFC3c08C73636d7bdb08bB5B32b',
+            //         "note": "备注信息",
+            //         "sign": "",
+            //         "title": "主题信息",
+            //         "hash": '3a127612b54fe898e11f00c45bb546512fb3c00ab864272daec59d1d8567604f'
+            //     }, function (res) {
+            //         console.log(JSON.stringify(res));
+            //     }));
+            // })
+            window.JSHost && window.JSHost.actionP(JSON.stringify({
+                'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
+                'amount': 1,
+                'coin': 'ETH',
+                'orderId': time,
+                'userId': CC.userid,
+                'fee': 10,
+                'from': '',
+                'to': '0x9182b2e0d40C7bFC3c08C73636d7bdb08bB5B32b',
+                "note": "备注信息",
+                "sign": "",
+                "title": "主题信息",
+                "hash": '3a127612b54fe898e11f00c45bb546512fb3c00ab864272daec59d1d8567604f'
+            }, function (res) {
+                console.log(JSON.stringify(res));
+            }));
         }
     }
 }
