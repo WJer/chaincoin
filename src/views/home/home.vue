@@ -2,7 +2,7 @@
     <div class="page-index">
         <mt-button type="primary" size="large" class="btn-next" @click="_borrow">立即借款</mt-button>
         <mt-button type="primary" size="large" v-if="dIsMortgage" @click="_toBorrowList">借款记录</mt-button>
-        <mt-button type="primary" size="large" v-if="dIsMortgage" @click="_pay">付款测试</mt-button>
+        <mt-button type="primary" size="large" @click="_pay">付款测试</mt-button>
     </div>
 </template>
 <script>
@@ -64,6 +64,8 @@ export default {
                     "sign": "",
                     "title": "主题信息",
                     "hash": res.hash
+                }, function (res) {
+                    console.log(JSON.stringify(res));
                 }));
             })
         }
