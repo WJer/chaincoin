@@ -69,7 +69,8 @@ export default {
                 "hash": '187071afbcb137e22743d8a050a1044d992edf2fa107871f66c2fb0f4ecf72ea'
             }), function(err,response){
                 if (err) {
-                    console.log('error');
+                    console.log(JSON.stringify(err));
+                    console.log(JSON.stringify(response));
                     return;
                 }
                 console.log(JSON.stringify(response));
