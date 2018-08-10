@@ -42,38 +42,38 @@ export default {
             })
         },
         _pay () {
-            const time = +new Date();
-            this.util.api.get('/createSign', {
-                params: {
-                    amount: 10,
-                    coin: 'eth',
-                    orderId: time,
-                    userId: CC.userid
-                }
-            }).then((res) => {
-                console.log(res);
-                console.log(+new Date());
-            })
-            // this.jhost('actionP', JSON.stringify({
-            //     'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
-            //     'amount': 1,
-            //     'coin': 'ETH',
-            //     'orderId': time,
-            //     'userId': CC.userid,
-            //     'fee': 0,
-            //     'from': '',
-            //     'to': '0x9182b2e0d40C7bFC3c08C73636d7bdb08bB5B32b',
-            //     "note": "备注信息",
-            //     "sign": "",
-            //     "title": "主题信息",
-            //     "hash": '37f226f61c7aabf141acc0a3a347bec301688eaac6c6'
-            // }), function(err,response){
-            //     if (err) {
-            //         console.log('error');
-            //         return;
+            // const time = +new Date();
+            // this.util.api.get('/createSign', {
+            //     params: {
+            //         amount: 10,
+            //         coin: 'eth',
+            //         orderId: time,
+            //         userId: CC.userid
             //     }
-            //     console.log(JSON.stringify(response));
-            // });
+            // }).then((res) => {
+            //     console.log(res);
+            //     console.log(+new Date());
+            // })
+            this.jhost('actionP', JSON.stringify({
+                'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
+                'amount': 1,
+                'coin': 'ETH',
+                'orderId': 1533899172238,
+                'userId': CC.userid,
+                'fee': 0,
+                'from': '',
+                'to': '0x9182b2e0d40C7bFC3c08C73636d7bdb08bB5B32b',
+                "note": "备注信息",
+                "sign": "",
+                "title": "主题信息",
+                "hash": '187071afbcb137e22743d8a050a1044d992edf2fa107871f66c2fb0f4ecf72ea'
+            }), function(err,response){
+                if (err) {
+                    console.log('error');
+                    return;
+                }
+                console.log(JSON.stringify(response));
+            });
         },
         jhost(){
             if(arguments.length < 1){
