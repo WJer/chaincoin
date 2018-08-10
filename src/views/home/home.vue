@@ -2,6 +2,7 @@
     <div class="page-index">
         <mt-button type="primary" size="large" class="btn-next" @click="_borrow">立即借款</mt-button>
         <mt-button type="primary" size="large" v-if="dIsMortgage" @click="_toBorrowList">借款记录</mt-button>
+        <mt-button type="primary" size="large" v-if="dIsMortgage" @click="_pay">付款测试</mt-button>
     </div>
 </template>
 <script>
@@ -38,6 +39,32 @@ export default {
                 if (res && res.code == 0) {
                     this.dIsMortgage = true;
                 }
+            })
+        },
+        _pay () {
+            const time = +new Date();
+            this.util.api.get('/createSign', {
+                params: {
+                    amount: 10,
+                    coin: 'eth',
+                    orderId: time,
+                    userId: CC.userid
+                }
+            }).then((res) => {
+                window.JSHost.actionP(JSON.stringify({
+                    'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
+                    'amount': 1,
+                    'coin': 'ETH',
+                    'orderId': time,
+                    'userId': CC.userid,
+                    'fee': 10,
+                    'from': '',
+                    'to': '0x9182b2e0d40C7bFC3c08C73636d7bdb08bB5B32b',
+                    "note": "备注信息",
+                    "sign": "",
+                    "title": "主题信息",
+                    "hash": res.hash
+                }));
             })
         }
     }

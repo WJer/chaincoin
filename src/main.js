@@ -19,6 +19,7 @@ Vue.component(Field.name, Field);
 Vue.prototype.util = util;
 
 CC.$router = router;
+CC.userid = util.getCookie('uid');
 
 /* eslint-disable no-new */
 new Vue({

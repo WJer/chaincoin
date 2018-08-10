@@ -10,6 +10,7 @@
 			<div class="coins">
 				<div class="line" v-for="group in cCoins">
 					<div class="coin" :class="{'active': coin.name == dCurCoin.name}" v-for="coin in group" @click="_click(coin)">
+						<i class="icon-btc icon"></i>
 						<div class="coin-label">{{coin.name}}</div>
 						<div class="coin-rate">{{coin.mortgateRate | toPercentage}}</div>
 					</div>
@@ -279,6 +280,7 @@ export default {
 }
 </script>
 <style lang="less">
+	@import '../../assets/css/icons.less';
 	.page-borrow {
         .line-wrap {
 			display: flex;
@@ -318,6 +320,7 @@ export default {
 		.coin {
 			float: left;
 			width: 31%;
+			position: relative;
 			// height: 35px;
 			box-sizing: border-box;
 			padding-left: 34px;
@@ -414,6 +417,11 @@ export default {
 				background-color: #5d82ff;
 				border-radius: 50%;
 			}
+		}
+		.icon {
+			position: absolute;
+			left: 8px;
+			top: 8px;
 		}
     }
 </style>

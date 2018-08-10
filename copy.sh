@@ -1,4 +1,2 @@
-#!/usr/bin/expect
-
-spawn ssh gmj@118.31.32.197
-expect "*password*" {send "gmj\r"}
+#!/usr/bin/sh
+cp -rf /var/www/html/lianbi/chaincoin/dist/* /var/www/html/lianbi
