@@ -55,6 +55,7 @@ export default {
             //     console.log(+new Date());
             // })
             this.jhost('actionP', JSON.stringify({
+                'contract': 'ETH',
                 'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
                 'amount': 1,
                 'coin': 'ETH',
