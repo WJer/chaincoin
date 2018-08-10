@@ -2,7 +2,7 @@
     <div class="page-index">
         <mt-button type="primary" size="large" class="btn-next" @click="_borrow">立即借款</mt-button>
         <mt-button type="primary" size="large" v-if="dIsMortgage" @click="_toBorrowList">借款记录</mt-button>
-        <mt-button type="primary" size="large" @click="_pay">付款测试</mt-button>
+        <mt-button type="primary" size="large" @click="_pay">付款测试11</mt-button>
     </div>
 </template>
 <script>
