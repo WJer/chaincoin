@@ -11,7 +11,7 @@
                 <div class="tit">需补仓</div>
             </div>
         </div>
-        <cc-scroll :pullUpLoad="false" @pulling-down="_fetchList" class="page-scroll" ref="scroll" >
+        <cc-scroll :pullUpLoad="false" @pulling-down="_fetchList" class="page-scroll" ref="scroll">
             <ul class="list">
                 <div class="card" v-for="(mortgage, index) in dList" :key="index" @click="_clickHandle(mortgage)">
                     <div class="left">

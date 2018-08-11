@@ -126,9 +126,6 @@ export default {
 		.form-btns {
 			margin: 36px 20px 0;
 		}
-		.btn-next {
-			background-color: #5d82ff;
-		}
 	}
 </style>
 

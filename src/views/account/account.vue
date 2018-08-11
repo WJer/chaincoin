@@ -36,11 +36,13 @@ export default {
 	},
 	methods: {
 		_next () {
+			const load = this.util.loading('加载中...');
 			this.util.api.post('/registerByPhone', {
 				bitkeepId: '200100',
 				phone: this.dMobile,
 				code: this.dCode
 			}).then((res) => {
+				load.close();
 				if (res.result) {
 					this.$router.push('/form/borrow');
 				}else{
@@ -77,12 +79,14 @@ export default {
 		.line-wrap {
 			margin-bottom: 13px;
 			.text {
+				width: 100%;
 				margin-top: 10px;
 				color: #9099af;
 				font-size: 12px;
 				text-align: center;
 			}
 			.line {
+				width: 100%;
 				height: 17px;
                 .border-1px(#9099af);
 			}

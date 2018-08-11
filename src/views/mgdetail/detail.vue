@@ -21,7 +21,7 @@ export default {
     },
     data () {
         return {
-            dType: ['','','repay','','repay','cover','','complete','close'][this.data.status],
+            dType: ['remit','refuse','repay','repay','repay','cover','','complete','close'][this.data.status],
             dData: this.data
         }
     },

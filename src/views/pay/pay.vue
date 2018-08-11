@@ -19,7 +19,7 @@
                         </div>
                         <div class="money-item">
                             <span class="g-left">罚息</span>
-                            <span class="g-right">{{dData.currentRepayMoney - dData.normalMoney}}</span>
+                            <span class="g-right">{{(dData.currentRepayMoney - dData.normalMoney) | toFixed2}}</span>
                         </div>
                     </div>
                 </div>
@@ -73,6 +73,11 @@ export default {
         isLast: {
             type: Boolean,
             default: false
+        }
+    },
+    filters: {
+        toFixed2 (val) {
+            return Number(val).toFixed(2);
         }
     },
     data () {

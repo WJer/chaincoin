@@ -62,12 +62,12 @@ export default {
             //     }
             // }).then((res) => {
             //     if (res && res.result) {
-            //         this.util.alert('重置成功，等待放款。此处模拟调用');
+            //         this.util.alert('充值成功，等待放款。此处模拟调用');
             //         CC.popSlide();
             //         CC.$router.push('/approval');
             //     }
             // })
-            this.util.alert('重置成功，等待放款。此处模拟调用');
+            this.util.alert('充值成功，等待放款。此处模拟调用');
             CC.popSlide();
             CC.$router.push('/approval');
         }

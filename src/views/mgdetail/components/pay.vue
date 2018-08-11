@@ -19,9 +19,7 @@
             </div>
             <div class="g-line line"></div>
         </div>
-        <div class="card">
-            
-        </div>
+        <div class="card"></div>
     </div>
 </template>
 <script>

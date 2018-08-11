@@ -6,63 +6,65 @@
 				<div class="text">抵押数量与时间</div>
 				<div class="line"></div>
 			</div>
-			<div class="tip">提示：以下为质押率，是可借金额和数字货币总价值的比值。</div>
-			<div class="coins">
-				<div class="line" v-for="group in cCoins">
-					<div class="coin" :class="{'active': coin.name == dCurCoin.name}" v-for="coin in group" @click="_click(coin)">
-						<i class="icon-btc icon"></i>
-						<div class="coin-label">{{coin.name}}</div>
-						<div class="coin-rate">{{coin.mortgateRate | toPercentage}}</div>
-					</div>
-				</div>
-			</div>
-			<div class="g-line"></div>
-			<g-text label="抵押数量" placeholder="不低于1BTC" v-model="dCount" @input="_inputInCount"></g-text>
-			<g-text label="抵押时间" placeholder="30天至80天" v-model="dDay" @input="_inputInDay"></g-text>
-			<div class="use-coupon" @click="_openCoupon">使用优惠券</div>
-			<div class="g-clear"></div>
-			<div class="line-wrap">
-				<div class="line"></div>
-				<div class="text">借款信息</div>
-				<div class="line"></div>
-			</div>
-			<div class="preview">
-				<div class="left">
-					<div class="total-tit">可借金额</div>
-					<div class="total-num"><em>￥</em>{{dMoney}}</div>
-				</div>
-				<div class="right">
-					<div class="right-item">
-						<div class="right-label">年利率</div>
-						<div class="right-text">
-							<span class="g-disabled" v-if="dRate">{{dRate | toPercentage}}</span>
-							<span class="g-bold" style="margin-right: 15px;">{{dCurRate | toPercentage}}</span>
-							<span class="g-bold">{{dAccrual}}</span>
-						</div>
-					</div>
-					<div class="right-item">
-						<div class="right-label">借款时间</div>
-						<div class="right-text">
-							<div style="margin-bottom: 0.2em;">From: <span class="g-bold">{{dDate.start}}</span></div>
-							<div>To: <span class="g-bold">{{dDate.end}}</span></div>
+			<cc-scroll :pullUpLoad="false" :pullDownRefresh="false" class="page-scroll" ref="scroll">
+				<div class="tip">提示：以下为质押率，是可借金额和数字货币总价值的比值。</div>
+				<div class="coins">
+					<div class="line" v-for="group in cCoins">
+						<div class="coin" :class="{'active': coin.name == dCurCoin.name}" v-for="coin in group" @click="_click(coin)">
+							<i class="icon-btc icon"></i>
+							<div class="coin-label">{{coin.name}}</div>
+							<div class="coin-rate">{{coin.mortgateRate | toPercentage}}</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="line-wrap">
-				<div class="line"></div>
-				<div class="text">还款计划</div>
-				<div class="line"></div>
-			</div>
-			<ccplan :plans="dPlans"></ccplan>
-			<div class="repay-rule">
-				<span class="radio-core" :class="{'check': dAgree}" @click="dAgree=!dAgree"></span>
-				<span>查看并同意</span>
-				<a href="#rule">借还款规则</a>
-			</div>
-			<div class="form-btns">
-				<mt-button type="primary" size="large" class="btn-next" @click="_next">下一步</mt-button>
-			</div>
+				<div class="g-line"></div>
+				<g-text label="抵押数量" placeholder="不低于1个" v-model="dCount" @input="_inputInCount"></g-text>
+				<g-text label="抵押时间" placeholder="30天至80天" v-model="dDay" @input="_inputInDay"></g-text>
+				<div class="use-coupon" @click="_openCoupon">使用优惠券</div>
+				<div class="g-clear"></div>
+				<div class="line-wrap">
+					<div class="line"></div>
+					<div class="text">借款信息</div>
+					<div class="line"></div>
+				</div>
+				<div class="preview">
+					<div class="left">
+						<div class="total-tit">可借金额</div>
+						<div class="total-num"><em>￥</em>{{dMoney}}</div>
+					</div>
+					<div class="right">
+						<div class="right-item">
+							<div class="right-label">利率利息</div>
+							<div class="right-text">
+								<span class="g-disabled" v-if="dRate">{{dRate | toPercentage}}</span>
+								<span class="g-bold" style="margin-right: 0px;">{{dCurRate | toPercentage}}</span>
+								<span class="g-bold g-unit">{{dAccrual}}</span>
+							</div>
+						</div>
+						<div class="right-item">
+							<div class="right-label">借款时间</div>
+							<div class="right-text">
+								<div style="margin-bottom: 0.2em;">From: <span class="g-bold">{{dDate.start}}</span></div>
+								<div>To: <span class="g-bold">{{dDate.end}}</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="line-wrap">
+					<div class="line"></div>
+					<div class="text">还款计划</div>
+					<div class="line"></div>
+				</div>
+				<ccplan :plans="dPlans"></ccplan>
+				<div class="repay-rule">
+					<span class="radio-core" :class="{'check': dAgree}" @click="dAgree=!dAgree"></span>
+					<span>查看并同意</span>
+					<a href="#rule">借还款规则</a>
+				</div>
+				<div class="form-btns">
+					<mt-button type="primary" size="large" class="btn-next" @click="_next">下一步</mt-button>
+				</div>
+			</cc-scroll>
 		</div>
 	</div>
 </template>
@@ -85,8 +87,8 @@ export default {
 			dMoney: 0,
 			dAccrual: 0,
 			dDate: {
-				start: '0000/00/00',
-				end: '0000/00/00'
+				start: '0000-00-00',
+				end: '0000-00-00'
 			},
 			dPlans: [],
 			dCoupon: '',
@@ -187,10 +189,10 @@ export default {
 		},
 		_inputInDay (val) {
 			if (val) {
-				this.dDate.start = moment().format('YYYY/MM/DD');
-				this.dDate.end = moment().add(this.dDay, 'days').format('YYYY/MM/DD');
+				this.dDate.start = moment().format('YYYY-MM-DD');
+				this.dDate.end = moment().add(this.dDay, 'days').format('YYYY-MM-DD');
 			}else {
-				this.dDate.start = this.dDate.end = '0000/00/00';
+				this.dDate.start = this.dDate.end = '0000-00-00';
 			}
 			this._fetchPlan();
 		},
@@ -202,8 +204,14 @@ export default {
 			}else if (!this.dCount || this.dCount == 0) {
 				this.util.alert('请填写抵押数量');
 				return false;
+			}else if (+this.dCount < 1) {
+				this.util.alert('抵押数量必须大于1');
+				return false;
 			}else if (!this.dDay || this.dDay == 0) {
 				this.util.alert('请填写抵押时间');
+				return false;
+			}else if (+this.dDay < 30 || +this.dDay > 80) {
+				this.util.alert('抵押时间必须在30天到80天之间');
 				return false;
 			}else if (!this.dAgree) {
 				this.util.alert('请查看并同意借还款规则，并勾选');
@@ -214,7 +222,7 @@ export default {
 		//获取还款计划
 		_fetchPlan () {
 			clearTimeout(this.T1);
-			if (!this.dCurCoin || !this.dCount || !this.dDay) {
+			if (!this.dCurCoin || !this.dCount || +this.dCount < 1 || !this.dDay || +this.dDay < 30 || +this.dDay > 80) {
 				this.dPlans = [];
 				return;
 			}
@@ -234,7 +242,7 @@ export default {
 		//获取可借款金额
 		_fetchMortgagMoney () {
 			clearTimeout(this.T2);
-			if (!this.dCurCoin || !this.dCount) {
+			if (!this.dCurCoin || !this.dCount || +this.dCount < 1) {
 				this.dMoney = 0;
 				return;
 			}
@@ -282,6 +290,20 @@ export default {
 <style lang="less">
 	@import '../../assets/css/icons.less';
 	.page-borrow {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #fff;
+		.page-scroll {
+			position: absolute;
+			top: 50px;
+			left: 20px;
+			right: 20px;
+			bottom: 0;
+			height: auto;
+		}
         .line-wrap {
 			display: flex;
 			-webkit-box-align: center;
@@ -354,7 +376,7 @@ export default {
 			.left {
 				position: absolute;
 				width: 140px;
-				height: 80px;
+				min-height: 80px;
 				border-right: 1px solid #d9d9d9;
 			}
 			.right {
@@ -367,9 +389,11 @@ export default {
 				color: #8e96a5;
 			}
 			.total-num {
-				line-height: 48px;
 				font-size: 24px;
+				padding: 12px 0;
 				color: #23334f;
+				word-break: break-all;
+    			word-wrap: break-word;
 			}
 			.right-item {
 				overflow: hidden;
@@ -422,6 +446,9 @@ export default {
 			position: absolute;
 			left: 8px;
 			top: 8px;
+		}
+		.form-btns {
+			padding: 10px 0;
 		}
     }
 </style>
