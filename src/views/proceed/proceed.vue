@@ -48,9 +48,9 @@ export default {
 	methods: {
 		_next () {
 			const content = [
-				`<div>开户行：<span style="color: #727391;">${this.dBank}</span></div>`,
-				`<div>开户支行：<span style="color: #727391;">${this.dSubBank}</span></div>`,
-				`<div>银行卡号：<span style="color: #727391;">${this.dCard}</span></div>`
+				`<div>开户行<span style="color: #727391;margin-left: 0.5rem;">${this.dBank}</span></div>`,
+				`<div>开户支行<span style="color: #727391;margin-left: 0.5rem;">${this.dSubBank}</span></div>`,
+				`<div>银行卡号<span style="color: #727391;margin-left: 0.5rem;">${this.dCard}</span></div>`
 			].join('');
 			const title = '请核实并确认以下信息';
 			this.util.confirm_cc(content, title).then(() => {

@@ -3,12 +3,15 @@
 		<div class="line-wrap">
 			<div class="g-line"></div>
 		</div>
-        <div class="approval-wrap">
-            <div class="step curstep">付款成功</div>
+        <div class="approval-wrap" v-if="dStatus==1">
+            <div class="step curstep step-suc">付款成功</div>
             <div class="line"></div>
             <div class="step">核实</div>
             <div class="line"></div>
             <div class="step">打款</div>
+        </div>
+        <div class="approval-wrap" v-else>
+            <div class="step curstep step-fail">付款失败</div>
         </div>
         <div class="tip">如有问题可咨询123456789</div>
         <div class="form-btns">
@@ -19,9 +22,14 @@
 </template>
 <script>
 export default {
+    data () {
+        return {
+            dStatus: 1
+        }
+    },
     methods: {
         _next () {
-            
+            this.$router.push('/mglist');
         }
     }
 }
@@ -38,7 +46,7 @@ export default {
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
-        padding-top: 38px;
+        padding-top: 13px;
     }
     .approval-wrap {
         display: flex;
@@ -77,6 +85,21 @@ export default {
                 border: none;
                 background-color: #f9cf31;
             }
+        }
+        .step-suc:before {
+            content: '√';
+            line-height: 40px;
+            text-align: center;
+            color: #fff;
+            font-size: 20px;
+        }
+        .step-fail:before {
+            content: '×';
+            line-height: 36px;
+            text-align: center;
+            color: #fff;
+            font-size: 30px;
+            background-color: gray;
         }
     }
     .tip {
