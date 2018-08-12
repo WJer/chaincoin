@@ -172,6 +172,7 @@ export default {
             display: block;
             width: 100%;
             padding-right: 30px;
+            box-sizing: border-box;
             font-size: 20px;
             color: #000;
             line-height: 30px;
