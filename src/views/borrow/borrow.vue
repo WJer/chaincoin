@@ -18,7 +18,7 @@
 					</div>
 				</div>
 				<div class="g-line"></div>
-				<g-text label="抵押数量" placeholder="不低于1个" v-model="dCount" @input="_inputInCount"></g-text>
+				<g-text label="抵押数量" :placeholder="`不低于${dCurCoin?dCurCoin.mortgageMinimum:1}个${dCurCoin?dCurCoin.name:''}`" v-model="dCount" @input="_inputInCount"></g-text>
 				<g-text label="抵押时间" placeholder="30天至80天" v-model="dDay" @input="_inputInDay"></g-text>
 				<div class="use-coupon" @click="_openCoupon">使用优惠券</div>
 				<div class="g-clear"></div>
@@ -108,6 +108,9 @@ export default {
 			});
 			return result;
 		}
+	},
+	created () {
+		CC.header.toggleList(true);
 	},
 	methods: {
 		_next () {
@@ -203,8 +206,8 @@ export default {
 			}else if (!this.dCount || this.dCount == 0) {
 				this.util.alert('请填写抵押数量');
 				return false;
-			}else if (+this.dCount < 1) {
-				this.util.alert('抵押数量必须大于1');
+			}else if (+this.dCount < this.dCurCoin.mortgageMinimum) {
+				this.util.alert(`抵押数量必须大于${this.dCurCoin.mortgageMinimum}`);
 				return false;
 			}else if (!this.dDay || this.dDay == 0) {
 				this.util.alert('请填写抵押时间');
@@ -221,7 +224,7 @@ export default {
 		//获取还款计划
 		_fetchPlan () {
 			clearTimeout(this.T1);
-			if (!this.dCurCoin || !this.dCount || +this.dCount < 1 || !this.dDay || +this.dDay < 30 || +this.dDay > 80) {
+			if (!this.dCurCoin || !this.dCount || +this.dCount < this.dCurCoin.mortgageMinimum || !this.dDay || +this.dDay < 30 || +this.dDay > 80) {
 				this.dPlans = [];
 				return;
 			}
@@ -241,7 +244,7 @@ export default {
 		//获取可借款金额
 		_fetchMortgagMoney () {
 			clearTimeout(this.T2);
-			if (!this.dCurCoin || !this.dCount || +this.dCount < 1) {
+			if (!this.dCurCoin || !this.dCount || +this.dCount < this.dCurCoin.mortgageMinimum) {
 				this.dMoney = 0;
 				return;
 			}

@@ -38,6 +38,9 @@ export default {
         },
         value (val) {
             this.dValue = val;
+        },
+        placeholder (val) {
+            this.dPlaceholder = val;
         }
     }
 }

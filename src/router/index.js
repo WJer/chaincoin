@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+var router = new Router({
 	routes: [
 		{
 			path: '/index',
@@ -57,3 +57,10 @@ export default new Router({
 		}
 	]
 })
+
+router.beforeEach((to, from, next) => {
+	CC.header && CC.header.toggleList(false);
+	next();
+})
+
+export default router;
