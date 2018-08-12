@@ -7,20 +7,21 @@
             {{`${count}${coin.name}`}}
         </div>
         <div class="recharge-head">
-            充值二维码
+            扫描此二维码充值
         </div>
         <div class="recharge-code">
             <img :src="coin.qrcode">
         </div>
-        <mt-button type="primary" size="large" class="btn-submit">保存</mt-button>
+        <!-- <mt-button type="primary" size="large" class="btn-submit">保存</mt-button> -->
         <div class="recharge-address">
-            <span>{{coin.address}}</span>
-            <a class="btn-copy">复制</a>
+            <span id="copy-target">{{coin.address}}</span>
+            <a class="btn-copy" data-clipboard-action="copy" data-clipboard-target="#copy-target">复制</a>
         </div>
         <mt-button type="primary" size="large" class="btn-complete" @click="_complete">完成充值</mt-button>
 	</div>
 </template>
 <script>
+import ClipboardJS from 'clipboard';
 export default {
     props: {
 		coin: {
@@ -47,7 +48,21 @@ export default {
             type: String,
 			default: ''
         }
-	},
+    },
+    mounted () {
+        var clipboard = new ClipboardJS('.btn-copy');
+        clipboard.on('success', function(e) {
+            console.info('Action:', e.action);
+            console.info('Text:', e.text);
+            console.info('Trigger:', e.trigger);
+        
+            e.clearSelection();
+        });
+        clipboard.on('error', function(e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    },
     methods: {
         _complete () {
             this.util.api.get('/saveMortgage', {

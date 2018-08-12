@@ -117,16 +117,17 @@ export default {
             })
         },
         _submitRepay () {
-            // this.util.api.get('/submitRepay', {
-            //     params: {
-            //         mortgageId: this.dData.mortgageId
-            //     }
-            // }).then((res) => {
-            //     if (res && res.result) {
-            //         this.$emit('complete');
-            //     }
-            // })
-            this.$emit('complete');
+            this.util.api.get('/submitRepay', {
+                params: {
+                    mortgageId: this.dData.mortgageId
+                }
+            }).then((res) => {
+                if (res && res.result) {
+                    this.util.alert('请耐心等待，还款确认后将变更状态');
+                    this.$emit('complete');
+                }
+            })
+            // this.$emit('complete');
         }
     }
 }
@@ -170,6 +171,7 @@ export default {
         .addres {
             display: block;
             width: 100%;
+            padding-right: 30px;
             font-size: 20px;
             color: #000;
             line-height: 30px;

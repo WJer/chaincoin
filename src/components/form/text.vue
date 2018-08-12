@@ -57,5 +57,12 @@ export default {
             color: #525377;
             line-height: 1.6;
         }
+        .mint-cell-title {
+            width: 70px;
+        }
+        .mint-cell-wrapper {
+            background-position: bottom left;
+            padding: 0;
+        }
     }
 </style>

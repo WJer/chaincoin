@@ -18,10 +18,27 @@
 					</div>
 				</div>
 				<div class="g-line"></div>
-				<g-text label="抵押数量" :placeholder="`不低于${dCurCoin?dCurCoin.mortgageMinimum:1}个${dCurCoin?dCurCoin.name:''}`" v-model="dCount" @input="_inputInCount"></g-text>
-				<g-text label="抵押时间" placeholder="30天至80天" v-model="dDay" @input="_inputInDay"></g-text>
-				<div class="use-coupon" @click="_openCoupon">使用优惠券</div>
+				<div class="item-wrap">
+					<g-text label="抵押数量" :placeholder="`不低于${dCurCoin?dCurCoin.mortgageMinimum:1}个${dCurCoin?dCurCoin.name:''}`" v-model="dCount" @input="_inputInCount"></g-text>
+				</div>
+				<div class="item-wrap">
+					<g-text label="抵押时间" :placeholder="`${dMinDay}天至${dMaxDay}天`" v-model="dDay" @input="_inputInDay"></g-text>
+				</div>
+				<div class="item-wrap">
+					<g-text label="优惠券码" placeholder="请输入优惠券" v-model="dCoupon" @input="_inputCoupon"></g-text>
+					<div v-if="!dRate">
+						<div class="btn-coupon" v-if="dCouponRate" @click="_useCoupon">立即使用</div>
+						<div class="btn-coupon btn-coupon-dark" v-else>立即使用</div>
+					</div>
+					<div v-else>
+						<div class="btn-coupon" @click="_cancelCoupon">取消使用</div>
+					</div>
+					<div class="coupon-tip" v-if="dCouponTip">{{dCouponTip}}</div>
+				</div>
+
+				<!-- <div class="use-coupon" @click="_openCoupon">使用优惠券</div> -->
 				<div class="g-clear"></div>
+				<br><br>
 				<div class="line-wrap">
 					<div class="line"></div>
 					<div class="text">借款信息</div>
@@ -34,10 +51,15 @@
 					</div>
 					<div class="right">
 						<div class="right-item">
-							<div class="right-label">利率利息</div>
+							<div class="right-label">利率</div>
 							<div class="right-text">
 								<span class="g-disabled" v-if="dRate">{{dRate | toPercentage}}</span>
 								<span class="g-bold" style="margin-right: 0px;">{{dCurRate | toPercentage}}</span>
+							</div>
+						</div>
+						<div class="right-item">
+							<div class="right-label">利息</div>
+							<div class="right-text">
 								<span class="g-bold g-unit">{{dAccrual}}</span>
 							</div>
 						</div>
@@ -92,6 +114,10 @@ export default {
 			},
 			dPlans: [],
 			dCoupon: '',
+			dCouponTip: '',
+			dCouponRate: 0,
+			dMinDay: CC.settings.repay_minday,
+			dMaxDay: CC.settings.repay_maxday,
 			T1: null,
 			T2: null,
 			T3: null
@@ -114,14 +140,15 @@ export default {
 	},
 	methods: {
 		_next () {
-			if (this._validate()) {
-				// if (CC.bank) {
-				// 	this._addMortgage();
-				// }else {
-				// 	this._addBackInfo();
-				// }
-				this._addMortgage();
-			}
+			//todo
+			// if (this._validate()) {
+			// 	if (CC.bank) {
+			// 		this._addMortgage();
+			// 	}else {
+			// 		this._addBackInfo();
+			// 	}
+			// }
+			this._addMortgage();
 		},
 		_addBackInfo () {
 			this.util.slide({
@@ -135,6 +162,10 @@ export default {
 			})
 		},
 		_addMortgage () {
+			if (!CC.isBitApp) {
+				this._addPay();
+				return;
+			}
 			this.util.slide({
 				context: this,
 				component: {
@@ -174,7 +205,10 @@ export default {
 				this.dCurCoin = coin;
 				this.dCount = '';
 				this.dDay = '';
+				this.dCoupon = '';
 				this.dMoney = 0;
+				this.dRate = 0;
+				this.dCurRate = CC.settings.year_rate;
 			})
 		},
 		_openCoupon () {
@@ -184,6 +218,16 @@ export default {
 				dom.value = '';
 				this._validateCoupon(couponId);
 			});
+		},
+		_useCoupon () {
+			this.dRate = this.dCurRate;
+			this.dCurRate = this.dCouponRate * this.dCurRate;
+			this._fetchPlan();
+		},
+		_cancelCoupon () {
+			this.dCurRate = this.dRate;
+			this.dRate = 0;
+			this._fetchPlan();
 		},
 		_inputInCount () {
 			this._fetchMortgagMoney();
@@ -197,6 +241,19 @@ export default {
 				this.dDate.start = this.dDate.end = '0000-00-00';
 			}
 			this._fetchPlan();
+		},
+		_inputCoupon () {
+			const max = 9;
+			// if (this.dCoupon.length > 9) {
+			// 	this.dCoupon = this.dCoupon.slice(0, 9);
+			// 	return;
+			// }
+			if (this.dCoupon.length == max) {
+				this._validateCoupon(this.dCoupon);
+			}else{
+				this.dCouponRate = 0;
+				this.dCoupon = '';
+			}
 		},
 		//校验
 		_validate () {
@@ -282,9 +339,7 @@ export default {
 					this.util.alert(res.message);
 					return;
 				}
-				this.dRate = this.dCurRate;
-				this.dCurRate = res.discount;
-				this.dCoupon = id;
+				this.dCouponRate = res.discount * this.dCurRate;
 			})
 		}
 	}
@@ -404,11 +459,11 @@ export default {
 			.right-label {
 				float: left;
 				color: #9da6ba;
-				padding: 15px 0 15px 20px;
+				padding: 7px 0 7px 20px;
 			}
 			.right-text {
 				float: right;
-				padding: 15px 0;
+				padding: 7px 0;
 				text-align: right;
 			}
 		}
@@ -452,6 +507,25 @@ export default {
 		}
 		.form-btns {
 			padding: 10px 0;
+		}
+		.item-wrap {
+			position: relative;
+		}
+		.btn-coupon {
+			position: absolute;
+			right: 0;
+			top: 0;
+			line-height: 40px;
+			font-size: 12px;
+			color: #5d82ff;
+		}
+		.btn-coupon-dark {
+			color: #b9c6ff;
+		}
+		.coupon-tip {
+			color: #ffaa00;
+			line-height: 24px;
+			font-size: 12px;	
 		}
     }
 </style>

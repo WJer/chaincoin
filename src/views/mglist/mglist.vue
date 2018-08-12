@@ -7,8 +7,8 @@
                 <div class="tit">近7日还款</div>
             </div>
             <div class="top-item g-fled_item">
-                <div class="val">{{dCoverNumber}}</div>
-                <div class="tit">需补仓</div>
+                <div class="val">{{dAllOverdue}}</div>
+                <div class="tit">逾期罚息</div>
             </div>
         </div>
         <cc-scroll :pullUpLoad="false" @pulling-down="_fetchList" class="page-scroll" ref="scroll">
@@ -29,6 +29,7 @@
                         <div class="time-hd">还款时间</div>
                     </div>
                 </div>
+                <div v-if="dList.length==0" class="g-nodata">暂无抵押记录</div>
             </ul>
             <div class="form-btns">
                 <mt-button type="primary" size="large" class="btn-pledge" @click="_pledge">抵押</mt-button>
@@ -45,7 +46,7 @@ export default {
         return {
             dList: [],
             dSevenRepay: 0,
-            dCoverNumber: 0
+            dAllOverdue: 0
         }
     },
     methods: {
@@ -57,7 +58,7 @@ export default {
             this.util.api.get('/getMortgageList').then((res) => {
                 res && (this.dList = res.mortgages);
                 res && (this.dSevenRepay = res.sevenDaysRepay);
-                res && (this.dCoverNumber = res.number);
+                res && (this.dAllOverdue = res.allOverdue);
                 this.$refs.scroll.forceUpdate();
                 load.close();
             })
