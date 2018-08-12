@@ -184,7 +184,6 @@ export default {
 		},
 		_inputInCount () {
 			this._fetchMortgagMoney();
-			this._fetchPlan();
 			this._fetchAccrual();
 		},
 		_inputInDay (val) {
@@ -255,6 +254,7 @@ export default {
 					}
 				}).then((res) => {
 					res && (this.dMoney = res.money);
+					this._fetchPlan();
 				})
 			}, CC.delay)
 		},

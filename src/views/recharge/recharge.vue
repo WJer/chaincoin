@@ -9,7 +9,9 @@
         <div class="recharge-head">
             充值二维码
         </div>
-        <div class="recharge-code"></div>
+        <div class="recharge-code">
+            <img :src="coin.qrcode">
+        </div>
         <mt-button type="primary" size="large" class="btn-submit">保存</mt-button>
         <div class="recharge-address">
             <span>{{coin.address}}</span>
@@ -68,7 +70,7 @@ export default {
             //     }
             // })
             this.util.alert('充值成功，等待放款。此处模拟调用');
-            CC.popSlide();
+            history.back();
             CC.$router.push('/approval');
         }
     }
@@ -105,6 +107,11 @@ export default {
         height: 115px;
         margin: 0 auto;
         background-color: #eee;
+        img {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
     }
     .btn-submit {
         width: 127px;

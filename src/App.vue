@@ -36,6 +36,7 @@
                     })
                     res3 && (CC.coins = res3.coins);
                     this.isRun = true;
+                    // this.redirect();
                 }));
             },
             _getAjax() {
@@ -44,6 +45,13 @@
                     this.util.api.get('/getBankInfo'),
                     this.util.api.get('/getAllCoin')
                 ]
+            },
+            redirect() {
+                if (this.util.getCookie('uid')) {
+                    this.$router.push('/index');
+                }else{
+                    this.$router.push('/form/account');
+                }
             }
         }
     }

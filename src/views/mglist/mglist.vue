@@ -21,7 +21,7 @@
                     </div>
                     <div class="center">
                         <div class="total">{{mortgage.currentRepayMoney}}</div>
-                        <div class="total-hd">还款金额</div>
+                        <div class="total-hd">{{mortgage.status==5?'补仓数量':'还款金额'}}</div>
                     </div>
                     <div class="right">
                         <div class="status status-1" :class="{'status-2': mortgage.status==4||mortgage.status==5}">{{mortgage.message}}</div>
