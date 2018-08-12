@@ -1,7 +1,4 @@
 import axios from 'axios';
-import tools from './tools';
-
-const bitkeepId = tools.getCookie('uid') || '300100';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://dmpb.com.cn:6002';
@@ -10,9 +7,9 @@ axios.interceptors.request.use((config) => {
     config.headers['Content-Type'] = 'application/json; charset=utf-8';
     if (config.method == 'get') {
         config.params || (config.params = {});
-        config.params.bitkeepId = bitkeepId;
+        config.params.bitkeepId = CC.userid;
     }else if (config.method == 'post') {
-        config.data.bitkeepId = bitkeepId;
+        config.data.bitkeepId = CC.userid;
     }
     if (config.defaultErrAction === undefined) {
         config.defaultErrAction = true

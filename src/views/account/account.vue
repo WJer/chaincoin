@@ -38,12 +38,13 @@ export default {
 		_next () {
 			const load = this.util.loading('加载中...');
 			this.util.api.post('/registerByPhone', {
-				bitkeepId: '200100',
+				bitkeepId: CC.userid,
 				phone: this.dMobile,
 				code: this.dCode
 			}).then((res) => {
 				load.close();
 				if (res.result) {
+					CC.userid = res.bitkeepId;
 					this.$router.push('/form/borrow');
 				}else{
 					this.util.alert(res.message);

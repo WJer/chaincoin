@@ -36,7 +36,7 @@
                     })
                     res3 && (CC.coins = res3.coins);
                     this.isRun = true;
-                    // this.redirect();
+                    this.redirect();
                 }));
             },
             _getAjax() {
