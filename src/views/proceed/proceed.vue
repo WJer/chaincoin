@@ -7,22 +7,22 @@
 		</div>
 		<div class="form-wrap">
 			<div class="item-wrap">
-				<mt-field label="开户行" placeholder="请输入开户行" v-model="dBank"></mt-field>
+				<g-text label="开户行" placeholder="请输入开户行" v-model="dBank"></g-text>
 			</div>
 			<div class="item-wrap">
-				<mt-field label="开户支行" placeholder="请输入开户支行" v-model="dSubBank"></mt-field>
+				<g-text label="开户支行" placeholder="请输入开户支行" v-model="dSubBank"></g-text>
 			</div>
 			<div class="item-wrap">
-				<mt-field label="银行卡号" placeholder="请输入银行卡号" type="number" v-model="dCard"></mt-field>
+				<g-text label="银行卡号" placeholder="请输入银行卡号" v-model="dCard"></g-text>
 			</div>
 			<div class="item-wrap">
-				<mt-field label="银行卡号确认" placeholder="请输入银行卡号确认" type="number"></mt-field>
+				<g-text label="银行卡号确认" placeholder="请输入银行卡号确认" v-model="dTwoCard"></g-text>
 			</div>
 			<div class="item-wrap">
-				<mt-field label="姓名" placeholder="请输入姓名" v-model="dName"></mt-field>
+				<g-text label="姓名" placeholder="请输入姓名" v-model="dName"></g-text>
 			</div>
 			<div class="item-wrap">
-				<mt-field label="身份证号" placeholder="请输入身份证号" v-model="dIdenCard"></mt-field>
+				<g-text label="身份证号" placeholder="请输入身份证号" v-model="dIdenCard"></g-text>
 			</div>
 		</div>
 		<div class="form-btns">
@@ -38,22 +38,26 @@ export default {
 	},
 	data () {
 		return {
-			dBank: '建设银行',
-			dSubBank: '莲花路建设支行',
-			dCard: 123412341234123,
-			dName: '吴敬',
-			dIdenCard: '142703199403080334'
+			dBank: '',
+			dSubBank: '',
+			dCard: '',
+			dTwoCard: '',
+			dName: '',
+			dIdenCard: ''
 		}
 	},
 	methods: {
 		_next () {
-			const content = [
+			if (!this.validate()) {
+				return;
+			}
+			var content = [
 				`<div>开户行<span style="color: #727391;margin-left: 0.5rem;">${this.dBank}</span></div>`,
 				`<div>开户支行<span style="color: #727391;margin-left: 0.5rem;">${this.dSubBank}</span></div>`,
 				`<div>银行卡号<span style="color: #727391;margin-left: 0.5rem;">${this.dCard}</span></div>`
 			].join('');
-			const title = '请核实并确认以下信息';
-			this.util.confirm_cc(content, title).then(() => {
+			var title = '请核实并确认以下信息';
+			this.util.confirm(content, title).then(() => {
 				const load = this.util.loading('保存中');
 				this.util.api.all([this._getSaveBank(), this._getSaveRealName()]).then((res1, res2) => {
 					load.close();
@@ -83,6 +87,28 @@ export default {
 					identification: this.dIdenCard
 				}
 			})
+		},
+		validate () {
+			if (!this.dBank) {
+				this.util.alert('请输入开户行');
+				return false;
+			}else if (!this.dSubBank) {
+				this.util.alert('请输入开户支行');
+				return false;
+			}else if (!this.dCard) {
+				this.util.alert('请输入银行卡号');
+				return false;
+			}else if(this.dCard != this.dTwoCard) {
+				this.util.alert('两次输入的银行卡号不一致，请重新输入');
+				return false;
+			}else if (!this.dName) {
+				this.util.alert('请输入姓名');
+				return false;
+			}else if (!this.dIdenCard) {
+				this.util.alert('请输入身份证号');
+				return false;
+			}
+			return true;
 		}
 	}
 }

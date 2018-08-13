@@ -141,14 +141,13 @@ export default {
 	methods: {
 		_next () {
 			//todo
-			// if (this._validate()) {
-			// 	if (CC.bank) {
-			// 		this._addMortgage();
-			// 	}else {
-			// 		this._addBackInfo();
-			// 	}
-			// }
-			this._addMortgage();
+			if (this._validate()) {
+				if (CC.bank) {
+					this._addMortgage();
+				}else {
+					this._addBackInfo();
+				}
+			}
 		},
 		_addBackInfo () {
 			this.util.slide({
@@ -212,7 +211,7 @@ export default {
 			})
 		},
 		_openCoupon () {
-			this.util.confirm_cc('<input type="text" class="discount_code">', '请输入优惠劵码').then(() => {
+			this.util.confirm('<input type="text" class="discount_code">', '请输入优惠劵码').then(() => {
 				const dom = document.querySelector('.discount_code');
 				const couponId = dom.value;
 				dom.value = '';
@@ -269,8 +268,8 @@ export default {
 			}else if (!this.dDay || this.dDay == 0) {
 				this.util.alert('请填写抵押时间');
 				return false;
-			}else if (+this.dDay < 30 || +this.dDay > 80) {
-				this.util.alert('抵押时间必须在30天到80天之间');
+			}else if (+this.dDay < this.dMinDay || +this.dDay > this.dMaxDay) {
+				this.util.alert(`抵押时间必须在${this.dMinDay}天到${this.dMaxDay}天之间`);
 				return false;
 			}else if (!this.dAgree) {
 				this.util.alert('请查看并同意借还款规则，并勾选');
@@ -281,7 +280,7 @@ export default {
 		//获取还款计划
 		_fetchPlan () {
 			clearTimeout(this.T1);
-			if (!this.dCurCoin || !this.dCount || +this.dCount < this.dCurCoin.mortgageMinimum || !this.dDay || +this.dDay < 30 || +this.dDay > 80) {
+			if (!this.dCurCoin || !this.dCount || +this.dCount < this.dCurCoin.mortgageMinimum || !this.dDay || +this.dDay < this.dMinDay || +this.dDay > this.dMaxDay) {
 				this.dPlans = [];
 				return;
 			}

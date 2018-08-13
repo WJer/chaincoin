@@ -19,7 +19,8 @@ Vue.component(Field.name, Field);
 Vue.prototype.util = util;
 
 CC.$router = router;
-CC.userid = util.getCookie('uid') || '300100';
+// CC.userid = util.getCookie('uid') || '300100';
+CC.userid = util.getCookie('uid');
 CC.isBitApp = !!CC.userid;
 
 /* eslint-disable no-new */

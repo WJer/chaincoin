@@ -3,6 +3,9 @@
         <mt-button type="primary" size="large" class="btn-next" @click="_borrow">立即借款</mt-button>
         <mt-button type="primary" size="large" v-if="dIsMortgage" @click="_toBorrowList">借款记录</mt-button>
         <mt-button type="primary" size="large" @click="_pay">付款测试11</mt-button>
+        <div class="top-wrap">
+            <div class="icon"></div>
+        </div>
     </div>
 </template>
 <script>
@@ -99,3 +102,21 @@ export default {
     }
 }
 </script>
+<style lang="less" scoped>
+    .page-index {
+        position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #fff;
+    }
+    .top-wrap {
+        height: 248px;
+        .icon {
+            width: 100%;
+            height: 100%;
+            background-image: url('~/assets/images/top.jpg');
+        }
+    }
+</style>
