@@ -27,8 +27,8 @@ export default {
 	},
 	data () {
 		return {
-			dMobile: '18756032534',
-			dCode: '5595',
+			dMobile: '',
+			dCode: '',
 			dCountdown: 0,
 			dCodeBtn: '发送验证码',
 			I: null
