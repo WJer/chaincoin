@@ -64,15 +64,17 @@ export default {
 						if (res1.result) {
 							this._getSaveBank().then((res2) => {
 								load.close();
-								if (res2 && res2.result) {
-									CC.bank = {
-										bankName: this.dBank,
-										bankFilialeName: this.dSubBank,
-										bankAccountNumber: this.dCard
+								if (res2) {
+									if (res2.result) {
+										CC.bank = {
+											bankName: this.dBank,
+											bankFilialeName: this.dSubBank,
+											bankAccountNumber: this.dCard
+										}
+										this.$emit('next');
+									}else{
+										this.util.alert(res2.message);
 									}
-									this.$emit('next');
-								}else{
-									this.util.alert(res2.message);
 								}
 							})
 						}else{
