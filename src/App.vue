@@ -23,7 +23,11 @@
             }
         },
         created () {
-            this._fetch();
+            if (CC.userid) {
+                this._fetch();
+            }else{
+                this.isRun = true;
+            }
         },
         methods: {
             _fetch () {
@@ -46,13 +50,13 @@
                     this.util.api.get('/getAllCoin')
                 ]
             },
-            redirect() {
-                if (CC.userid) {
-                    this.$router.push('/index');
-                }else{
-                    this.$router.push('/form/account');
-                }
-            }
+            // redirect() {
+            //     if (CC.userid) {
+            //         this.$router.push('/index');
+            //     }else{
+            //         this.$router.push('/form/account');
+            //     }
+            // }
         }
     }
 </script>

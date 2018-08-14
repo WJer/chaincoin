@@ -52,7 +52,7 @@ function Slide(opts) {
 		components: opts.component || opts.components,
 		methods: {
 			hide() {
-				this.$refs.comp.hide && this.$refs.comp.hide()
+				this.$refs.comp && this.$refs.comp.hide && this.$refs.comp.hide()
 				this.time && clearInterval(this.time);
 				this.dShow = false;
 			}

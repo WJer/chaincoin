@@ -80,8 +80,7 @@ export default {
             }).then((res) => {
                 if (res && res.result) {
                     this.util.alert('充值成功，等待放款。此处模拟调用');
-                    history.back();
-                    CC.$router.push('/approval');
+                    this.$emit('next');
                 }
             })
         }

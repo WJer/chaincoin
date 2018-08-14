@@ -49,14 +49,19 @@ export default {
 			dBank: bank,
 			dSubBank: subBank,
 			dCard: card,
-			dTwoCard: '',
+			dTwoCard: card,
 			dName: '',
 			dIdenCard: '',
 			dIsSaveP: !CC.bank
 		}
 	},
+	mounted () {
+		if (!this.dIsSaveP) {
+			this._next(null, true);
+		}
+	},
 	methods: {
-		_next () {
+		_next (e, isEdit) {
 			if (!this.validate()) {
 				return;
 			}
@@ -66,19 +71,23 @@ export default {
 				`<div>银行卡号<span style="color: #727391;margin-left: 0.5rem;">${this.dCard}</span></div>`
 			].join('');
 			var title = '请核实并确认以下信息';
-			this.util.confirm(content, title).then(() => {
-				if (this.dIsSaveP) {
-					this._saveRealName(() => {
+			this.util.confirm(content, title, {
+				cancelButtonText: isEdit ? '更改银行卡' : '取消'
+			}).then((action) => {
+				if (action == 'confirm') {
+					if (this.dIsSaveP) {
+						this._saveRealName(() => {
+							this._saveBank(() => {
+								this.$emit('next');
+							})
+						})
+					}else{
 						this._saveBank(() => {
 							this.$emit('next');
 						})
-					})
-				}else{
-					this._saveBank(() => {
-						this.$emit('next');
-					})
+					}
 				}
-			});
+			})
 		},
 		_saveBank (callback) {
 			const load = this.util.loading('保存中');
@@ -89,6 +98,7 @@ export default {
 					cardNumber: this.dCard
 				}
 			}).then((res) => {
+				load.close();
 				if (res) {
 					if (res.result) {
 						CC.bank = {
@@ -99,7 +109,6 @@ export default {
 						callback && callback();
 					}else{
 						this.util.alert(res.message);
-						load.close();
 					}
 				}
 			})
@@ -112,12 +121,12 @@ export default {
 					identification: this.dIdenCard
 				}
 			}).then((res) => {
+				load.close();
 				if (res) {
 					if (res.result) {
 						callback && callback();
 					}else{
 						this.util.alert(res.message);
-						load.close();
 					}
 				}
 			})
@@ -135,10 +144,10 @@ export default {
 			}else if(this.dCard != this.dTwoCard) {
 				this.util.alert('两次输入的银行卡号不一致，请重新输入');
 				return false;
-			}else if (!this.dName) {
+			}else if (this.dIsSaveP && !this.dName) {
 				this.util.alert('请输入姓名');
 				return false;
-			}else if (!this.dIdenCard) {
+			}else if (this.dIsSaveP && !this.dIdenCard) {
 				this.util.alert('请输入身份证号');
 				return false;
 			}

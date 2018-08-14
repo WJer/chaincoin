@@ -169,10 +169,6 @@ export default {
 			})
 		},
 		_addMortgage () {
-			if (!CC.isBitApp) {
-				this._addPay();
-				return;
-			}
 			this.util.slide({
 				context: this,
 				component: {
@@ -202,9 +198,13 @@ export default {
 					coupon: this.dCoupon,
 				},
 				events: {
-					'next': '.hide'
+					'next': 'toApproval.hide'
 				}
 			})
+		},
+		toApproval () {
+			window.history.back();
+			this.$router.push('/approval');
 		},
 		_click (coin) {
 			this.util.getCoinInstantPriceByName(coin.name, (price) => {

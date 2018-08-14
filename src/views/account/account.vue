@@ -27,8 +27,8 @@ export default {
 	},
 	data () {
 		return {
-			dMobile: '',
-			dCode: '',
+			dMobile: '18756032534',
+			dCode: '5595',
 			dCountdown: 0,
 			dCodeBtn: '发送验证码',
 			I: null
@@ -44,8 +44,12 @@ export default {
 			}).then((res) => {
 				load.close();
 				if (res.result) {
-					CC.userid = res.bitkeepId;
-					this.$router.push('/form/borrow');
+					if (!CC.userid) {
+						CC.userid = res.bitkeepId;
+						this._fetch(() => {
+							this.$router.push('/form/borrow');
+						});
+					}
 				}else{
 					this.util.alert(res.message);
 				}
@@ -70,6 +74,26 @@ export default {
 		},
 		beforeDestroy () {
 			clearInterval(this.I);
+		},
+		_fetch (callback) {
+			this.util.api.all(this._getAjax()).then(this.util.api.spread((res1, res2, res3) => {
+				res1 && (CC.settings = res1.settings);
+				res2 && (CC.bank = {
+					bankName: res2.bankName,
+					branchName: res2.branchName,
+					cardNumber: res2.cardNumber
+				})
+				res3 && (CC.coins = res3.coins);
+				callback && callback();
+				// this.redirect();
+			}));
+		},
+		_getAjax() {
+			return [
+				this.util.api.get('/getSettings'),
+				this.util.api.get('/getBankInfo'),
+				this.util.api.get('/getAllCoin')
+			]
 		}
 	}
 }

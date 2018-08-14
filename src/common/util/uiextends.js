@@ -8,8 +8,12 @@ const alert = (message, title) => {
     return mb;
 }
 
-const confirm = (message, title) => {
-    var mb = MessageBox.confirm(message, title);
+const confirm = (message, title, options) => {
+    var mb = MessageBox(Object.assign({
+        title: title,
+        message: message,
+        showCancelButton: true
+    }, options));
     util.addClass(document.querySelector('.mint-msgbox-wrapper'), 'mint-msgbox-wrapper-chaincoin');
     return mb;
 }

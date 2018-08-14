@@ -87,10 +87,18 @@ export default {
         }
     },
     created () {
-        this._fetchIsMortgage();
+        if(CC.userid) {
+            this._fetchIsMortgage();
+        }else {
+
+        }
     },
     methods: {
         _borrow () {
+            if (!CC.userid) {
+                this.$router.push('/form/account');
+                return;
+            }
             this.util.api.get('/isRegistered').then((res) => {
                 if (res.code == 0) {
                     if (res.result) {
@@ -172,7 +180,7 @@ export default {
             } else {
                 this.callApp(method, JSON.stringify(args));
             }
-        },
+        }
     }
 }
 </script>
