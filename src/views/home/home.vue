@@ -5,6 +5,17 @@
         <mt-button type="primary" size="large" @click="_pay">付款测试11</mt-button>
         <div class="top-wrap">
             <div class="icon"></div>
+            <h1>
+                <div>抵押比特币</div>
+                <div>安全借现金</div>
+            </h1>
+            <h2>
+                <div>币金所产品是借款人以持有的数字货币为质押标的，</div>
+                <div>向出资人进行融资的专业数字资产抵押贷款平台</div>
+            </h2>
+        </div>
+        <div class="middle-wrap">
+            <h1>流程极简 当天放款</h1>
         </div>
     </div>
 </template>
@@ -112,11 +123,39 @@ export default {
 		background-color: #fff;
     }
     .top-wrap {
+        position: relative;
         height: 248px;
         .icon {
             width: 100%;
             height: 100%;
-            background-image: url('~/assets/images/top.jpg');
+            background-image: url('/static/images/top.jpg');
+        }
+        h1 {
+            position: absolute;
+            top: 70px;
+            width: 100%;
+            text-align: center;
+            font-size: 26px;
+            line-height: 1.3em;
+            color: #fff;
+        }
+        h2 {
+            position: absolute;
+            top: 150px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.3em;
+            color: #ccd2e7;
+        }
+    }
+    .middle-wrap {
+        h1 {
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 26px;
+            line-height: 1.3em;
         }
     }
 </style>

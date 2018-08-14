@@ -59,15 +59,20 @@ export default {
 			var title = '请核实并确认以下信息';
 			this.util.confirm(content, title).then(() => {
 				const load = this.util.loading('保存中');
-				this.util.api.all([this._getSaveBank(), this._getSaveRealName()]).then((res1, res2) => {
-					load.close();
-					if (res1 && res1.result && res2 && res2.result) {
-						this.$emit('next');
-					}else{
-						this.util.alert('保存失败，请联系管理员！');
+				this._getSaveRealName().then((res1) => {
+					if (res1 && res1.result) {
+						this._getSaveBank().then((res2) => {
+							load.close();
+							if (res2 && res2.result) {
+								this.$emit('next');
+							}else{
+								this.util.alert(res2.message);
+							}
+						})
+					}else {
+						this.util.alert(res1.message);
+						load.close();
 					}
-				}).catch(() => {
-					load.close();
 				})
 			});
 		},

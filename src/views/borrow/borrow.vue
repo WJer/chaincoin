@@ -10,7 +10,7 @@
 				<div class="tip">提示：以下为质押率，是可借金额和数字货币总价值的比值。</div>
 				<div class="coins">
 					<div class="line" v-for="group in cCoins">
-						<div class="coin" :class="{'active': coin.name == dCurCoin.name}" v-for="coin in group" @click="_click(coin)">
+						<div class="coin" :class="{'active': coin.name == dCurCoin.name, 'hide': coin.isHide}" v-for="coin in group" @click="_click(coin)">
 							<i class="icon-btc icon"></i>
 							<div class="coin-label">{{coin.name}}</div>
 							<div class="coin-rate">{{coin.mortgateRate | toPercentage}}</div>
@@ -132,6 +132,13 @@ export default {
 				}
 				result[Math.floor(index/3)].push(coin);
 			});
+			for (var i=0; i<3-this.dCoins.length%3; i++) {
+				result[result.length-1].push({
+					name: 'aaa',
+					mortgageRate: 0,
+					isHide: true
+				});
+			}
 			return result;
 		}
 	},
@@ -406,6 +413,9 @@ export default {
 			background-color: #e3ecff;
 			border: 2px solid #e3ecff;
 			border-radius: 5px;
+			&.hide {
+				visibility: hidden;
+			}
 		}
 		.coin-label {
 			color: #4067e8;
