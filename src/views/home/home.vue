@@ -191,7 +191,7 @@ export default {
         .icon {
             width: 100%;
             height: 100%;
-            background-image: url('/static/images/top.jpg');
+            background-image: url('/lianbi/chaincoin/dist/static/images/top.jpg');
         }
         h1 {
             position: absolute;
@@ -224,7 +224,7 @@ export default {
             width: 100%;
             margin-top: 30px;
             height: 70px;
-            background-image: url('/static/images/approval.jpg');
+            background-image: url('/lianbi/chaincoin/dist/static/images/approval.jpg');
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100% 100%;
@@ -260,7 +260,7 @@ export default {
             width: 187px;
             height: 143px;
             margin: 0 auto;
-            background-image: url('/static/images/mobile.png');
+            background-image: url('/lianbi/chaincoin/dist/static/images/mobile.png');
             background-repeat: no-repeat;
             background-size: 100% 100%;
         }
@@ -277,11 +277,11 @@ export default {
         }
         .arrow1 {
             bottom: -15px;
-            background-image: url('/static/images/arrow1.png');
+            background-image: url('/lianbi/chaincoin/dist/static/images/arrow1.png');
         }
         .arrow2 {
             top: -15px;
-            background-image: url('/static/images/arrow2.png');
+            background-image: url('/lianbi/chaincoin/dist/static/images/arrow2.png');
         }
     }
     .team-wrap {
@@ -382,25 +382,25 @@ export default {
         border-radius: 0;
     }
     .profile1 {
-        background-image: url('/static/images/1.png');
+        background-image: url('/lianbi/chaincoin/dist/static/images/1.png');
     }
     .profile2 {
-        background-image: url('/static/images/2.png');
+        background-image: url('/lianbi/chaincoin/dist/static/images/2.png');
     }
     .profile3 {
-        background-image: url('/static/images/3.png');
+        background-image: url('/lianbi/chaincoin/dist/static/images/3.png');
     }
     .profile4 {
-        background-image: url('/static/images/4.png');
+        background-image: url('/lianbi/chaincoin/dist/static/images/4.png');
     }
     .profile5 {
-        background-image: url('/static/images/5.png');
+        background-image: url('/lianbi/chaincoin/dist/static/images/5.png');
     }
     .profile6 {
-        background-image: url('/static/images/6.png');
+        background-image: url('/lianbi/chaincoin/dist/static/images/6.png');
     }
     .profile7 {
-        background-image: url('/static/images/7.png');
+        background-image: url('/lianbi/chaincoin/dist/static/images/7.png');
     }
     
 </style>
