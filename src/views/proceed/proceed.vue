@@ -103,8 +103,8 @@ export default {
 					if (res.result) {
 						CC.bank = {
 							bankName: this.dBank,
-							bankFilialeName: this.dSubBank,
-							bankAccountNumber: this.dCard
+							branchName: this.dSubBank,
+							cardNumber: this.dCard
 						}
 						callback && callback();
 					}else{

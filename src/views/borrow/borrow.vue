@@ -204,7 +204,10 @@ export default {
 		},
 		toApproval () {
 			window.history.back();
-			this.$router.push('/approval');
+			setTimeout(() => {
+				this.$router.push('/approval');
+			}, 200)
+			
 		},
 		_click (coin) {
 			this.util.getCoinInstantPriceByName(coin.name, (price) => {
