@@ -86,7 +86,7 @@
       },
       pullUpLoad: {
         type: Boolean,
-        default: true
+        default: false
       },
       pullUpLoadThreshold: {
         type: Number,
