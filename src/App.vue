@@ -47,7 +47,7 @@
                 ]
             },
             redirect() {
-                if (this.util.getCookie('uid')) {
+                if (CC.userid) {
                     this.$router.push('/index');
                 }else{
                     this.$router.push('/form/account');

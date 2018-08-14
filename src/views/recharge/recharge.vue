@@ -51,11 +51,11 @@ export default {
     },
     mounted () {
         var clipboard = new ClipboardJS('.btn-copy');
-        clipboard.on('success', function(e) {
+        clipboard.on('success', (e) => {
             console.info('Action:', e.action);
             console.info('Text:', e.text);
             console.info('Trigger:', e.trigger);
-        
+            this.util.alert('复制成功！');
             e.clearSelection();
         });
         clipboard.on('error', function(e) {

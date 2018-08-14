@@ -19,8 +19,10 @@ Vue.component(Field.name, Field);
 Vue.prototype.util = util;
 
 CC.$router = router;
-// CC.userid = util.getCookie('uid') || '300100';
 CC.userid = util.getCookie('uid');
+if (location.href.indexOf('debug=1')) {
+	CC.userid = '19824';
+}
 CC.isBitApp = !!CC.userid;
 
 /* eslint-disable no-new */

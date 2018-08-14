@@ -184,7 +184,7 @@ export default {
         }
         .rage-hd,
         .time-hd {
-            font-weight: bold;
+            // font-weight: bold;
             color: #8e96a5;
             margin-top: 9px;
             text-align: center;
