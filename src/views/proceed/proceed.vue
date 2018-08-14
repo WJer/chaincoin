@@ -18,10 +18,10 @@
 			<div class="item-wrap">
 				<g-text label="银行卡号确认" placeholder="请输入银行卡号确认" v-model="dTwoCard"></g-text>
 			</div>
-			<div class="item-wrap">
+			<div class="item-wrap" v-if="dIsSaveP">
 				<g-text label="姓名" placeholder="请输入姓名" v-model="dName"></g-text>
 			</div>
-			<div class="item-wrap">
+			<div class="item-wrap" v-if="dIsSaveP">
 				<g-text label="身份证号" placeholder="请输入身份证号" v-model="dIdenCard"></g-text>
 			</div>
 		</div>
@@ -37,13 +37,22 @@ export default {
 		inputcell
 	},
 	data () {
+		var bank = '';
+		var subBank = '';
+		var card = '';
+		if (CC.bank) {
+			bank = CC.bank.bankName;
+			subBank = CC.bank.branchName;
+			card = CC.bank.cardNumber;
+		}
 		return {
-			dBank: '',
-			dSubBank: '',
-			dCard: '',
+			dBank: bank,
+			dSubBank: subBank,
+			dCard: card,
 			dTwoCard: '',
 			dName: '',
-			dIdenCard: ''
+			dIdenCard: '',
+			dIsSaveP: !CC.bank
 		}
 	},
 	methods: {
@@ -58,47 +67,58 @@ export default {
 			].join('');
 			var title = '请核实并确认以下信息';
 			this.util.confirm(content, title).then(() => {
-				const load = this.util.loading('保存中');
-				this._getSaveRealName().then((res1) => {
-					if (res1) {
-						if (res1.result) {
-							this._getSaveBank().then((res2) => {
-								load.close();
-								if (res2) {
-									if (res2.result) {
-										CC.bank = {
-											bankName: this.dBank,
-											bankFilialeName: this.dSubBank,
-											bankAccountNumber: this.dCard
-										}
-										this.$emit('next');
-									}else{
-										this.util.alert(res2.message);
-									}
-								}
-							})
-						}else{
-							this.util.alert(res1.message);
-							load.close();
-						}
-					}
-				})
+				if (this.dIsSaveP) {
+					this._saveRealName(() => {
+						this._saveBank(() => {
+							this.$emit('next');
+						})
+					})
+				}else{
+					this._saveBank(() => {
+						this.$emit('next');
+					})
+				}
 			});
 		},
-		_getSaveBank () {
-			return this.util.api.get('/saveOrUpdateBankInfo', {
+		_saveBank (callback) {
+			const load = this.util.loading('保存中');
+			this.util.api.get('/saveOrUpdateBankInfo', {
 				params: {
 					bankName: this.dBank,
 					branchName: this.dSubBank,
 					cardNumber: this.dCard
 				}
+			}).then((res) => {
+				if (res) {
+					if (res.result) {
+						CC.bank = {
+							bankName: this.dBank,
+							bankFilialeName: this.dSubBank,
+							bankAccountNumber: this.dCard
+						}
+						callback && callback();
+					}else{
+						this.util.alert(res.message);
+						load.close();
+					}
+				}
 			})
 		},
-		_getSaveRealName () {
-			return this.util.api.get('/saveRealName', {
+		_saveRealName (callback) {
+			const load = this.util.loading('保存中');
+			this.util.api.get('/saveRealName', {
 				params: {
 					name: this.dName,
 					identification: this.dIdenCard
+				}
+			}).then((res) => {
+				if (res) {
+					if (res.result) {
+						callback && callback();
+					}else{
+						this.util.alert(res.message);
+						load.close();
+					}
 				}
 			})
 		},

@@ -149,11 +149,12 @@ export default {
 		_next () {
 			//todo
 			if (this._validate()) {
-				if (CC.bank) {
-					this._addMortgage();
-				}else {
-					this._addBackInfo();
-				}
+				// if (CC.bank) {
+				// 	this._addMortgage();
+				// }else {
+				// 	this._addBackInfo();
+				// }
+				this._addBackInfo();
 			}
 		},
 		_addBackInfo () {

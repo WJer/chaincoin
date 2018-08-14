@@ -1,8 +1,5 @@
 <template>
     <div class="page-index">
-        <mt-button type="primary" size="large" class="btn-next" @click="_borrow">立即借款</mt-button>
-        <mt-button type="primary" size="large" v-if="dIsMortgage" @click="_toBorrowList">借款记录</mt-button>
-        <mt-button type="primary" size="large" @click="_pay">付款测试11</mt-button>
         <div class="top-wrap">
             <div class="icon"></div>
             <h1>
@@ -17,6 +14,27 @@
         <div class="middle-wrap">
             <h1>流程极简 当天放款</h1>
         </div>
+        <div class="team-wrap">
+            <div class="g-flex">
+                <div class="g-flex_item member">
+                    <img />
+                    <div class="name">22</div>
+                    <div class="desc">22222222222222222222222222222222222222222222</div>
+                </div>
+                <div class="g-flex_item member">
+                    <img />
+                    <div class="name">22</div>
+                    <div class="desc">2222</div>
+                </div>
+                <div class="g-flex_item member">
+                    <img />
+                    <div class="name">22</div>
+                    <div class="desc">2222</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-wrap"><a href="javascript:;">了解借款详细规则</a> | 客服电话：15623456690</div>
+        <mt-button type="primary" size="large" class="btn-next" @click="_borrow">我要借款</mt-button>
     </div>
 </template>
 <script>
@@ -157,5 +175,30 @@ export default {
             font-size: 26px;
             line-height: 1.3em;
         }
+    }
+    .team-wrap {
+        width: 100%;
+        .member {
+            margin: 0 10px;
+            text-align: center;
+        }
+        .name {
+            font-size: 16px;
+        }
+        .desc {
+            font-size: 12px;
+            line-height: 16px;
+        }
+    }
+    .bottom-wrap {
+        font-size: 12px;
+        line-height: 24px;
+        text-align: center;
+        a {
+            color: #5d82ff;
+        }
+    }
+    .btn-next {
+        border-radius: 0;
     }
 </style>

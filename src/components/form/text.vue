@@ -63,7 +63,7 @@ export default {
             line-height: 1.6;
         }
         .mint-cell-title {
-            width: 70px;
+            width: 80px;
         }
         .mint-cell-wrapper {
             background-position: bottom left;
