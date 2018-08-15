@@ -31,10 +31,10 @@
                 </div>
                 <div v-if="dList.length==0" class="g-nodata">暂无抵押记录</div>
             </ul>
-            <div class="form-btns">
-                <mt-button type="primary" size="large" class="btn-pledge" @click="_pledge">抵押</mt-button>
-            </div>
         </cc-scroll>
+        <div class="form-btns">
+            <mt-button type="primary" size="large" class="btn-pledge" @click="_pledge">立即借款</mt-button>
+        </div>
     </div>
 </template>
 <script>
@@ -119,7 +119,7 @@ export default {
         top: 103px;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 70px;
         height: auto;
     }
     .list {
@@ -201,6 +201,10 @@ export default {
         }
     }
     .form-btns {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        box-sizing: border-box;
         padding: 17px 20px!important;
     }
 </style>

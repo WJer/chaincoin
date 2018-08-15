@@ -1,12 +1,12 @@
 <template>
 	<div class="page-borrow">
 		<div class="form-wrap">
-			<div class="line-wrap">
-				<div class="line"></div>
-				<div class="text">抵押数量与时间</div>
-				<div class="line"></div>
-			</div>
 			<cc-scroll :pullUpLoad="false" :pullDownRefresh="false" class="page-scroll" ref="scroll">
+				<div class="line-wrap">
+					<div class="line"></div>
+					<div class="text">抵押数量与时间</div>
+					<div class="line"></div>
+				</div>
 				<div class="tip">提示：以下为质押率，是可借金额和数字货币总价值的比值。</div>
 				<div class="coins">
 					<div class="line" v-for="group in cCoins">
@@ -372,7 +372,7 @@ export default {
 		background-color: #fff;
 		.page-scroll {
 			position: absolute;
-			top: 50px;
+			top: 0;
 			left: 20px;
 			right: 20px;
 			bottom: 0;
@@ -461,7 +461,7 @@ export default {
 				font-size: 12px;
 			}
 			.total-tit {
-				line-height: 20px;
+				line-height: 30px;
 				font-size: 12px;
 				color: #8e96a5;
 			}

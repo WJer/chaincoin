@@ -1,5 +1,6 @@
 <template>
-    <cc-scroll :pullDownRefresh="false" :pullup="false" class="page-index" ref="scroll">
+    <div class="page-index">
+    <cc-scroll :pullDownRefresh="false" :pullup="false" class="page-scroll" ref="scroll">
         <div class="top-wrap">
             <div class="icon"></div>
             <h1>
@@ -69,7 +70,9 @@
                 </div>
             </div>
         </div>
-        <div class="bottom-wrap"><a href="javascript:;">了解借款详细规则</a> | 客服电话：15623456690</div>
+    </cc-scroll>
+    <div class="bottom">
+         <div class="bottom-wrap"><a href="javascript:;">了解借款详细规则</a> | 客服电话：15623456690</div>
         <div class="g-flex btn-wrap" v-if="dIsMortgage">
             <mt-button type="primary g-btn-thin" size="large" class="btn-next" @click="_list">查看记录</mt-button>
             <mt-button type="primary" size="large" class="btn-next" @click="_borrow">我要借款</mt-button>
@@ -77,7 +80,8 @@
         <div class="g-flex btn-wrap" v-else>
             <mt-button type="primary" size="large" class="btn-next" @click="_borrow">我要借款</mt-button>
         </div>
-    </cc-scroll>
+    </div>
+    </div>
 </template>
 <script>
 export default {
@@ -186,11 +190,17 @@ export default {
 </script>
 <style lang="less" scoped>
     .page-index {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    .page-scroll {
         position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
-		bottom: 0;
+        bottom: 75px;
+        height: auto;
 		background-color: #fff;
     }
     .top-wrap {
@@ -200,6 +210,7 @@ export default {
             width: 100%;
             height: 100%;
             background-image: url('/lianbi/chaincoin/dist/static/images/top.jpg');
+            background-size: 100%;
         }
         h1 {
             position: absolute;
@@ -294,7 +305,7 @@ export default {
     }
     .team-wrap {
         width: 100%;
-        margin-bottom: 30px;
+        padding-bottom: 30px;
     }
     .four-members {
         padding: 0 20px;
@@ -388,6 +399,11 @@ export default {
     }
     .btn-next {
         border-radius: 0;
+    }
+    .bottom {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
     }
     .profile1 {
         background-image: url('/lianbi/chaincoin/dist/static/images/1.png');
