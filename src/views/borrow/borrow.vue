@@ -24,7 +24,7 @@
 				<div class="item-wrap">
 					<g-text label="抵押时间" :placeholder="`${dMinDay}天至${dMaxDay}天`" v-model="dDay" @input="_inputInDay"></g-text>
 				</div>
-				<div class="item-wrap">
+				<div class="item-wrap coupon-wrap">
 					<g-text label="优惠券码" placeholder="请输入优惠券" v-model="dCoupon" @input="_inputCoupon"></g-text>
 					<div v-if="!dRate">
 						<div class="btn-coupon" v-if="dCouponRate" @click="_useCoupon">立即使用</div>
@@ -145,6 +145,9 @@ export default {
 	created () {
 		CC.header.toggleList(true);
 	},
+	mounted () {
+		document.querySelector('.coupon-wrap input').setAttribute('maxlength', 10);
+	},
 	methods: {
 		_next () {
 			//todo
@@ -169,6 +172,10 @@ export default {
 			})
 		},
 		_addMortgage () {
+			if (!CC.isBitApp) {
+				this._addPay();
+				return;
+			}
 			this.util.slide({
 				context: this,
 				component: {
@@ -207,7 +214,6 @@ export default {
 			setTimeout(() => {
 				this.$router.push('/approval');
 			}, 200)
-			
 		},
 		_click (coin) {
 			this.util.getCoinInstantPriceByName(coin.name, (price) => {
@@ -253,7 +259,7 @@ export default {
 			this._fetchPlan();
 		},
 		_inputCoupon () {
-			const max = 9;
+			const max = 10;
 			// if (this.dCoupon.length > 9) {
 			// 	this.dCoupon = this.dCoupon.slice(0, 9);
 			// 	return;

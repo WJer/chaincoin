@@ -4,7 +4,7 @@
 			<div class="g-line"></div>
 		</div>
 		<div class="form-wrap">
-			<g-text label="收货地址" :readonly="true" v-model="dCoin.address"></g-text>
+			<g-text label="收币地址" :readonly="true" v-model="dCoin.address"></g-text>
 			<g-text label="数量" :readonly="true" v-model="dCount"></g-text>
 			<!-- <g-radio :options="dOptions" v-model="dChecked"></g-radio> -->
 			<div class="form-btns">
