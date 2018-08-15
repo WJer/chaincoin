@@ -12,8 +12,6 @@ import VConsole from 'vconsole/dist/vconsole.min.js' //import vconsole
 
 new VConsole()
 
-alert(233);
-
 Vue.config.productionTip = false
 Vue.component(Header.name, Header);
 Vue.component(Button.name, Button);
