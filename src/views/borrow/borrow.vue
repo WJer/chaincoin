@@ -212,10 +212,26 @@ export default {
 			})
 		},
 		toApproval () {
-			window.history.back();
-			setTimeout(() => {
-				this.$router.push('/approval');
-			}, 200)
+			this.util.api.get('/saveMortgage', {
+                params: {
+                    coin: this.dCurCoin.name,
+                    coinNumber: this.dCount,
+                    cycle: this.dDay,
+                    money: this.dMoney,
+					rate: this.dCurRate,
+                    exponent: this.dCurCoin.price,
+					couponId: this.dCoupon,
+                    mortgageRate: this.dCurCoin.mortgateRate, //质押率
+                    address: this.dCurCoin.address
+                }
+            }).then((res) => {
+                if (res && res.result) {
+					window.history.back();
+					setTimeout(() => {
+						this.$router.push('/approval');
+					}, 200)
+                }
+            })
 		},
 		_click (coin) {
 			this.util.getCoinInstantPriceByName(coin.name, (price) => {

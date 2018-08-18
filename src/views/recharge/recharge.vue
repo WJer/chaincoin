@@ -65,24 +65,7 @@ export default {
     },
     methods: {
         _complete () {
-            this.util.api.get('/saveMortgage', {
-                params: {
-                    coin: this.coin.name,
-                    coinNumber: this.count,
-                    cycle: this.cycle,
-                    money: this.money,
-                    rate: this.rate,
-                    exponent: this.coin.price,
-                    couponId: this.coupon,
-                    mortgageRate: this.coin.mortgateRate,
-                    address: this.coin.address
-                }
-            }).then((res) => {
-                if (res && res.result) {
-                    this.util.alert('充值成功，等待放款。此处模拟调用');
-                    this.$emit('next');
-                }
-            })
+            this.$emit('next');
         }
     }
 }

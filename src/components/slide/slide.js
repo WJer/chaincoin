@@ -1,22 +1,21 @@
 import Vue from 'vue'
 import './slide.less'
 
-window.onpopstate = function (e) {
-	if (CC._slides.length) {
-		CC.popSlide();
-	}
-}
-
-function pushSlide (slide) {
+var pushSlide = function (slide) {
 	CC._slides || (CC._slides = []);
 	CC._slides.push(slide);
-	window.history.pushState(null, '', '#')
+	window.history.pushState(null, null, '/#/crmslide/' + new Date().getTime());
 }
 
-CC.popSlide = () => {
-	var slide = CC._slides.pop();
-	slide && (slide.hide())
-	window.history.back();
+var popSlide = function() {
+	let slide = CC._slides.pop();
+	if (!slide) {
+		return;
+	}
+	slide.comp.hide();
+	if (!CC._slides.length) {
+		window.removeEventListener('popstate', popSlide);
+	}
 }
 
 function Slide(opts) {
@@ -82,12 +81,15 @@ function Slide(opts) {
 	})
 	var comp = new Comp();
 	this.comp = comp;
-	pushSlide(this);
+	setTimeout(() => {
+        CC._slides.length || window.addEventListener('popstate', popSlide);
+        pushSlide(this);
+    }, 50)
 	document.body.appendChild(comp.$mount().$el);
 }
 
 Slide.prototype.hide = function() {
-	this.comp.hide();
+	history.back();
 }
 
 export default Slide;

@@ -34,13 +34,7 @@ export default {
     },
     methods: {
         _back () {
-            if (CC._slides.length) {
-                CC.popSlide();
-            }else{
-                if (this.$route.name !== 'index') {
-                    history.back();
-                }
-            }
+            window.history.back();
         },
         _toList () {
             this.$router.push('/mglist');

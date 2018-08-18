@@ -14,6 +14,7 @@
 	</div>
 </template>
 <script>
+import calljs from '@/common/jshost'
 export default {
 	props: {
 		coin: {
@@ -47,7 +48,44 @@ export default {
 	},
 	methods: {
 		_next () {
-			this.$emit('next');
+			const load = this.util.loading('加载中');
+			this._fetchSign((orderId, hash) => {
+				calljs('actionP', {
+					'contract': this.coin.name,
+					'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
+					'amount': 1,
+					'coin': this.coin.name,
+					'orderId': orderId,
+					'userId': CC.userid,
+					'fee': 0,
+					'from': '', //自己的钱包地址,怎么获取？
+					'to': this.coin.address,
+					"note": "",
+					"sign": "",
+					"title": "",
+					"hash": hash
+				}, (err,response) => {
+					load.close();
+					if (err) {
+						this.util.alert(JSON.stringify(err));
+						return;
+					}
+					this.$emit('next');
+				});
+			});
+		},
+		_fetchSign (callback) {
+			const orderId = +new Date();
+			this.util.api.get('/createSign', {
+				params: {
+					amount: this.count,
+					coin: this.coin.name,
+					orderId: orderId,
+					userId: CC.userid
+				}
+			}).then((res) => {
+				callback && callback(orderId, res.hash);
+			})
 		}
 	}
 }

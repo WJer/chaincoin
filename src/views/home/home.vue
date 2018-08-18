@@ -80,7 +80,6 @@
             <router-link to="/form/borrow" tag="div" class="g-flex_item">
                 <mt-button type="primary" size="large">我要借款</mt-button>
             </router-link>
-            <mt-button type="primary" size="large" @click="_pay">我要借款</mt-button>
         </div>
     </div>
     </div>
@@ -95,7 +94,11 @@ export default {
     },
     created () {
         this._fetchIsMortgage();
-        this._fetchInfos();
+        if (!CC.coins) {
+            this._fetchInfos();
+        }else{
+            this.dIsFetch = true;
+        }
     },
     methods: {
         _fetchInfos () {
@@ -395,7 +398,7 @@ export default {
             color: #5d82ff;
         }
     }
-    .btn-next {
+    .mint-button {
         border-radius: 0;
     }
     .bottom {

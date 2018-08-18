@@ -4,8 +4,7 @@
             <cc-header :isBack="true"></cc-header>
         </div>
         <div class="app-bd">
-            <!-- <router-view v-if="isRun"/> -->
-            <div @click="_pay">运行</div>
+            <router-view v-if="isRun"/>
         </div>
     </div>
 </template>
@@ -20,25 +19,25 @@
         name: 'App',
         data () {
             return {
-                isRun: false,
-                jMessageCallbacks: {}
+                isRun: false
             }
         },
         mounted () {
-            // if (CC.isBitApp) {
-            //     this.util.api.get('/isRegistered').then((res) => {
-            //         if (res.code == 0) {
-            //             if (res.result) {
-            //                 this.$router.push('/index');
-            //             }else {
-            //                 this.$router.push('/form/account');
-            //             }
-            //         }
-            //     })
-            // }else{
-            //     this.$router.push('/form/account');
-            //     this.isRun = true;
-            // }
+            if (CC.isBitApp) {
+                this.util.api.get('/isRegistered').then((res) => {
+                    if (res.code == 0) {
+                        this.isRun = true;
+                        if (res.result) {
+                            this.$router.push('/index');
+                        }else {
+                            this.$router.push('/form/account');
+                        }
+                    }
+                })
+            }else{
+                this.$router.push('/form/account');
+                this.isRun = true;
+            }
         },
         methods: {
             _pay () {
@@ -76,36 +75,6 @@
                     }
                     console.log(JSON.stringify(response));
                 });
-            },
-            jhost(){
-                if(arguments.length < 1){
-                    return;
-                }
-                var method = arguments[0];
-                var args = [];
-                for(var i = 1; i < arguments.length; i++) {
-                    if(arguments[i] instanceof Function){
-                        this.jMessageCallbacks[method] = arguments[i];
-                    } else {
-                        args.push(arguments[i]);
-                    }
-                }
-                if(window.JSHost){
-                    window.JSHost[method].apply(this, args);
-                } else {
-                    this.callApp(method, JSON.stringify(args));
-                }
-            },
-            callApp(cmd, data) {
-                var param = {
-                    cmd: cmd,
-                    data: data
-                }
-                if (window.webkit && window.webkit.messageHandlers) {
-                    window.webkit.messageHandlers.JSHost.postMessage(param);
-                } else {
-                    // console.log('No JSHost for:'+JSON.stringify(param));
-                }
             }
         }
     }
