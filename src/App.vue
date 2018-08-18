@@ -22,42 +22,21 @@
                 isRun: false
             }
         },
-        created () {
-            if (CC.userid) {
-                this._fetch();
+        mounted () {
+            if (CC.isBitApp) {
+                this.util.api.get('/isRegistered').then((res) => {
+                    if (res.code == 0) {
+                        if (res.result) {
+                            this.$router.push('/index');
+                        }else {
+                            this.$router.push('/form/account');
+                        }
+                    }
+                })
             }else{
+                this.$router.push('/form/account');
                 this.isRun = true;
             }
-        },
-        methods: {
-            _fetch () {
-                this.util.api.all(this._getAjax()).then(this.util.api.spread((res1, res2, res3) => {
-                    res1 && (CC.settings = res1.settings);
-                    res2 && (CC.bank = {
-                        bankName: res2.bankName,
-                        branchName: res2.branchName,
-                        cardNumber: res2.cardNumber
-                    })
-                    res3 && (CC.coins = res3.coins);
-                    this.isRun = true;
-                    // this.redirect();
-                    this.$router.push('/index');
-                }));
-            },
-            _getAjax() {
-                return [
-                    this.util.api.get('/getSettings'),
-                    this.util.api.get('/getBankInfo'),
-                    this.util.api.get('/getAllCoin')
-                ]
-            },
-            // redirect() {
-            //     if (CC.userid) {
-            //         this.$router.push('/index');
-            //     }else{
-            //         this.$router.push('/form/account');
-            //     }
-            // }
         }
     }
 </script>

@@ -132,12 +132,14 @@ export default {
 				}
 				result[Math.floor(index/3)].push(coin);
 			});
-			for (var i=0; i<3-this.dCoins.length%3; i++) {
-				result[result.length-1].push({
-					name: 'aaa',
-					mortgageRate: 0,
-					isHide: true
-				});
+			if (this.dCoins.length%3!=0) {
+				for (var i=0; i<3-this.dCoins.length%3; i++) {
+					result[result.length-1].push({
+						name: 'aaa',
+						mortgageRate: 0,
+						isHide: true
+					});
+				}
 			}
 			return result;
 		}
@@ -150,13 +152,7 @@ export default {
 	},
 	methods: {
 		_next () {
-			//todo
 			if (this._validate()) {
-				// if (CC.bank) {
-				// 	this._addMortgage();
-				// }else {
-				// 	this._addBackInfo();
-				// }
 				this._addBackInfo();
 			}
 		},
@@ -167,7 +163,13 @@ export default {
 					'detail' : () => import('@/views/proceed')
 				},
 				events: {
-					'next': '_addMortgage.hide'
+					'next': function (){
+						if (CC.isBitApp && this.dCurCoin.transfer == 1) {
+							this._addMortgage();
+						}else{
+							this._addPay();
+						}
+					}
 				}
 			})
 		},
@@ -186,7 +188,7 @@ export default {
 					count: this.dCount * 1
 				},
 				events: {
-					'next': '_addPay.hide'
+					'next': 'toApproval.hide'
 				}
 			})
 		},

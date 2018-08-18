@@ -31,10 +31,10 @@ function Slide(opts) {
 	let sevents = {}; //默认监听设置头部菜单事件。
 	for (k in opts.events) {
 		v = opts.events[k];
-		if(!v) return;
+		if(!v) continue;
 		if(typeof v == 'function') { //支持传入函数而不是函数名
 			events[k] = v;
-			return;
+			continue;
 		}
 		let vv = v.split('.');
 		events[k] = vv[0];

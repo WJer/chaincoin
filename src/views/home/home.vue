@@ -15,7 +15,7 @@
         <div class="middle1-wrap">
             <h1>流程极简 当天放款</h1>
             <div class="img"></div>
-            <div class="btn" @click="_borrow">立即填写信息</div>
+            <router-link to="/form/borrow" tag="div" class="btn" v-if="dIsFetch">立即填写信息</router-link>
         </div>
         <div class="middle2-wrap">
             <h1>安全存管 无惧丢币</h1>
@@ -72,14 +72,15 @@
         </div>
     </cc-scroll>
     <div class="bottom">
-         <div class="bottom-wrap"><a href="javascript:;">了解借款详细规则</a> | 客服电话：15623456690</div>
-        <div class="g-flex btn-wrap" v-if="dIsMortgage">
-            <mt-button type="primary g-btn-thin" size="large" class="btn-next" @click="_list">查看记录</mt-button>
-            <mt-button type="primary" size="large" class="btn-next" @click="_borrow">我要借款</mt-button>
-        </div>
-        <div class="g-flex btn-wrap" v-else>
-            <mt-button type="primary" size="large" class="btn-next" @click="_borrow">我要借款</mt-button>
-            <mt-button type="primary" size="large" class="btn-next" @click="_pay">支付</mt-button>
+        <div class="bottom-wrap"><a href="javascript:;">了解借款详细规则</a> | 客服电话：15623456690</div>
+        <div class="g-flex btn-wrap" v-if="dIsFetch">
+            <router-link to="/mglist" tag="div" class="g-flex_item" v-if="dIsMortgage">
+                <mt-button type="primary" size="large" class="g-btn-thin">查看记录</mt-button>
+            </router-link>
+            <router-link to="/form/borrow" tag="div" class="g-flex_item">
+                <mt-button type="primary" size="large">我要借款</mt-button>
+            </router-link>
+            <mt-button type="primary" size="large" @click="_pay">我要借款</mt-button>
         </div>
     </div>
     </div>
@@ -88,38 +89,34 @@
 export default {
     data () {
         return {
-            dIsMortgage: false
+            dIsMortgage: false,
+            dIsFetch: false
         }
     },
     created () {
-        if(CC.userid) {
-            this._fetchIsMortgage();
-        }else {
-
-        }
+        this._fetchIsMortgage();
+        this._fetchInfos();
     },
     methods: {
-        _borrow () {
-            if (!CC.userid) {
-                this.$router.push('/form/account');
-                return;
-            }
-            this.util.api.get('/isRegistered').then((res) => {
-                if (res.code == 0) {
-                    if (res.result) {
-                        this.$router.push('/form/borrow');
-                    }else {
-                        this.$router.push('/form/account');
-                    }
-                }
-            })
+        _fetchInfos () {
+            this.util.api.all(this._getAjax()).then(this.util.api.spread((res1, res2, res3) => {
+				res1 && (CC.settings = res1.settings);
+				res2 && (CC.bank = {
+					bankName: res2.bankName,
+					branchName: res2.branchName,
+					cardNumber: res2.cardNumber
+				})
+                res3 && (CC.coins = res3.coins);
+                this.dIsFetch = true;
+			}));
         },
-        _list () {
-            this.$router.push('/mglist');
-        },
-        _toBorrowList () {
-            this.$router.push('/mglist');
-        },
+        _getAjax() {
+			return [
+				this.util.api.get('/getSettings'),
+				this.util.api.get('/getBankInfo'),
+				this.util.api.get('/getAllCoin')
+			]
+		},
         _fetchIsMortgage () {
             this.util.api.get('/hasMortgage', {
                 data: {
