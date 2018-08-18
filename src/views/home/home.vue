@@ -79,6 +79,7 @@
         </div>
         <div class="g-flex btn-wrap" v-else>
             <mt-button type="primary" size="large" class="btn-next" @click="_borrow">我要借款</mt-button>
+            <mt-button type="primary" size="large" class="btn-next" @click="_pay">支付</mt-button>
         </div>
     </div>
     </div>
