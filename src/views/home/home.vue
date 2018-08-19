@@ -27,7 +27,15 @@
             <div class="arrow1"></div>
             <div class="arrow2"></div>
         </div>
-        <div class="team-wrap">
+        <div class="sponsor-wrap">
+            <h1>权威背景 安全可靠</h1>
+            <h2>
+                <div>币金所由A股上市公司投资成立，星耀资本、屹立资本等一线</div>
+                <div>投资机构参与，创始团队的投行和金融借贷经验丰富</div>
+            </h2>
+            <div class="sponsor"></div>
+        </div>
+        <div class="team-wrap" v-if="false">
             <div class="team-hd">创始人团队</div>
             <div class="four-members">
                 <div class="member">
@@ -74,12 +82,14 @@
     <div class="bottom">
         <div class="bottom-wrap"><a href="javascript:;">了解借款详细规则</a> | 客服电话：15623456690</div>
         <div class="g-flex btn-wrap" v-if="dIsFetch">
-            <router-link to="/mglist" tag="div" class="g-flex_item" v-if="dIsMortgage">
+            <!-- <router-link to="/mglist" tag="div" class="g-flex_item" v-if="dIsMortgage">
                 <mt-button type="primary" size="large" class="g-btn-thin">查看记录</mt-button>
             </router-link>
             <router-link to="/form/borrow" tag="div" class="g-flex_item">
                 <mt-button type="primary" size="large">我要借款</mt-button>
-            </router-link>
+            </router-link> -->
+            <mt-button type="primary" size="large" class="g-btn-thin" v-if="dIsMortgage">查看记录</mt-button>
+            <mt-button type="primary" size="large" @click="_borrow">我要借款</mt-button>
         </div>
     </div>
     </div>
@@ -101,7 +111,7 @@ export default {
         }
     },
     methods: {
-        _fetchInfos () {
+        _fetchInfos (cb) {
             this.util.api.all(this._getAjax()).then(this.util.api.spread((res1, res2, res3) => {
 				res1 && (CC.settings = res1.settings);
 				res2 && (CC.bank = {
@@ -111,6 +121,7 @@ export default {
 				})
                 res3 && (CC.coins = res3.coins);
                 this.dIsFetch = true;
+                cb && cb();
 			}));
         },
         _getAjax() {
@@ -131,59 +142,24 @@ export default {
                 }
             })
         },
-        _pay () {
-            // const time = +new Date();
-            // this.util.api.get('/createSign', {
-            //     params: {
-            //         amount: 10,
-            //         coin: 'eth',
-            //         orderId: time,
-            //         userId: CC.userid
-            //     }
-            // }).then((res) => {
-            //     console.log(res);
-            //     console.log(+new Date());
-            // })
-            this.jhost('actionP', JSON.stringify({
-                'contract': 'ETH',
-                'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
-                'amount': 1,
-                'coin': 'ETH',
-                'orderId': 1533899172238,
-                'userId': CC.userid,
-                'fee': 0,
-                'from': '',
-                'to': '0x9182b2e0d40C7bFC3c08C73636d7bdb08bB5B32b',
-                "note": "备注信息",
-                "sign": "",
-                "title": "主题信息",
-                "hash": '187071afbcb137e22743d8a050a1044d992edf2fa107871f66c2fb0f4ecf72ea'
-            }), function(err,response){
-                if (err) {
-                    console.log(JSON.stringify(err));
-                    console.log(JSON.stringify(response));
-                    return;
-                }
-                console.log(JSON.stringify(response));
-            });
-        },
-        jhost(){
-            if(arguments.length < 1){
-                return;
-            }
-            var method = arguments[0];
-            var args = [];
-            for(var i = 1; i < arguments.length; i++) {
-                if(arguments[i] instanceof Function){
-                    this.jMessageCallbacks[method] = arguments[i];
-                } else {
-                    args.push(arguments[i]);
-                }
-            }
-            if(window.JSHost){
-                window.JSHost[method].apply(this, args);
-            } else {
-                this.callApp(method, JSON.stringify(args));
+        _borrow () {
+            var me = this;
+            if (CC.isBitApp && CC.isRegist) {
+                this.$router.push('/form/borrow');
+            }else{
+                this.util.slide({
+                    context: this,
+                    component: {
+                        'account' : () => import('@/views/account')
+                    },
+                    events: {
+                        'next': function (){
+                            this._fetchInfos(function () {
+                                me.$router.push('/form/borrow');
+                            });
+                        }
+                    }
+                })
             }
         }
     }
@@ -405,6 +381,30 @@ export default {
         position: fixed;
         bottom: 0;
         width: 100%;
+    }
+    .sponsor-wrap {
+        h1 {
+            width: 100%;
+            text-align: center;
+            font-size: 26px;
+            line-height: 60px;
+        }
+        h2 {
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.3em;
+            color: #9a9a9d;
+        }
+        .sponsor {
+            display: block;
+            width: 308px;
+            height: 383px;
+            margin: 0 auto;
+            background-image: url('/lianbi/chaincoin/dist/static/images/shield.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
     }
     .profile1 {
         background-image: url('/lianbi/chaincoin/dist/static/images/1.png');

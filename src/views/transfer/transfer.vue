@@ -50,6 +50,7 @@ export default {
 		_next () {
 			const load = this.util.loading('加载中');
 			this._fetchSign((orderId, hash) => {
+				load.close();
 				calljs('actionP', {
 					'contract': this.coin.name,
 					'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',

@@ -46,7 +46,7 @@ export default {
 				if (res.result) {
 					if (!CC.userid) {
 						CC.userid = res.bitkeepId;
-						this.$router.push('/index');
+						this.$emit('next');
 					}
 				}else{
 					this.util.alert(res.message);
