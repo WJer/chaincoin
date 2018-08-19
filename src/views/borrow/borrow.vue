@@ -328,6 +328,7 @@ export default {
 					}
 				}).then((res) => {
 					res && (this.dPlans = res.plans);
+					this.$refs.scroll.forceUpdate();
 					this._fetchAccrual();
 				})
 			}, CC.delay);
@@ -544,6 +545,7 @@ export default {
 		}
 		.form-btns {
 			padding: 10px 0;
+			margin: 0;
 		}
 		.item-wrap {
 			position: relative;
