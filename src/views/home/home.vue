@@ -80,7 +80,8 @@
         </div>
     </cc-scroll>
     <div class="bottom">
-        <div class="bottom-wrap"><a href="javascript:;">了解借款详细规则</a> | 客服电话：15623456690</div>
+        <div class="bottom-wrap">
+            <router-link to="/rule">了解借款详细规则</router-link> | 客服电话：15623456690</div>
         <div class="g-flex btn-wrap" v-if="dIsFetch">
             <!-- <router-link to="/mglist" tag="div" class="g-flex_item" v-if="dIsMortgage">
                 <mt-button type="primary" size="large" class="g-btn-thin">查看记录</mt-button>

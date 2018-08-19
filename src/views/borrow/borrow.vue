@@ -81,7 +81,7 @@
 				<div class="repay-rule">
 					<span class="radio-core" :class="{'check': dAgree}" @click="dAgree=!dAgree"></span>
 					<span>查看并同意</span>
-					<a href="#rule">借还款规则</a>
+					<router-link to="/rule">借还款规则</router-link>
 				</div>
 				<div class="form-btns">
 					<mt-button type="primary" size="large" class="btn-next" @click="_next">下一步</mt-button>

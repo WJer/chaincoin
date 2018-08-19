@@ -48,7 +48,7 @@
 }
 .app-bd {
     position: absolute;
-    top: 38px;
+    top: 40px;
     left: 0;
     right: 0;
     bottom: 0;
