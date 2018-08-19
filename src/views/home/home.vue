@@ -15,7 +15,7 @@
         <div class="middle1-wrap">
             <h1>流程极简 当天放款</h1>
             <div class="img"></div>
-            <router-link to="/form/borrow" tag="div" class="btn" v-if="dIsFetch">立即填写信息</router-link>
+            <div class="btn" @click="_borrow">立即填写信息</div>
         </div>
         <div class="middle2-wrap">
             <h1>安全存管 无惧丢币</h1>
