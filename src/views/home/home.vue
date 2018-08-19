@@ -401,7 +401,7 @@ export default {
             display: block;
             width: 308px;
             height: 383px;
-            margin: 0 auto;
+            margin: 30px auto 20px;
             background-image: url('/lianbi/chaincoin/dist/static/images/shield.png');
             background-repeat: no-repeat;
             background-size: 100% 100%;
