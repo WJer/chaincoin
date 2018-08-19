@@ -89,7 +89,7 @@
             <router-link to="/form/borrow" tag="div" class="g-flex_item">
                 <mt-button type="primary" size="large">我要借款</mt-button>
             </router-link> -->
-            <mt-button type="primary" size="large" class="g-btn-thin" v-if="dIsMortgage">查看记录</mt-button>
+            <mt-button type="primary" size="large" class="g-btn-thin" @click="_record" v-if="dIsMortgage">查看记录</mt-button>
             <mt-button type="primary" size="large" @click="_borrow">我要借款</mt-button>
         </div>
     </div>
@@ -162,6 +162,9 @@ export default {
                     }
                 })
             }
+        },
+        _record () {
+            this.$router.push('/mglist');
         }
     }
 }
