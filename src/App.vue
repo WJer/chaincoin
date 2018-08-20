@@ -23,8 +23,6 @@
             }
         },
         mounted () {
-          alert(CC.isBitApp);
-          alert(util.getCookie('uid'));
             if (CC.isBitApp) {
                 this.util.api.get('/isRegistered').then((res) => {
                     if (res.code == 0) {
