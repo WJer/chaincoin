@@ -14,7 +14,7 @@
     import '@/assets/css/reset.css'
     import '@/assets/css/resetui.less'
     import '@/assets/css/global.less'
-    
+
     export default {
         name: 'App',
         data () {
@@ -23,6 +23,8 @@
             }
         },
         mounted () {
+          alert(CC.isBitApp);
+          alert(util.getCookie('uid'));
             if (CC.isBitApp) {
                 this.util.api.get('/isRegistered').then((res) => {
                     if (res.code == 0) {
