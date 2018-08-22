@@ -79,7 +79,9 @@
 				</div>
 				<ccplan :plans="dPlans"></ccplan>
 				<div class="repay-rule">
-					<span class="radio-core" :class="{'check': dAgree}" @click="dAgree=!dAgree"></span>
+          <span class="radio-core-wrap" @click="dAgree=!dAgree">
+              <span class="radio-core" :class="{'check': dAgree}"></span>
+          </span>
 					<span>查看并同意</span>
           <a @click="_rule">借还款规则</a>
 				</div>
@@ -524,6 +526,9 @@ export default {
 				color: #5d82ff;
 			}
 		}
+    .radio-core-wrap {
+      padding: 5px;
+    }
 		.radio-core {
 			position: relative;
 			display: inline-block;
@@ -580,6 +585,11 @@ export default {
       top: -4px;
       color: #9da6ba;
       font-size: 10px;
+    }
+    .icon-btc {
+      background-image: url('/lianbi/chaincoin/dist/static/images/btc.svg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
     }
     }
 </style>

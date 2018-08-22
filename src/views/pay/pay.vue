@@ -95,6 +95,9 @@ export default {
         }else{
           this.dData.overdue = this.dData.currentRepayMoney * 1 - this.dData.normalMoney * 1;
         }
+        if (!this.dAddress) {
+          this._click();
+        }
     },
     methods: {
         _click () {
@@ -122,7 +125,11 @@ export default {
             })
         },
         _submitRepay () {
-            this.util.api.get('/submitRepay', {
+            if (!this.dAddress) {
+              this.util.alert('请填写您的钱包地址！');
+              return;
+            }
+            this.util.api.get('/submitAllRepay', {
                 params: {
                     mortgageId: this.dData.mortgageId
                 }
@@ -199,6 +206,7 @@ export default {
             font-size: 20px;
             color: #000;
             line-height: 30px;
+            border: none;
         }
         span {
             position: absolute;

@@ -13,7 +13,7 @@
         <div class="approval-wrap" v-else>
             <div class="step curstep step-fail">付款失败</div>
         </div>
-        <div class="tip">如有问题可咨询123456789</div>
+        <div class="tip">如有问题可咨询 {{dMobile}}</div>
         <div class="form-btns">
             <mt-button type="default" size="large" class="btn-detail" @click="_next">查看详情</mt-button>
             <mt-button type="primary" size="large" class="btn-sure" @click="_next">确认</mt-button>
@@ -24,7 +24,8 @@
 export default {
     data () {
         return {
-            dStatus: 1
+            dStatus: 1,
+            dMobile: CC.settings.phone
         }
     },
     methods: {
