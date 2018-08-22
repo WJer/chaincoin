@@ -64,6 +64,9 @@ var router = new Router({
 
 router.beforeEach((to, from, next) => {
 	CC.header && CC.header.toggleList(false);
+  for(var key in CC.widgets) {
+    CC.widgets[key] && CC.widgets[key].close();
+  }
 	next();
 })
 

@@ -84,7 +84,7 @@ export default {
         return {
             dData: this.data,
             dBank: null,
-            dReadonly: true,
+            dReadonly: !!this.data.address,
             dAddress: this.data.address
         }
     },
@@ -94,9 +94,6 @@ export default {
           this._getAllRepayMoney();
         }else{
           this.dData.overdue = this.dData.currentRepayMoney * 1 - this.dData.normalMoney * 1;
-        }
-        if (!this.dAddress) {
-          this._click();
         }
     },
     methods: {
