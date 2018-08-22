@@ -330,7 +330,9 @@ export default {
 					}
 				}).then((res) => {
 					res && (this.dPlans = res.plans);
-					this.$refs.scroll.forceUpdate();
+          setTimeout(() => {
+            this.$refs.scroll.forceUpdate();
+          }, 20)
 					this._fetchAccrual();
 				})
 			}, CC.delay);
@@ -527,7 +529,7 @@ export default {
 			}
 		}
     .radio-core-wrap {
-      padding: 5px;
+      padding: 10px;
     }
 		.radio-core {
 			position: relative;

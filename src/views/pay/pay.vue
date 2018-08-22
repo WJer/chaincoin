@@ -129,6 +129,10 @@ export default {
               this.util.alert('请填写您的钱包地址！');
               return;
             }
+            if (!this.dReadonly) {
+              this.util.alert('请先点完成保存您的钱包地址！');
+              return;
+            }
             this.util.api.get('/submitAllRepay', {
                 params: {
                     mortgageId: this.dData.mortgageId
