@@ -81,7 +81,7 @@
 				<div class="repay-rule">
 					<span class="radio-core" :class="{'check': dAgree}" @click="dAgree=!dAgree"></span>
 					<span>查看并同意</span>
-					<router-link to="/rule">借还款规则</router-link>
+          <a @click="_rule">借还款规则</a>
 				</div>
 				<div class="form-btns">
 					<mt-button type="primary" size="large" class="btn-next" @click="_next">下一步</mt-button>
@@ -376,7 +376,16 @@ export default {
 				}
 				this.dCouponRate = res.discount * this.dCurRate;
 			})
-		}
+		},
+    _rule () {
+      this.util.slide({
+        context: this,
+        component: {
+            'rule': () => import('@/views/rule')
+        },
+        events: {}
+      });
+    }
 	}
 }
 </script>
@@ -564,7 +573,7 @@ export default {
 		.coupon-tip {
 			color: #ffaa00;
 			line-height: 24px;
-			font-size: 12px;	
+			font-size: 12px;
 		}
     }
 </style>

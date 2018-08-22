@@ -14,6 +14,7 @@
                 <td v-for="(coin, index) in dCoins" :key="index">{{coin.mortgateRate | toPercentage}}</td>
             </tr>
         </table>
+        <div class="formula">*质押率=贷款金额/质押币的当前市值</div>
         <h2>借款约定</h2>
         <p>1、借款利率统一为：年利率30%；</p>
         <p>2、借款时间限制：30天到180天；</p>
@@ -42,7 +43,7 @@ export default {
 </script>
 <style lang="less" scoped>
     .page-rule {
-        // padding: 14px 0;
+        color: #333;
     }
     p {
         padding: 0 15px;
@@ -76,5 +77,11 @@ export default {
         text-align: center;
         vertical-align: middle;
         border: 1px solid #ccc;
+    }
+    .formula {
+      font-size: 12px;
+      width: 300px;
+      margin: 0 auto;
+      text-align: right;
     }
 </style>

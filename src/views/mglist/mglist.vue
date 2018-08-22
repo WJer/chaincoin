@@ -3,7 +3,10 @@
         <div class="white-space"></div>
         <div class="g-flex top-wrapper">
             <div class="top-item g-fled_item">
-                <div class="val">{{dSevenRepay}}</div>
+                <div class="val">
+                  <span class="unit">￥</span>
+                  {{dSevenRepay}}
+                </div>
                 <div class="tit">近7日还款</div>
             </div>
             <div class="top-item g-fled_item">
@@ -20,7 +23,7 @@
                         <div class="rage-hd">当前质押率</div>
                     </div>
                     <div class="center">
-                        <div class="total">{{mortgage.currentRepayMoney}}</div>
+                        <div class="total"><span class="unit">￥</span>{{mortgage.currentRepayMoney}}</div>
                         <div class="total-hd">{{mortgage.status==5?'补仓数量':'还款金额'}}</div>
                     </div>
                     <div class="right">
@@ -113,6 +116,12 @@ export default {
             font-size: 10px;
             color: #8e96a5;
         }
+        .unit {
+            position: relative;
+            top: -5px;
+            color: #9da6ba;
+            font-size: 14px;
+        }
     }
     .page-scroll {
         position: absolute;
@@ -198,6 +207,12 @@ export default {
         .total-hd {
             margin-top: 15px;
             color: #8e96a5;
+        }
+        .unit {
+            position: relative;
+            top: -8px;
+            color: #9da6ba;
+            font-size: 18px;
         }
     }
     .form-btns {

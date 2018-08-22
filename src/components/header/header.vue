@@ -3,7 +3,7 @@
         <div slot="left" v-if="isBack">
             <mt-button icon="back" @click="_back"></mt-button>
         </div>
-        <div class="icon-setting" slot="right" v-if="dShowList" @click="_toList">
+        <div class="icon-setting" slot="right" @click="_toList">
             <div class="g-line"></div>
             <div class="g-line"></div>
             <div class="g-line"></div>
@@ -40,7 +40,12 @@ export default {
             this.$router.push('/mglist');
         },
         toggleList (status) {
-            this.dShowList = status;
+          var dom = document.querySelector('.icon-setting')
+          if (status) {
+            dom.style.visibility='visible'
+          }else{
+            dom.style.visibility='hidden'
+          }
         }
     }
 }
@@ -49,6 +54,7 @@ export default {
 .icon-setting {
     width: 15px;
     float: right;
+    visibility: hidden;
     .g-line {
         width: 15px;
         background-image: -webkit-gradient(linear, left top, left bottom, from(#333), color-stop(50%, #333), color-stop(50%, transparent));

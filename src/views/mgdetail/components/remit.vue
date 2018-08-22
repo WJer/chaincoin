@@ -23,7 +23,7 @@
                 </div>
                 <div class="g-flex_item">
                     <div class="val">{{dData.currentMortgageRate | toPercentage}}</div>
-                    <div class="tit">当前质押率</div>
+                    <div class="tit">初始质押率</div>
                 </div>
                 <div class="g-flex_item">
                     <div class="val">{{dData.allMoney}}</div>

@@ -4,8 +4,8 @@
         <div class="top-wrap">
             <div class="icon"></div>
             <h1>
-                <div>抵押比特币</div>
-                <div>安全借现金</div>
+                <div>抵押数字资产</div>
+                <div>安全快速借款</div>
             </h1>
             <h2>
                 <div>币金所产品是借款人以持有的数字货币为质押标的，</div>
@@ -15,7 +15,7 @@
         <div class="middle1-wrap">
             <h1>流程极简 当天放款</h1>
             <div class="img"></div>
-            <div class="btn" @click="_borrow">立即填写信息</div>
+            <div class="btn" @click="_borrow">立即填写信息<span class="left-arrow"></span></div>
         </div>
         <div class="middle2-wrap">
             <h1>安全存管 无惧丢币</h1>
@@ -145,7 +145,7 @@ export default {
         },
         _borrow () {
             var me = this;
-            if (CC.isBitApp && CC.isRegist) {
+            if (CC.userid) {
                 this.$router.push('/form/borrow');
             }else{
                 this.util.slide({
@@ -234,6 +234,32 @@ export default {
             color: #5777f4;
             line-height: 60px;
             text-align: center;
+        }
+        .left-arrow {
+            position: relative;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin: 0 0 2px 5px;
+            border: 1px solid #5777f4;
+            border-radius: 50%;
+            vertical-align: middle;
+            &:before,
+            &:after {
+                content: '';
+                display: inline-block;
+                position: absolute;
+                top: 2px;
+                border: 5px solid transparent;
+            }
+            &:before {
+              left: 6px;
+              border-left-color: #5777f4;
+            }
+            &:after {
+                left: 4px;
+                border-left-color: #fff;
+            }
         }
     }
     .middle2-wrap {
@@ -431,5 +457,5 @@ export default {
     .profile7 {
         background-image: url('/lianbi/chaincoin/dist/static/images/7.png');
     }
-    
+
 </style>
