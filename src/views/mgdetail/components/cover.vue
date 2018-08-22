@@ -3,11 +3,11 @@
         <div class="tip-wrap">提示：如未能及时补仓，质押率上升到90%时，该抵押将被平仓。</div>
         <div class="card">
             <div class="g-flex top">
-                <div class="g-flex_item">
+                <div class="g-flex_item half-width">
                     <div class="tit">补仓数量</div>
-                    <div class="val g-bold val-big">{{dData.buyInNumber}}</div>
+                    <div class="val g-bold val-big">{{dData.buyInNumber+dData.coin}}</div>
                 </div>
-                <div class="g-flex_item">
+                <div class="g-flex_item half-width">
                     <div class="item-rate">
                         <span class="tit">健康质押率</span>
                         <span class="val">{{dHealthRate | toPercentage}}</span>
@@ -40,7 +40,7 @@
         </div>
         <div class="g-flex btn-wrap">
             <mt-button type="primary" size="large" class="btn g-btn-thin" @click="_pay(1)">提前全额还款</mt-button>
-            <mt-button type="primary" size="large" class="btn" @click="_pay(2)">提前还本期</mt-button>
+            <mt-button type="primary" size="large" class="btn" @click="_pay(3)">去补仓</mt-button>
         </div>
     </div>
 </template>
@@ -65,6 +65,7 @@ export default {
         }
     },
     created () {
+      console.log(this.dData);
         this._fetchPlans();
         CC.coins.some((coin) => {
             if (coin.name == this.dData.coin) {
@@ -89,13 +90,18 @@ export default {
             })
         },
         _pay (type) {
-            this.$emit('pay', type);
+            this.$emit('pay', type, this.data);
         }
     }
 }
 </script>
 <style lang="less" scoped>
 @import '../detail.less';
+.half-width {
+  width: 50%;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
 </style>
 
 

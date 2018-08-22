@@ -2,8 +2,8 @@
     <div class="plan-wrap">
         <p v-if="plans.length==0">暂无</p>
         <ul v-else>
-            <li class="g-flex plan-item" v-for="(plan, index) in plans" :key="index">
-                <div class="circle" :class="{cur: index==cur}"></div>
+            <li class="g-flex plan-item" v-for="(plan, index) in cPlans" :key="index">
+                <div class="circle" :class="{cur: plan.isCur}"></div>
                 <div class="line"></div>
                 <div class="g-flex_item time">{{plan.year+'-'+plan.day}}</div>
                 <div class="g-flex_item money">{{plan.money}}<span class="overdue" v-if="plan.overdue">+{{plan.overdue}}</span></div>
@@ -30,6 +30,14 @@ export default {
             type: Number,
             default: -1
         }
+    },
+    computed: {
+      cPlans () {
+        return this.plans.map((plan,index) => {
+          plan.isCur = index <= this.cur;
+          return plan;
+        })
+      }
     },
     watched (val) {
         console.log(val);

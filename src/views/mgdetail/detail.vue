@@ -27,6 +27,36 @@ export default {
     },
     methods: {
         _pay (type, obj) {
+            if (type == 3) {
+              this._payCoin(type, obj);
+            }else{
+              this._payMoney(type, obj);
+            }
+        },
+        _payCoin (type, obj) {
+          var coin = null;
+          CC.coins.some((c) => {
+            if (c.name == obj.coin) {
+              coin = c;
+              return true
+            }
+            return false
+          })
+          this.util.slide({
+                context: this,
+                component: {
+                    'detail' : () => import('@/views/recharge')
+                },
+                data: {
+                  coin: coin,
+                  count: obj.buyInNumber,
+                },
+                events: {
+                    'next': '_saveBuyin.hide'
+                }
+            });
+        },
+        _payMoney (type, obj) {
             this.util.slide({
                 context: this,
                 component: {
@@ -43,6 +73,18 @@ export default {
         },
         _complete () {
             this.$emit('complete');
+        },
+        _saveBuyin () {
+          this.util.api.get('/saveBuyIn', {
+            params: {
+              mortgageId: this.data.mortgageId,
+              buyInNumber: this.data.buyInNumber
+            }
+          }).then((res) => {
+            if (res && res.result) {
+              this._complete();
+            }
+          })
         }
     }
 }

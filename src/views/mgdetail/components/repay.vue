@@ -39,7 +39,7 @@
         <div v-if="dPlans.length">
             <div class="g-flex btn-wrap" v-if="dCur != dPlans.length-1">
                 <mt-button type="primary" size="large" class="btn g-btn-thin" @click="_pay(1)">提前全额还款</mt-button>
-                <mt-button type="primary" size="large" class="btn" @click="_pay(2)">提前还本期</mt-button>
+                <mt-button type="primary" size="large" class="btn" @click="_pay(2)">{{dData.status==3?'':'提前'}}还本期</mt-button>
             </div>
             <div class="g-flex btn-wrap" v-else>
                 <mt-button type="primary" size="large" class="btn" @click="_pay(1)">立即还款</mt-button>
@@ -67,6 +67,7 @@ export default {
         }
     },
     created () {
+      console.log(this.data);
         this._fetchPlans();
     },
     methods: {

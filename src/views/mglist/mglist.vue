@@ -16,7 +16,7 @@
         </div>
         <cc-scroll :pullUpLoad="false" @pulling-down="_fetchList" class="page-scroll" ref="scroll">
             <ul class="list">
-                <div class="card" v-for="(mortgage, index) in dList" :key="index" @click="_clickHandle(mortgage)">
+                <div class="card" v-for="mortgage in dList" @click="_clickHandle(mortgage)">
                     <div class="left">
                         <div class="coin"><i class="icon"></i>{{mortgage.coin}}</div>
                         <div class="rate">{{mortgage.currentMortgageRate | toPercentage}}</div>
@@ -25,7 +25,7 @@
                     <div class="center">
                         <div class="total">
                           <span class="unit" v-if="mortgage.status!=5">￥</span>
-                        {{mortgage.status==5?mortgage.currentRepayMoney:mortgage.buyInNumber}}</div>
+                        {{mortgage.status!=5?mortgage.currentRepayMoney:mortgage.buyInNumber}}</div>
                         <div class="total-hd">{{mortgage.status==5?'补仓数量':'还款金额'}}</div>
                     </div>
                     <div class="right">

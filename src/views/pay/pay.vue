@@ -9,7 +9,7 @@
                         <div class="total g-bold">{{dData.currentRepayMoney}}</div>
                     </div>
                     <div class="g-flex_item">
-                        <div class="money-item">
+                        <div class="money-item" v-if="isLast">
                             <span class="g-left">本金</span>
                             <span class="g-right">{{dData.money}}</span>
                         </div>
@@ -19,7 +19,7 @@
                         </div>
                         <div class="money-item">
                             <span class="g-left">罚息</span>
-                            <span class="g-right">{{(dData.currentRepayMoney - dData.normalMoney) | toFixed2}}</span>
+                            <span class="g-right">{{dData.overdue | toFixed2}}</span>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="g-flex btn-wrap">
-            <mt-button type="primary" size="large" class="btn g-btn-thin" @click="dReadonly=false">更改地址</mt-button>
+            <mt-button type="primary" size="large" class="btn g-btn-thin" @click="dReadonly=false" v-if="isLast">更改地址</mt-button>
             <mt-button type="primary" size="large" class="btn" @click="_submitRepay">我已打款</mt-button>
         </div>
     </div>
@@ -90,6 +90,11 @@ export default {
     },
     created () {
         this._fetchManagerBank();
+        if (this.isLast) {
+          this._getAllRepayMoney();
+        }else{
+          this.dData.overdue = this.dData.currentRepayMoney * 1 - this.dData.normalMoney * 1;
+        }
     },
     methods: {
         _click () {
@@ -128,6 +133,24 @@ export default {
                 }
             })
             // this.$emit('complete');
+        },
+        _getAllRepayMoney () {
+          var loading = this.util.loading('加载中');
+          this.util.api.get('/getAllRepayMoney', {
+            params: {
+              mortgageId: this.dData.mortgageId
+            }
+          }).then((res) => {
+            loading.close();
+            if (res) {
+              this.dData = Object.assign(this.dData, {
+                currentRepayMoney: res.allMoney,
+                money: res.principal,
+                normalMoney: res.accrual,
+                overdue: res.overdue
+              })
+            }
+          })
         }
     }
 }
@@ -164,7 +187,7 @@ export default {
             font-size: 22px;
             color: #000;
         }
-        
+
     }
     .address-wrap {
         position: relative;

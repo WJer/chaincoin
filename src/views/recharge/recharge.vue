@@ -47,6 +47,10 @@ export default {
         coupon: {
             type: String,
 			default: ''
+        },
+        isBuyin: {
+          type: Boolean,
+          default: false
         }
     },
     mounted () {
