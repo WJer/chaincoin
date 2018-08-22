@@ -60,7 +60,7 @@
 						<div class="right-item">
 							<div class="right-label">利息</div>
 							<div class="right-text">
-								<span class="g-bold g-unit">{{dAccrual}}</span>
+								<span class="g-bold"><span class="unit">￥</span>{{dAccrual}}</span>
 							</div>
 						</div>
 						<div class="right-item">
@@ -374,7 +374,7 @@ export default {
 					this.util.alert(res.message);
 					return;
 				}
-				this.dCouponRate = res.discount * this.dCurRate;
+				this.dCouponRate = res.discount;
 			})
 		},
     _rule () {
@@ -575,6 +575,12 @@ export default {
 			line-height: 24px;
 			font-size: 12px;
 		}
+    .unit {
+      position: relative;
+      top: -4px;
+      color: #9da6ba;
+      font-size: 10px;
+    }
     }
 </style>
 

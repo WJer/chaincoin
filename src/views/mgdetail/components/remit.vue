@@ -33,7 +33,7 @@
         </div>
         <div class="card">
             <p class="tip">抵押申请已提交成功，正在确认充值情况。</p>
-            <p class="tel">如果问题可咨询 15602345656</p>
+            <p class="tel">如果问题可咨询 {{dPhone}}</p>
         </div>
     </div>
 </template>
@@ -47,7 +47,8 @@ export default {
     },
     data () {
         return {
-            dData: this.data
+            dData: this.data,
+            dPhone: CC.settings.phone
         }
     },
 }

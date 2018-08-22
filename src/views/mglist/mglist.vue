@@ -23,7 +23,9 @@
                         <div class="rage-hd">当前质押率</div>
                     </div>
                     <div class="center">
-                        <div class="total"><span class="unit">￥</span>{{mortgage.currentRepayMoney}}</div>
+                        <div class="total">
+                          <span class="unit" v-if="mortgage.status!=5">￥</span>
+                        {{mortgage.status==5?mortgage.currentRepayMoney:mortgage.buyInNumber}}</div>
                         <div class="total-hd">{{mortgage.status==5?'补仓数量':'还款金额'}}</div>
                     </div>
                     <div class="right">

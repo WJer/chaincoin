@@ -80,9 +80,12 @@ export default {
                 }
             }).then((res) => {
                 if (res) {
-                    this.dPlans = res.plans;
+                    this.dPlans = res.plans.map((item) => {
+                      item.money = item.overdue ? item.normalMoney : item.allMoney;
+                      return item;
+                    });
                     this.dCur = res.currentPlan;
-                }                
+                }
             })
         },
         _pay (type) {

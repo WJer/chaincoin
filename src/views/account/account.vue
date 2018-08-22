@@ -27,10 +27,11 @@ export default {
 	},
 	data () {
 		return {
-			dMobile: '',
-			dCode: '',
+			dMobile: '18756032534',
+			dCode: '5929',
 			dCountdown: 0,
 			dCodeBtn: '发送验证码',
+      dClick: false,
 			I: null
 		}
 	},
@@ -54,12 +55,16 @@ export default {
 			})
 		},
 		_sendCode (e) {
-			this.util.api.post('/sendMessageCode', {
-				phone: this.dMobile
-			}).then(() => {
-				this.dCodeBtn = '重新发送';
-				this._runCountdown();
-			})
+      if (!this.dClick) {
+        this.dClick = true;
+        this.util.api.post('/sendMessageCode', {
+          phone: this.dMobile
+        }).then(() => {
+          this.dCodeBtn = '重新发送';
+          this.dClick = false;
+          this._runCountdown();
+        })
+      }
 		},
 		_runCountdown () {
 			this.dCountdown = 60;

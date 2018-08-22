@@ -6,10 +6,10 @@
                 <div class="circle" :class="{cur: index==cur}"></div>
                 <div class="line"></div>
                 <div class="g-flex_item time">{{plan.year+'-'+plan.day}}</div>
-                <div class="g-flex_item money">{{plan.money}}</div>
+                <div class="g-flex_item money">{{plan.money}}<span class="overdue" v-if="plan.overdue">+{{plan.overdue}}</span></div>
                 <div class="g-flex_item status-wrap">
-                    <span class="g-status-1" v-if="plan.type==0">利息</span>
-                    <span class="g-status-2" v-else>本利</span>
+                    <span class="g-status-1" v-if="plan.type==0">利息{{plan.overdue?'+罚息':''}}</span>
+                    <span class="g-status-2" v-else>本利{{plan.overdue?'+罚息':''}}</span>
                 </div>
             </li>
         </ul>
@@ -65,7 +65,7 @@ export default {
     text-align: right;
 }
 .g-flex_item {
-    font-size: 12px;
+    font-size: 15px;
     line-height: 38px;
 }
 .plan-item:last-child {
@@ -84,5 +84,8 @@ export default {
 .cur {
     border-color: #ffaa00;
     background-color: #ffaa00;
+}
+.overdue {
+  font-size: 12px;
 }
 </style>

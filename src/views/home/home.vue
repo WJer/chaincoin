@@ -81,7 +81,7 @@
     </cc-scroll>
     <div class="bottom">
         <div class="bottom-wrap">
-            <router-link to="/rule">了解借款详细规则</router-link> | 客服电话：15623456690</div>
+            <router-link to="/rule">了解借款详细规则</router-link> | 客服电话：{{dPhone}}</div>
         <div class="g-flex btn-wrap" v-if="dIsFetch">
             <!-- <router-link to="/mglist" tag="div" class="g-flex_item" v-if="dIsMortgage">
                 <mt-button type="primary" size="large" class="g-btn-thin">查看记录</mt-button>
@@ -100,7 +100,8 @@ export default {
     data () {
         return {
             dIsMortgage: false,
-            dIsFetch: false
+            dIsFetch: false,
+            dPhone: ''
         }
     },
     created () {
@@ -115,6 +116,7 @@ export default {
         _fetchInfos (cb) {
             this.util.api.all(this._getAjax()).then(this.util.api.spread((res1, res2, res3) => {
 				res1 && (CC.settings = res1.settings);
+        this.dPhone = res1.settings.phone;
 				res2 && (CC.bank = {
 					bankName: res2.bankName,
 					branchName: res2.branchName,

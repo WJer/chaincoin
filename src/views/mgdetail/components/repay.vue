@@ -79,6 +79,10 @@ export default {
                 if (res) {
                     this.dCur = res.currentPlan;
                     this.dPlans = res.plans;
+                    this.dPlans = res.plans.map((item) => {
+                      item.money = item.overdue ? item.normalMoney : item.allMoney;
+                      return item;
+                    });
                 }
             })
         },

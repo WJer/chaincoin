@@ -33,7 +33,7 @@
         </div>
         <div class="card">
             <p class="tip">此借款已被拒绝。</p>
-            <p class="tel">如果问题可咨询 15602345656</p>
+            <p class="tel">如果问题可咨询 {{dPhone}}</p>
         </div>
     </div>
 </template>
@@ -47,7 +47,8 @@ export default {
     },
     data () {
         return {
-            dData: this.data
+            dData: this.data,
+            dPhone: CC.settings.phone
         }
     },
 }

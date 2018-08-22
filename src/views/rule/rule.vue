@@ -27,7 +27,7 @@
         <p>1、若实时质押率高于80%，币金所会对您进行提醒（电话或邮件）您需补足不少于抵押币市值10%的数字货币，市质押率保持健康；</p>
         <p>2、如未能及时补仓，一旦实时质押率高于90%，币金所会对您的抵押货币进行平仓，若出售金额大于贷款本息合计的数额的，超出部分会为您退回；</p>
         <br/>
-        <p>有问题可以咨询客服电话：15656565656</p>
+        <p>有问题可以咨询客服电话：{{dPhone}}</p>
         <br/>
     </cc-scroll>
 </template>
@@ -36,7 +36,8 @@ export default {
     name: 'cc-rule',
     data () {
         return {
-            dCoins: CC.coins
+            dCoins: CC.coins,
+            dPhone: CC.settings.phone
         }
     }
 }
