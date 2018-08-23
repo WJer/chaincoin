@@ -42,10 +42,32 @@ export default {
             }
             return false
           })
+          if (CC.isBitApp && coin.transfer == 1) {
+            this._payCoinByApp(coin,obj);
+          }else{
+            this._payCoinByMe(coin,obj);
+          }
+        },
+        _payCoinByMe (coin,obj) {
           this.util.slide({
                 context: this,
                 component: {
                     'detail' : () => import('@/views/recharge')
+                },
+                data: {
+                  coin: coin,
+                  count: obj.buyInNumber,
+                },
+                events: {
+                    'next': '_saveBuyin.hide'
+                }
+            });
+        },
+        _payCoinByApp (coin,obj) {
+          this.util.slide({
+                context: this,
+                component: {
+                    'detail' : () => import('@/views/transfer')
                 },
                 data: {
                   coin: coin,
