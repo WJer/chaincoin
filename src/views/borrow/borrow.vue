@@ -18,11 +18,11 @@
 					</div>
 				</div>
 				<div class="g-line"></div>
-				<div class="item-wrap">
+				<div class="item-wrap item-wrap-amount">
 					<g-text label="抵押数量" :placeholder="`不低于${dCurCoin?dCurCoin.mortgageMinimum:1}个${dCurCoin?dCurCoin.name:''}`" v-model="dCount" @input="_inputInCount"></g-text>
 				</div>
-				<div class="item-wrap">
-					<g-text label="抵押时间" :placeholder="`${dMinDay}天至${dMaxDay}天`" v-model="dDay" @input="_inputInDay"></g-text>
+				<div class="item-wrap item-wrap-day">
+					<g-text label="抵押时间" :placeholder="`${dMinDay}天至${dMaxDay}天`" v-model="dDay" @input="_inputInDay" @blur="_blurInDat"></g-text>
 				</div>
 				<div class="item-wrap coupon-wrap">
 					<g-text label="优惠券码" placeholder="请输入优惠券" v-model="dCoupon" @input="_inputCoupon"></g-text>
@@ -151,6 +151,7 @@ export default {
 	},
 	mounted () {
 		document.querySelector('.coupon-wrap input').setAttribute('maxlength', 10);
+    this.bindEvent();
 	},
 	methods: {
 		_next () {
@@ -389,6 +390,36 @@ export default {
         },
         events: {}
       });
+    },
+    _blurInDat (type) {
+      console.log(type);
+    },
+    bindEvent () {
+      var me = this;
+      document.querySelector('.item-wrap-amount input').addEventListener('blur', function(e) {
+        var value = e.target.value;
+        if (!me.dCurCoin) {
+          return;
+        }
+        if (window.isNaN(+value)) {
+          me.util.alert('必须填数字！')
+        }else if (!value || +value < me.dCurCoin.mortgageMinimum) {
+          me.util.alert(`抵押数量必须大于${me.dCurCoin.mortgageMinimum}`);
+        }
+      })
+      document.querySelector('.item-wrap-day input').addEventListener('blur', function(e) {
+        var value = e.target.value;
+        if (!me.dCurCoin) {
+          return;
+        }
+        if (window.isNaN(+value) || /\./g.test(value)) {
+          me.util.alert('必须填整数！');
+          console.log(1);
+        }else if (!value || +me.dDay < me.dMinDay || +me.dDay > me.dMaxDay) {
+          me.util.alert(`抵押时间必须在${me.dMinDay}天到${me.dMaxDay}天之间`);
+          console.log(12);
+        }
+      })
     }
 	}
 }
