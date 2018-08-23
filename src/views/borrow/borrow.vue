@@ -11,7 +11,7 @@
 				<div class="coins">
 					<div class="line" v-for="group in cCoins">
 						<div class="coin" :class="{'active': coin.name == dCurCoin.name, 'hide': coin.isHide}" v-for="coin in group" @click="_click(coin)">
-							<i class="icon" :class="`icon-${coin.name}`"></i>
+							<i class="icon" :class="`icon-${coin.name.toLowerCase()}`"></i>
 							<div class="coin-label">{{coin.name}}</div>
 							<div class="coin-rate">{{coin.mortgateRate | toPercentage}}</div>
 						</div>

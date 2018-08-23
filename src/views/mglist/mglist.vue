@@ -18,7 +18,7 @@
             <ul class="list">
                 <div class="card" v-for="mortgage in dList" @click="_clickHandle(mortgage)">
                     <div class="left">
-                        <div class="coin"><i class="icon" :class="`icon-${mortgage.coin}`"></i>{{mortgage.coin}}</div>
+                        <div class="coin"><i class="icon" :class="`icon-${mortgage.coin.toLowerCase()}`"></i>{{mortgage.coin}}</div>
                         <div class="rate">{{mortgage.currentMortgageRate | toPercentage}}</div>
                         <div class="rage-hd">当前质押率</div>
                     </div>
