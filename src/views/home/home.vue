@@ -105,7 +105,11 @@ export default {
         }
     },
     created () {
-        this._fetchIsMortgage();
+        if (!CC.hasMortgage) {
+          this._fetchIsMortgage();
+        }else{
+          this.dIsMortgage = CC.hasMortgage;
+        }
         if (!CC.coins) {
             this._fetchInfos();
         }else{
@@ -141,7 +145,8 @@ export default {
                 }
             }).then((res) => {
                 if (res && res.code == 0) {
-                    this.dIsMortgage = true;
+                    this.dIsMortgage = res.result;
+                    CC.hasMortgage = res.result;
                 }
             })
         },

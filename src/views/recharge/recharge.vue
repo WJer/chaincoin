@@ -70,7 +70,14 @@ export default {
     },
     methods: {
         _complete () {
-            this.$emit('next');
+          this.util.confirm('请确认您已经将数字货币转账到该账户，数字货币确认到账后才能成功借款！', '温馨提示', {
+            cancelButtonText: '继续转账',
+            confirmButtonText: '确认'
+          }).then((action) => {
+            if (action == 'confirm') {
+              this.$emit('next');
+            }
+          })
         },
         _copy () {
           if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) { //ios

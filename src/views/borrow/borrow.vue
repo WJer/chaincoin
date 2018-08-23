@@ -111,8 +111,8 @@ export default {
 			dMoney: 0,
 			dAccrual: 0,
 			dDate: {
-				start: '0000-00-00',
-				end: '0000-00-00'
+				start: moment().format('YYYY-MM-DD'),
+				end: moment().format('YYYY-MM-DD')
 			},
 			dPlans: [],
 			dCoupon: '',
