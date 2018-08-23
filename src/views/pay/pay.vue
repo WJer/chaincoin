@@ -118,6 +118,7 @@ export default {
             }).then((res) => {
                 if (res && res.result) {
                     this.dReadonly = true;
+                    this.util.alert('保存地址成功！');
                 }
             })
         },
