@@ -18,7 +18,7 @@
             <ul class="list">
                 <div class="card" v-for="mortgage in dList" @click="_clickHandle(mortgage)">
                     <div class="left">
-                        <div class="coin"><i class="icon"></i>{{mortgage.coin}}</div>
+                        <div class="coin"><i class="icon" :class="`icon-${mortgage.coin}`"></i>{{mortgage.coin}}</div>
                         <div class="rate">{{mortgage.currentMortgageRate | toPercentage}}</div>
                         <div class="rage-hd">当前质押率</div>
                     </div>
@@ -168,7 +168,7 @@ export default {
             height: 16px;
             margin-right: 5px;
             border-radius: 50%;
-            background-color: #eee;
+            //background-color: #eee;
             vertical-align: middle;
         }
         .status {
@@ -223,5 +223,34 @@ export default {
         width: 100%;
         box-sizing: border-box;
         padding: 17px 20px!important;
+    }
+    .icon-btc,
+    .icon-bch,
+    .icon-etc,
+    .icon-eth,
+    .icon-ltc,
+    .icon-eos {
+      background-image: url('/lianbi/chaincoin/dist/static/images/btc.jpeg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      border-radius: 50%;
+    }
+    .icon-btc {
+      background-image: url('/lianbi/chaincoin/dist/static/images/btc.jpeg');
+    }
+    .icon-bch {
+      background-image: url('/lianbi/chaincoin/dist/static/images/bch.jpeg');
+    }
+    .icon-etc {
+      background-image: url('/lianbi/chaincoin/dist/static/images/etc.jpeg');
+    }
+    .icon-eth {
+      background-image: url('/lianbi/chaincoin/dist/static/images/eth.jpeg');
+    }
+    .icon-ltc {
+      background-image: url('/lianbi/chaincoin/dist/static/images/ltc.jpeg');
+    }
+    .icon-eos {
+      background-image: url('/lianbi/chaincoin/dist/static/images/eos.jpeg');
     }
 </style>
