@@ -589,9 +589,10 @@ export default {
       font-size: 10px;
     }
     .icon-btc {
-      background-image: url('/lianbi/chaincoin/dist/static/images/btc.svg');
+      background-image: url('/lianbi/chaincoin/dist/static/images/btc.jpeg');
       background-size: 100% 100%;
       background-repeat: no-repeat;
+      border-radius: 50%;
     }
     }
 </style>

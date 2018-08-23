@@ -15,7 +15,7 @@
         <!-- <mt-button type="primary" size="large" class="btn-submit">保存</mt-button> -->
         <div class="recharge-address">
             <span id="copy-target">{{coin.address}}</span>
-            <a class="btn-copy" data-clipboard-action="copy" data-clipboard-target="#copy-target">复制</a>
+            <span class="btn-copy" data-clipboard-action="copy" data-clipboard-target="#copy-target">复制</span>
         </div>
         <mt-button type="primary" size="large" class="btn-complete" @click="_complete">完成充值</mt-button>
 	</div>
@@ -65,6 +65,7 @@ export default {
         clipboard.on('error', function(e) {
             console.error('Action:', e.action);
             console.error('Trigger:', e.trigger);
+            this.util.alert('请长按文字区域，选择地址后执行复制！');
         });
     },
     methods: {
