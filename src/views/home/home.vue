@@ -197,7 +197,7 @@ export default {
         .icon {
             width: 100%;
             height: 100%;
-            background-image: url('/lianbi/chaincoin/dist/static/images/top.jpg');
+            background-image: url('/lianbi/chaincoin/dist/static/images/top.png');
             background-size: 100%;
         }
         h1 {
