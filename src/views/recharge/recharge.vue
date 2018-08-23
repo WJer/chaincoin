@@ -15,7 +15,7 @@
         <!-- <mt-button type="primary" size="large" class="btn-submit">保存</mt-button> -->
         <div class="recharge-address">
             <span id="copy-target">{{coin.address}}</span>
-            <span class="btn-copy" data-clipboard-action="copy" data-clipboard-target="#copy-target">复制</span>
+            <span class="btn-copy" data-clipboard-action="copy" data-clipboard-target="#copy-target" @click="_copy">复制</span>
         </div>
         <mt-button type="primary" size="large" class="btn-complete" @click="_complete">完成充值</mt-button>
 	</div>
@@ -71,6 +71,28 @@ export default {
     methods: {
         _complete () {
             this.$emit('next');
+        },
+        _copy () {
+          if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) { //ios
+              var copyDOM = document.querySelector('#copy-target');  //要复制文字的节点
+              var range = document.createRange();
+              // 选中需要复制的节点
+              range.selectNode(copyDOM);
+              // 执行选中元素
+              window.getSelection().addRange(range);
+              // 执行 copy 操作
+              var successful = document.execCommand('copy');
+              try {
+                var msg = successful ? 'successful' : 'unsuccessful';
+
+                console.log('copy is' + msg);
+                this.util.alert('复制成功！');
+              } catch(err) {
+                console.log('Oops, unable to copy');
+              }
+              // 移除选中的元素
+              window.getSelection().removeAllRanges();
+          }
         }
     }
 }
