@@ -588,35 +588,6 @@ export default {
       color: #9da6ba;
       font-size: 10px;
     }
-    .icon-btc,
-    .icon-bch,
-    .icon-etc,
-    .icon-eth,
-    .icon-ltc,
-    .icon-eos {
-      background-image: url('/lianbi/chaincoin/dist/static/images/btc.jpeg');
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      border-radius: 50%;
-    }
-    .icon-btc {
-      background-image: url('/lianbi/chaincoin/dist/static/images/btc.jpeg');
-    }
-    .icon-bch {
-      background-image: url('/lianbi/chaincoin/dist/static/images/bch.jpeg');
-    }
-    .icon-etc {
-      background-image: url('/lianbi/chaincoin/dist/static/images/etc.jpeg');
-    }
-    .icon-eth {
-      background-image: url('/lianbi/chaincoin/dist/static/images/eth.jpeg');
-    }
-    .icon-ltc {
-      background-image: url('/lianbi/chaincoin/dist/static/images/ltc.jpeg');
-    }
-    .icon-eos {
-      background-image: url('/lianbi/chaincoin/dist/static/images/eos.jpeg');
-    }
     }
 </style>
 
