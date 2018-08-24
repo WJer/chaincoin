@@ -2,4 +2,4 @@
 npm run build
 git add .
 git commit -m "bugfix"
-git push origin master
+git push origin develop
