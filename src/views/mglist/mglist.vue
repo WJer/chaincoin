@@ -20,7 +20,7 @@
                     <div class="left">
                         <div class="coin"><i class="icon" :class="`icon-${mortgage.coin.toLowerCase()}`"></i><span style="vertical-align: middle;">{{mortgage.coin}}</span></div>
                         <div class="rate">{{mortgage.currentMortgageRate | toPercentage}}</div>
-                        <div class="rage-hd">当前质押率</div>
+                        <div class="rage-hd">初始质押率</div>
                     </div>
                     <div class="center">
                         <div class="total">
@@ -115,7 +115,7 @@ export default {
         .tit {
             line-height: 20px;
             text-align: center;
-            font-size: 10px;
+            font-size: 13px;
             color: #8e96a5;
         }
         .unit {
@@ -191,14 +191,14 @@ export default {
             font-weight: bold;
             color: #000;
             margin-top: 18px;
-            text-align: center;
+            text-align: left;
         }
         .rage-hd,
         .time-hd {
             // font-weight: bold;
             color: #8e96a5;
             margin-top: 9px;
-            text-align: center;
+            text-align: left;
         }
         .total {
             margin-top: 28px;

@@ -61,7 +61,7 @@ export default {
 }
 .line {
     position: absolute;
-    border: 0.5px dashed #484848;
+    border: 1px dashed #484848;
     height: 23px;
     left: 6px;
     top: 27px;

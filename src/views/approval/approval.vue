@@ -4,7 +4,7 @@
 			<div class="g-line"></div>
 		</div>
         <div class="approval-wrap" v-if="dStatus==1">
-            <div class="step curstep step-suc">付款成功</div>
+            <div class="step curstep step-suc">打币完成</div>
             <div class="line"></div>
             <div class="step">核实</div>
             <div class="line"></div>
