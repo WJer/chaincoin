@@ -414,6 +414,8 @@ export default {
     }
     .mint-button {
         border-radius: 0;
+        font-size: 20px;
+        height: 48px;
     }
     .bottom {
         position: fixed;
