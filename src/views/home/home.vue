@@ -118,7 +118,7 @@ export default {
     },
     methods: {
         _fetchInfos (cb) {
-            this.util.api.all(this._getAjax()).then(this.util.api.spread((res1, res2, res3) => {
+            this.util.api.all(this._getAjax()).then(this.util.api.spread((res1, res2, res3, res4) => {
 				res1 && (CC.settings = res1.settings);
         this.dPhone = res1.settings.phone;
 				res2 && (CC.bank = {
@@ -127,6 +127,12 @@ export default {
 					cardNumber: res2.cardNumber
 				})
                 res3 && (CC.coins = res3.coins);
+                res4 && (CC.isVip = res4.result);
+                if (CC.isVip) {
+                  CC.coins.forEach((item) => {
+                    item.mortgateRate = item.vipMortgateRate;
+                  })
+                }
                 this.dIsFetch = true;
                 cb && cb();
 			}));
@@ -135,7 +141,8 @@ export default {
 			return [
 				this.util.api.get('/getSettings'),
 				this.util.api.get('/getBankInfo'),
-				this.util.api.get('/getAllCoin')
+				this.util.api.get('/getAllCoin'),
+        this.util.api.get('/isVip')
 			]
 		},
         _fetchIsMortgage () {
