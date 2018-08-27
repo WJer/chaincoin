@@ -45,11 +45,9 @@ export default {
 			}).then((res) => {
 				load.close();
 				if (res.result) {
-					if (!CC.userid) {
-						CC.userid = res.bitkeepId;
-            CC.isRegist = true;
-						this.$emit('next');
-					}
+					CC.userid = res.bitkeepId;
+          CC.isRegist = true;
+          this.$emit('next');
 				}else{
 					this.util.alert(res.message);
 				}
