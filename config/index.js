@@ -50,8 +50,8 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    // assetsPublicPath: '/mortgage/',
-    assetsPublicPath: '/lianbi/chaincoin/dist/',
+    assetsPublicPath: '/mortgage/',
+    // assetsPublicPath: '/lianbi/chaincoin/dist/',
 
     /**
      * Source Maps
