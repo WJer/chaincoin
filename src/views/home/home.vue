@@ -159,7 +159,7 @@ export default {
         },
         _borrow () {
             var me = this;
-            if (CC.userid) {
+            if (CC.userid && CC.isRegist) {
                 this.$router.push('/form/borrow');
             }else{
                 this.util.slide({

@@ -47,6 +47,7 @@ export default {
 				if (res.result) {
 					if (!CC.userid) {
 						CC.userid = res.bitkeepId;
+            CC.isRegist = true;
 						this.$emit('next');
 					}
 				}else{
