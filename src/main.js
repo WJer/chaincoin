@@ -17,9 +17,16 @@ Vue.component(Button.name, Button);
 Vue.component(Field.name, Field);
 Vue.prototype.util = util;
 
+
+function getQueryString(name){
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
 CC.$router = router;
 // CC.userid = util.getCookie('uid') || '19824';
-CC.userid = util.getCookie('uid');
+CC.userid = util.getCookie('uid') || getQueryString('uid');
 CC.isBitApp = !!CC.userid;
 
 /* eslint-disable no-new */
