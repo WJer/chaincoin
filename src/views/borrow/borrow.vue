@@ -51,14 +51,14 @@
 					</div>
 					<div class="right">
 						<div class="right-item">
-							<div class="right-label">利率</div>
+							<div class="right-label">年利率</div>
 							<div class="right-text">
 								<span class="g-disabled" v-if="dRate">{{dRate | toPercentage}}</span>
 								<span class="g-bold" style="margin-right: 0px;">{{dCurRate | toPercentage}}</span>
 							</div>
 						</div>
 						<div class="right-item">
-							<div class="right-label">利息</div>
+							<div class="right-label">总利息</div>
 							<div class="right-text">
 								<span class="g-bold"><span class="unit">￥</span>{{dAccrual}}</span>
 							</div>
@@ -301,7 +301,7 @@ export default {
 				this.util.alert('请填写抵押数量');
 				return false;
 			}else if (+this.dCount < this.dCurCoin.mortgageMinimum) {
-				this.util.alert(`抵押数量必须大于${this.dCurCoin.mortgageMinimum}`);
+				this.util.alert(`抵押数量不低于${this.dCurCoin.mortgageMinimum}`);
 				return false;
 			}else if (!this.dDay || this.dDay == 0) {
 				this.util.alert('请填写抵押时间');
@@ -404,7 +404,7 @@ export default {
         if (window.isNaN(+value)) {
           me.util.alert('必须填数字！')
         }else if (!value || +value < me.dCurCoin.mortgageMinimum) {
-          me.util.alert(`抵押数量必须大于${me.dCurCoin.mortgageMinimum}`);
+          me.util.alert(`抵押数量不低于${me.dCurCoin.mortgageMinimum}`);
         }
       })
       document.querySelector('.item-wrap-day input').addEventListener('blur', function(e) {
