@@ -26,7 +26,7 @@ function getQueryString(name){
 
 CC.$router = router;
 // CC.userid = util.getCookie('uid') || '19824';
-CC.userid = util.getCookie('uid') || getQueryString('uid');
+CC.userid = util.getCookie('uid') || getQueryString('uid') || '';
 CC.isBitApp = !!CC.userid;
 
 /* eslint-disable no-new */

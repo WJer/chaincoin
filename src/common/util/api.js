@@ -7,9 +7,9 @@ axios.interceptors.request.use((config) => {
     config.headers['Content-Type'] = 'application/json; charset=utf-8';
     if (config.method == 'get') {
         config.params || (config.params = {});
-        config.params.bitkeepId = CC.userid;
+        config.params.bitkeepId = CC.userid || '';
     }else if (config.method == 'post') {
-        config.data.bitkeepId = CC.userid;
+        config.data.bitkeepId = CC.userid || '';
     }
     if (config.defaultErrAction === undefined) {
         config.defaultErrAction = true
