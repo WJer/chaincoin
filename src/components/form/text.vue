@@ -58,7 +58,7 @@ export default {
         }
         .mint-cell-text,
         .mint-field-core {
-            font-size: 12px;
+            font-size: 14px;
             color: #525377;
             line-height: 1.6;
         }

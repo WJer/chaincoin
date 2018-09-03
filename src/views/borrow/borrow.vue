@@ -449,7 +449,7 @@ export default {
 			.text {
 				padding: 0 11px;
 				color: #9099af;
-				font-size: 12px;
+				font-size: 14px;
 				line-height: 30px;
 			}
 			.line {
@@ -466,7 +466,7 @@ export default {
 		.tip {
 			margin-top: 10px;
 			color: #9da6ba;
-			font-size: 10px;
+			font-size: 12px;
 			line-height: 21px;
 		}
 		.coins {
@@ -492,12 +492,12 @@ export default {
 		}
 		.coin-label {
 			color: #4067e8;
-			font-size: 12px;
+			font-size: 14px;
 			line-height: 20px;
 		}
 		.coin-rate {
 			color: #a3b5f4;
-			font-size: 10px;
+			font-size: 12px;
 			margin-bottom: 5px;
 		}
 		.active {
@@ -507,7 +507,7 @@ export default {
 			float: right;
 			text-align: right;
 			line-height: 30px;
-			font-size: 12px;
+			font-size: 14px;
 			color: #ff5ca8;
 		}
 		.preview {
@@ -521,15 +521,15 @@ export default {
 			}
 			.right {
 				margin-left: 140px;
-				font-size: 12px;
+				font-size: 14px;
 			}
 			.total-tit {
 				line-height: 30px;
-				font-size: 12px;
+				font-size: 14px;
 				color: #8e96a5;
 			}
 			.total-num {
-				font-size: 24px;
+				font-size: 28px;
 				padding: 12px 0;
 				color: #23334f;
 				word-break: break-all;
@@ -553,7 +553,7 @@ export default {
 			background-color: #5d82ff;
 		}
 		.repay-rule {
-			font-size: 12px;
+			font-size: 14px;
 			line-height: 33px;
 			a {
 				color: #5d82ff;
@@ -602,7 +602,7 @@ export default {
 			right: 0;
 			top: 0;
 			line-height: 40px;
-			font-size: 12px;
+			font-size: 14px;
 			color: #5d82ff;
 		}
 		.btn-coupon-dark {

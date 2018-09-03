@@ -73,7 +73,7 @@ export default {
     text-align: right;
 }
 .g-flex_item {
-    font-size: 15px;
+    font-size: 18px;
     line-height: 38px;
 }
 .plan-item:last-child {
@@ -83,7 +83,7 @@ export default {
 }
 .plan-wrap {
     p {
-        font-size: 12px;
+        font-size: 14px;
         text-align: center;
         line-height: 100px;
         color: #9da6ba;
@@ -94,6 +94,6 @@ export default {
     background-color: #ffaa00;
 }
 .overdue {
-  font-size: 12px;
+  font-size: 14px;
 }
 </style>
