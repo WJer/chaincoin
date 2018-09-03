@@ -73,7 +73,7 @@ export default {
     text-align: right;
 }
 .g-flex_item {
-    font-size: 18px;
+    font-size: 15px;
     line-height: 38px;
 }
 .plan-item:last-child {
