@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://api.bitkingso.com';
 // axios.defaults.baseURL = 'http://dmpb.com.cn:6002';
 axios.interceptors.request.use((config) => {
-    // config.headers['Content-Type'] = 'application/json; charset=utf-8';
+    config.headers['Content-Type'] = 'application/json; charset=utf-8';
     if (config.method == 'get') {
         config.params || (config.params = {});
         config.params.bitkeepId = CC.userid || '';
