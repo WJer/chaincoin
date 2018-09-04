@@ -45,6 +45,7 @@ export default {
 			}).then((res) => {
 				load.close();
 				if (res.result) {
+          alert(document.cookie);
           window.localStorage.time = +new Date();
 					CC.userid = window.localStorage.uid = res.bitkeepId;
           CC.isRegist = true;
