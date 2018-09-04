@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
+axios.defaults.timeout = 1000
 axios.defaults.baseURL = 'http://api.bitkingso.com';
 // axios.defaults.baseURL = 'http://dmpb.com.cn:6002';
 axios.interceptors.request.use((config) => {
