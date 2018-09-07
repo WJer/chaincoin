@@ -1,6 +1,5 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-axios.defaults.timeout = 1000
 var baseUrl = window.location.hostname.replace('www.','');
 baseUrl = `http://api.${baseUrl}`;
 axios.defaults.baseURL = location.hostname == 'localhost' ? 'http://api.bitkingso.com' : baseUrl
