@@ -1,12 +1,12 @@
 import axios from 'axios';
-
-var baseUrl = window.location.hostname.replace('www.','');
-baseUrl = `http://api.${baseUrl}`;
-
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 1000
-axios.defaults.baseURL = location.hostname == 'localhost' ? 'http://api.bitkingso.com' : baseUrl
-// axios.defaults.baseURL = 'http://dmpb.com.cn:6002';
+// var baseUrl = window.location.hostname.replace('www.','');
+// baseUrl = `http://api.${baseUrl}`;
+// axios.defaults.baseURL = location.hostname == 'localhost' ? 'http://api.bitkingso.com' : baseUrl
+
+axios.defaults.baseURL = 'http://dmpb.com.cn:6002';
+
 axios.interceptors.request.use((config) => {
     config.headers['Content-Type'] = 'application/json; charset=utf-8';
     if (config.method == 'get') {

@@ -120,7 +120,7 @@ export default {
     .recharge-head {
         margin-top: 15px;
         line-height: 41px;
-        font-size: 12px;
+        font-size: 14px;
         color: #525377;
         text-align: center;
     }
@@ -147,10 +147,14 @@ export default {
         margin: 10px auto 0;
     }
     .recharge-address {
+        padding: 15px 5px;
         margin-top: 30px;
         text-align: center;
-        font-size: 12px;
-        line-height: 48px;
+        font-size: 14px;
+        .copy-target {
+          word-break: break-word;
+        }
+        line-height: 1.5em;
     }
     .btn-copy {
         padding-left: 8px;

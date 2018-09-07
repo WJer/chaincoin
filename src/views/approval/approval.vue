@@ -65,7 +65,7 @@ export default {
             flex: 1;
         }
         .step {
-            font-size: 12px;
+            font-size: 14px;
             color: #545377;
             text-align: center;
             &:before {
@@ -104,7 +104,7 @@ export default {
         }
     }
     .tip {
-        font-size: 12px;
+        font-size: 14px;
         color: #b3b3c0;
         line-height: 33px;
         margin-left: 20px;

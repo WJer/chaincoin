@@ -14,6 +14,16 @@
                 <td v-for="(coin, index) in dCoins" :key="index">{{coin.mortgateRate | toPercentage}}</td>
             </tr>
         </table>
+        <table>
+            <tr>
+                <td>币种</td>
+                <td v-for="(coin, index) in dCoins" :key="index">{{coin.name}}</td>
+            </tr>
+            <tr>
+                <td>质押率%</td>
+                <td v-for="(coin, index) in dCoins" :key="index">{{coin.mortgateRate | toPercentage}}</td>
+            </tr>
+        </table>
         <div class="formula">*质押率=贷款金额/质押币的当前市值</div>
         <h2>借款约定</h2>
         <p>1、借款利率统一为：年利率30%；</p>
@@ -50,14 +60,14 @@ export default {
     }
     p {
         padding: 0 15px;
-        font-size: 14px;
+        font-size: 15px;
         line-height: 22px;
     }
     h2 {
         position: relative;
         margin: 20px 0;
         padding: 0 15px;
-        font-size: 18px;
+        font-size: 19px;
         line-height: 30px;
         &:before {
             content: "";
@@ -74,7 +84,8 @@ export default {
         margin: 15px auto;
     }
     td {
-        font-size: 12px;
+        font-size: 11px;
+        padding: 0 2px;
         width: 40px;
         height: 30px;
         text-align: center;

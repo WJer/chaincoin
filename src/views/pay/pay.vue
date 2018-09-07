@@ -181,7 +181,7 @@ export default {
         background-color: #fff;
         padding: 20px;
         margin-bottom: 10px;
-        font-size: 12px;
+        font-size: 13px;
         color: #8e96a5;
         .val {
             color: #525377;

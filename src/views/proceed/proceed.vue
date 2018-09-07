@@ -167,7 +167,7 @@ export default {
 			.text {
 				padding: 0 11px;
 				color: #9099af;
-				font-size: 12px;
+				font-size: 14px;
 				line-height: 30px;
 			}
 			.line {
@@ -189,7 +189,6 @@ export default {
 		}
 		.mint-cell-text,
 		.mint-field-core {
-			font-size: 12px;
 			color: #525377;
 		}
 		.form-btns {

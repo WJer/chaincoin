@@ -90,7 +90,7 @@ export default {
 				width: 100%;
 				margin-top: 10px;
 				color: #9099af;
-				font-size: 12px;
+				font-size: 14px;
 				text-align: center;
 			}
 			.line {
@@ -104,7 +104,6 @@ export default {
 		}
 		.mint-cell-text,
 		.mint-field-core {
-			font-size: 12px;
 			color: #525377;
 		}
 		.form-wrap {

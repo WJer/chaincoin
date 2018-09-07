@@ -109,13 +109,13 @@ export default {
         .val {
             line-height: 28px;
             text-align: center;
-            font-size: 16px;
+            font-size: 18px;
             color: #545377;
         }
         .tit {
             line-height: 20px;
             text-align: center;
-            font-size: 13px;
+            font-size: 15px;
             color: #8e96a5;
         }
         .unit {
@@ -141,7 +141,7 @@ export default {
         margin-bottom: 10px;
         padding: 15px;
         background-color: #fff;
-        font-size: 13px;
+        font-size: 14px;
         .left {
             position: absolute;
             top: 15px;
@@ -202,7 +202,7 @@ export default {
         }
         .total {
             margin-top: 28px;
-            font-size: 24px;
+            font-size: 26px;
             color: #000;
             font-weight: bold;
         }
