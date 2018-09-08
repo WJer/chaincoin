@@ -230,27 +230,27 @@ export default {
     .icon-eth,
     .icon-ltc,
     .icon-eos {
-      background-image: url('/mortgage/chaincoin/dist/static/images/btc.jpeg');
+      background-image: url('/chaincoin/dist/static/images/btc.jpeg');
       background-size: 100% 100%;
       background-repeat: no-repeat;
       border-radius: 50%;
     }
     .icon-btc {
-      background-image: url('/mortgage/chaincoin/dist/static/images/btc.jpeg');
+      background-image: url('/chaincoin/dist/static/images/btc.jpeg');
     }
     .icon-bch {
-      background-image: url('/mortgage/chaincoin/dist/static/images/bch.jpeg');
+      background-image: url('/chaincoin/dist/static/images/bch.jpeg');
     }
     .icon-etc {
-      background-image: url('/mortgage/chaincoin/dist/static/images/etc.jpeg');
+      background-image: url('/chaincoin/dist/static/images/etc.jpeg');
     }
     .icon-eth {
-      background-image: url('/mortgage/chaincoin/dist/static/images/eth.jpeg');
+      background-image: url('/chaincoin/dist/static/images/eth.jpeg');
     }
     .icon-ltc {
-      background-image: url('/mortgage/chaincoin/dist/static/images/ltc.jpeg');
+      background-image: url('/chaincoin/dist/static/images/ltc.jpeg');
     }
     .icon-eos {
-      background-image: url('/mortgage/chaincoin/dist/static/images/eos.jpeg');
+      background-image: url('/chaincoin/dist/static/images/eos.jpeg');
     }
 </style>
