@@ -101,7 +101,7 @@ export default {
         return {
             dIsMortgage: false,
             dIsFetch: false,
-            dPhone: ''
+            dPhone: CC.settings && CC.settings.phone ? CC.settings.phone : ''
         }
     },
     created () {
