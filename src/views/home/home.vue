@@ -81,7 +81,9 @@
     </cc-scroll>
     <div class="bottom">
         <div class="bottom-wrap">
-            <router-link to="/rule">了解借款详细规则</router-link> | 客服电话：{{dPhone}}</div>
+            <div><router-link to="/rule">了解借款详细规则</router-link></div>
+            <div>客服电话：{{dPhone}} | 微信公众号：beefex币金所</div>
+        </div>
         <div class="g-flex btn-wrap" v-if="dIsFetch">
             <!-- <router-link to="/mglist" tag="div" class="g-flex_item" v-if="dIsMortgage">
                 <mt-button type="primary" size="large" class="g-btn-thin">查看记录</mt-button>
@@ -191,10 +193,10 @@ export default {
     }
     .page-scroll {
         position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-        bottom: 75px;
+		    top: 0;
+		    left: 0;
+		    right: 0;
+        bottom: 96px;
         height: auto;
 		background-color: #fff;
     }
@@ -413,8 +415,9 @@ export default {
     }
     .bottom-wrap {
         font-size: 12px;
-        line-height: 24px;
+        line-height: 18px;
         text-align: center;
+        padding: 6px 0;
         a {
             color: #5d82ff;
         }
