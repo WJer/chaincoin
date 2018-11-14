@@ -54,7 +54,7 @@ export default {
 				calljs('actionP', {
 					'contract': this.coin.name,
 					'appId': '6V2RGS0VuSmZDTXJHeGwVXNl',
-					'amount': 1,
+					'amount': this.count,
 					'coin': this.coin.name,
 					'orderId': orderId,
 					'userId': CC.userid,
